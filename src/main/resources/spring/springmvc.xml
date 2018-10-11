@@ -18,7 +18,7 @@
 	     <!--  <context:include-filter type="annotation"  expression="org.springframework.stereotype.Controller"/> -->   <!--   这里是后加入的 -->
 	</context:component-scan>
 	
-	<!-- 开启aop，对类代理 -->
+	<!-- 开启aop，对 类代理 -->
 	<mvc:annotation-driven /> 
 <!-- 	<aop:config proxy-target-class="true"></aop:config> -->
 	<bean

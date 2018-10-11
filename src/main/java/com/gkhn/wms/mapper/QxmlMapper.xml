@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.QxmlMapper" > 
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Qxml" >
+    <id column="menuid" property="menuid"  />
+    <result column="mid" property="mid"   />
+    <result column="menuname " property="menuname"  />
+    <result column="menupath" property="menupath"  />
+    <result column="paermenuid" property="paermenuid"   />
+    <result column="rmid" property="rmid"   />
+    <result column="roleid" property="roleid"   />
+    <result column="menuid" property="menuid"  />
+    <result column="uid" property="uid" />
+    <result column="username" property="username"  />
+    
+    <result column="order" property="order"  />
+    <result column="status" property="status"  />
+  </resultMap>
+       <select id="selectQxmlByUsername" resultMap="BaseResultMap"   parameterType="java.lang.String">
+             SELECT * FROM  sys_menu WHERE menuid  IN (SELECT menuid FROM sys_role_menu WHERE roleid=(SELECT roleid FROM sys_user_role WHERE uid= (SELECT uid FROM sys_user WHERE username='老大')))
+       </select> 
+       
+</mapper>

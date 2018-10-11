@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.IndexMapper" >
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Pubemp" >
+    <id column="empcode" property="empcode"  />
+    <result column="empname" property="empname"   />
+    <result column="password" property="password"  />
+  </resultMap>
+       <select id="LoginByEmpCode" resultMap="BaseResultMap"   parameterType="java.lang.String">
+             select * from pub_emp  where  empid=#{empcode}
+       </select> 
+       
+</mapper>

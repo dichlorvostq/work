@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 数据库连接池 -->
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:resource/*.properties" />
+	<!-- 数据库连接池 -->
+	<bean id="MysqldataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean>
+	
+	
+		<!-- 2.1 oraecl -->
+<!-- 配置数据源 -使用c3p0连接池 -->
+	<bean id="OracledataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${odb.driver}" />
+		<property name="jdbcUrl" value="${odb.url}" />
+		<property name="user" value="${odb.username}" />
+		<property name="password" value="${odb.password}" />
+		<!-- c3p0连接池参数配置 -->
+        <property name="initialPoolSize" value="${odb.initialPoolSize}" /><!-- 初始化连接数 -->			
+        <property name="minPoolSize" value="${odb.minPoolSize}" /><!-- 最小连接数 -->			
+        <property name="maxPoolSize" value="${odb.maxPoolSize}" /><!-- 连接池中保留的最大连接数 Default: 15  -->
+		<property name="maxIdleTime" value="${odb.maxIdleTime}" /><!-- 连接的过期时间(秒)(<mysql 28800) Default: 0  -->
+        <property name="idleConnectionTestPeriod" value="${odb.idleConnectionTestPeriod}" /><!-- 检查连接池里的空闲连接(秒)(<mysql 28800) Default: 0 -->
+	</bean>
+	
+	
+	
+	<!-- 2.2sqlserver -->
+<!-- 配置数据源 -使用c3p0连接池 -->
+	<bean id="SqlServerdataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${db2.driver}" />
+		<property name="jdbcUrl" value="${db2.url}" />
+		<property name="user" value="${db2.username}" />
+		<property name="password" value="${db2.password}" />
+		
+		<!-- c3p0连接池参数配置 -->
+        <property name="initialPoolSize" value="${db2.initialPoolSize}" /><!-- 初始化连接数 -->			
+        <property name="minPoolSize" value="${db2.minPoolSize}" /><!-- 最小连接数 -->			
+        <property name="maxPoolSize" value="${db2.maxPoolSize}" /><!-- 连接池中保留的最大连接数 Default: 15  -->
+		<property name="maxIdleTime" value="${db2.maxIdleTime}" /><!-- 连接的过期时间(秒)(<mysql 28800) Default: 0  -->
+        <property name="idleConnectionTestPeriod" value="${db2.idleConnectionTestPeriod}" /><!-- 检查连接池里的空闲连接(秒)(<mysql 28800) Default: 0 -->
+	</bean>
+	
+	<bean id="dataSource" class="com.gkhn.wms.util.DbcontextHolder"><!-- 这里写选择数据源的类地址 下面跟着给出-->
+        <property name="defaultTargetDataSource" ref="OracledataSource"/><!-- 设置默认为此dataSourceOld数据源-->
+        <property name="targetDataSources">
+            <map>
+                <entry key="OracledataSource" value-ref="OracledataSource"/>
+                <entry key="MysqldataSource" value-ref="MysqldataSource"/>
+                <entry key="SqlServerdataSource" value-ref="SqlServerdataSource"/>
+            </map>
+        </property>
+    </bean>
+	
+	
+	
+	
+	<!-- 让spring管理sqlsessionfactory 使用mybatis和spring整合包中的 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 加载mybatis的全局配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.gkhn.wms.mapper" />
+	</bean>
+</beans>

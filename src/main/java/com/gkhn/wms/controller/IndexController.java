@@ -59,6 +59,13 @@ public class IndexController {
  		model.addAttribute("slist",soons);
  		return "index";
 	} 
+	
+	
+	@RequestMapping("/{page}") 
+	public String showPage(@PathVariable String page) {
+		System.out.println("页面"+page);
+		return page;
+	}
 }
 	
 	

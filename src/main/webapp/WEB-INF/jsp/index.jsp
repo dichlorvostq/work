@@ -1,150 +1,156 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
+  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
+ <html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="baseurl" value="${pageContext.request.contextPath}/"></c:set>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path;
-%>
-<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>KITADMIN 后台管理模板</title>
-  <link rel="stylesheet" href="static/css/layui.css" id="layui">
-  <link rel="stylesheet" href="static/css/theme/default.css" id="theme">
-  <link rel="stylesheet" href="static/css/kitadmin.css" id="kitadmin">
-
+  <title>xxx</title>
+  <link rel="stylesheet" href="static/css/layui.css" media="all" />
+  <link rel="stylesheet" href="static/css/font-awesome.min.css" media="all" />
+  <link rel="stylesheet" href="static/css/app.css" media="all" />
+  <link rel="stylesheet" href="static/css/default.css" media="all" id="skin" kit-skin />
 </head>
 
-<body class="layui-layout-body kit-theme-default">
-  <div class="layui-layout layui-layout-admin">
-    <!-- header -->
-    <div class="layui-header">
-      <div class="layui-logo">
-        <div class="layui-logo-toggle" kit-toggle="side" data-toggle="on">
-          <i class="layui-icon">&#xe65a;</i>
-        </div>
-        <div class="layui-logo-brand">
-          <a href="#/"></a>
-        </div>
-      </div>
-      <div class="layui-layout-left">
-        <!-- <div class="kit-search">
-          <form action="/">
-            <input type="text" name="keyword" class="kit-search-input" placeholder="关键字..." />
-            <button class="kit-search-btn" title="搜索" type="submit">
-              <i class="layui-icon">&#xe615;</i>
-            </button>
-          </form>
-        </div> -->
-      </div>
-      <div class="layui-layout-right">
-        <ul class="kit-nav" lay-filter="header_right">
-         <!--  <li class="kit-item" kit-target="help">
-            <a href="javascript:;">
-              <i class="layui-icon">&#xe607;</i>
-              <span>帮助</span>
-            </a>
+<body class="kit-theme">
+  <div class="layui-layout layui-layout-admin kit-layout-admin">
+    <div class="layui-header" style="   border-bottom-width: 0px;">
+      <img src="static/images/gkhnlog.png" style="  width: 200px; height: 50px;">
+      <ul class="layui-nav layui-layout-left kit-nav">
+        
+          <a href="javascript:;">其它系统</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">邮件管理</a></dd>
+            <dd><a href="javascript:;">消息管理</a></dd>
+            <dd><a href="javascript:;">授权管理</a></dd>
+          </dl>
+        </li>
+      </ul>
+      <ul class="layui-nav layui-layout-right kit-nav">
+        <li class="layui-nav-item">
+          <a href="javascript:;">
+           <!--  <i class="layui-icon">&#xe63f;</i> 皮肤 -->
+          </a>
+          <!-- <dl class="layui-nav-child skin">
+            <dd><a href="javascript:;" data-skin="default" style="color:#393D49;"><i class="layui-icon">&#xe658;</i> 默认</a></dd>
+            <dd><a href="javascript:;" data-skin="orange" style="color:#ff6700;"><i class="layui-icon">&#xe658;</i> 橘子橙</a></dd>
+            <dd><a href="javascript:;" data-skin="green" style="color:#00a65a;"><i class="layui-icon">&#xe658;</i> 原谅绿</a></dd>
+            <dd><a href="javascript:;" data-skin="pink" style="color:#FA6086;"><i class="layui-icon">&#xe658;</i> 少女粉</a></dd>
+            <dd><a href="javascript:;" data-skin="blue.1" style="color:#00c0ef;"><i class="layui-icon">&#xe658;</i> 天空蓝</a></dd>
+            <dd><a href="javascript:;" data-skin="red" style="color:#dd4b39;"><i class="layui-icon">&#xe658;</i> 枫叶红</a></dd>
+          </dl> -->
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;" id="username">
+           欢迎您：  ${username}
+          </a>
+         <!--  <dl class="layui-nav-child">
+            <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
+            <dd><a href="javascript:;">安全设置</a></dd>
+          </dl> -->
+        </li>
+        <li class="layui-nav-item"><a href="index"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+      </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black kit-side">
+      <div class="layui-side-scroll">
+        <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true" style=" margin-top: 10px;"></i></div>
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+        
+        
+         <c:if test="${list!=null }">  
+          <c:forEach items="${list}" var="menu">
+          <li class="layui-nav-item layui-nav-itemed">
+            <a class="" href="javascript:;"><i   class="fa fa-plug"  aria-hidden="true" style=" margin-top: 14px;"></i><span style="  margin-left: 5px;">${menu.menuname }</span></a>
+            
+            <c:forEach items="${slist}" var="permission">
+            <c:if test="${menu.mid==permission.paremenuid}">
+            <dl class="layui-nav-child">
+              <dd>
+                <a href="javascript:;" kit-target data-options="{url:' ${permission.menupath}',icon:'&#xe658;',title:' ${permission.menuname } ',id:'2'}"><i class="layui-icon">&#xe658;</i><span> ${permission.menuname }</span></a>
+              </dd>
+            </dl>
+              </c:if>
+               </c:forEach> 
           </li>
-          <li class="kit-item" id="ccleft">
-            <a href="javascript:;">
-              <i class="layui-icon">&#xe60e;</i>
-            </a>
-          </li>
-          <li class="kit-item" id="cc">
-            <a href="javascript:;">
-              <i class="layui-icon">&#xe64c;</i>
-            </a>
-          </li> -->
-          <li class="kit-item">
-            <a href="javascript:;">
-              <span>
-            欢迎您：    <!-- <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538019769379&di=34663f7b0abc627d0dc2cc3aca1d050f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c02f55bb572f6ac7253f36797045.png" class="layui-nav-img"> -->${username}
-              </span>
-            </a>
-            <ul class="kit-nav-child kit-nav-right">
-            <!--   <li class="kit-item">
-                <a href="#/user/my">
-                  <i class="layui-icon">&#xe612;</i>
-                  <span>个人中心</span>
-                </a>
-              </li>
-              <li class="kit-item" kit-target="setting">
-                <a href="javascript:;">
-                  <i class="layui-icon">&#xe614;</i>
-                  <span>设置</span>
-                </a>
-              </li> -->
-              <li class="kit-nav-line"></li>
-              <li class="kit-item">
-                <a href="temp/login.jsp">
-                  <i class="layui-icon">&#x1006;</i>
-                  <span>注销</span>
-                </a>
-              </li>
-            </ul>
-          </li>
+           </c:forEach>
+        </c:if>  
+            
         </ul>
       </div>
     </div>
-    <!-- silds -->
-    <div class="layui-side" kit-side="true">
-      <div class="layui-side-scroll">
-        <div id="menu-box">
-          <ul class="kit-menu">
-             
-         <c:if test="${list!=null }">  
-           	 <c:forEach items="${list}" var="menu">
-             <li class="kit-menu-item layui-show">
-              <a href=" ${menu.menupath} " >
-                <i class="layui-icon"></i>
-                <span>${menu.menuname }</span>
-              </a>
-              
-            <c:forEach items="${slist }" var="permission">
-             	<c:if test="${menu.mid==permission.paremenuid}">
-              <ul class="kit-menu-child layui-anim layui-anim-upbit">
-                <li class="kit-menu-item">
-                  <a href="${permission.menupath}"> 
-                    <i class="layui-icon"></i>
-                    <span>${permission.menuname }</span>
-                  </a>
-                </li>
-              </ul>
-              </c:if>
-              </c:forEach> 
-               
-            </li>
-               </c:forEach>
-         </c:if>  
-            
-          </ul>
-        </div>
-      </div>
+    <div class="layui-body" id="container">
+      <!-- 内容主体区域 -->
+      <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
     </div>
-    <!-- main -->
-    <div class="layui-body" kit-body="true">
-      <router-view></router-view>
-    </div>
-    <!-- footer -->
-    <div class="layui-footer" kit-footer="true">
-      <div style="width:400px; height:400px;" class="load-container load1">
-         
-      </div>
+
+    <div class="layui-footer">
+      <!-- 底部固定区域 -->
+     <!--  2017 &copy;
+      <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license -->
     </div>
   </div>
-  <script src="static/js/polyfill.min.js"></script>
+  <!-- <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1264021086'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1264021086%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script> -->
   <script src="static/js/layui.js"></script>
-  <script src="static/js/kitadmin.js"></script>
-  <script src="static/js/mockjs-config.js"></script>
+<!--   <script src="./plugins/layui/app.js"></script> -->
+  <script>
+    var message;
+    layui.config({
+      base: 'static/js/',
+      version: '1.0.1'
+    }).use(['app', 'message'], function() {
+      var app = layui.app,
+        $ = layui.jquery,
+        layer = layui.layer;
+      //将message设置为全局以便子页面调用
+      message = layui.message;
+      //主入口
+      app.set({
+        type: 'iframe'
+      }).init();
+      $('#pay').on('click', function() {
+        layer.open({
+          title: false,
+          type: 1,
+          content: '<img src="/build/images/pay.png" />',
+          area: ['500px', '250px'],
+          shadeClose: true
+        });
+      });
+      $('dl.skin > dd').on('click', function() {
+        var $that = $(this);
+        var skin = $that.children('a').data('skin');
+        switchSkin(skin);
+      });
+      var setSkin = function(value) {
+          layui.data('kit_skin', {
+            key: 'skin',
+            value: value
+          });
+        },
+        getSkinName = function() {
+          return layui.data('kit_skin').skin;
+        },
+        switchSkin = function(value) {
+          var _target = $('link[kit-skin]')[0];
+          _target.href = _target.href.substring(0, _target.href.lastIndexOf('/') + 1) + value + _target.href.substring(_target.href.lastIndexOf('.'));
+          setSkin(value);
 
-  <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
-  <script>layui.use("admin");</script>
-
+        },
+        initSkin = function() {
+          var skin = getSkinName();
+          switchSkin(skin === undefined ? 'default' : skin);
+        }();
+    });
+  </script>
 </body>
+
 </html>

@@ -59,6 +59,7 @@
 	<!-- 资源映射 -->
 	<!--静态资源映射/css/js-->
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/build/**" location="/build/" />
 	<!-- <mvc:resources mapping="/static/js/**" location="/static/js/" />
 	<mvc:resources mapping="/static//css/**" location="/static/css/" />
 	<mvc:resources mapping="/static/img/**" location="/static/img/" />

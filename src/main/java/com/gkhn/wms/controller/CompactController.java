@@ -17,9 +17,9 @@ import com.gkhn.wms.util.DbcontextHolder;
 @RequestMapping("")
 public class CompactController {
       
-	@RequestMapping("from")
+	/*@RequestMapping("/from")
 	public String tologin(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
  		 System.out.println("进来了没");
- 		return "froms";
-	} 
+ 		return "from";
+	} */
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.LinkbuyerMapper" >      
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Linkbuyer" >  
+    <id column="OWNERID" property="OWNERID"/>
+    <result column="GOODID " property="GOODID"  />
+    <result column="LINKID" property="LINKID"  />
+    <result column="BUYERID" property="BUYERID"   />
+    <result column="WAREBRAND" property="WAREBRAND"   />
+    <result column="CREATEDATE" property="CREATEDATE"   />
+    <result column="CREATEUSER" property="CREATEUSER"  />
+    <result column="MARK" property="MARK" />
+ 
+  </resultMap>
+     
+       		<!-- //查询列表 -->
+  <select id="selectLinkbuyerList" resultMap="BaseResultMap"> 
+		select * from  user_hn_linkbuyer
+	<where>
+	 	  CREATEUSER=${empId}
+	</where>
+	 
+  </select>
+       
+        <select id="selectBuyerCount" resultType="java.lang.Integer" >
+		     select count(*)  from  user_hn_linkbuyer
+			<where>
+				CREATEUSER=${empId}
+			</where>
+		  </select>
+       
+       
+       
+       
+</mapper>

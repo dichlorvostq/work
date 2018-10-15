@@ -21,7 +21,7 @@
       <img src="static/images/gkhnlog.png" style="  width: 200px; height: 50px;">
       <ul class="layui-nav layui-layout-left kit-nav">
         
-          <a href="javascript:;">其它系统</a>
+        <!--   <a href="javascript:;">其它系统</a>     这填写外链--> 
           <dl class="layui-nav-child">
             <dd><a href="javascript:;">邮件管理</a></dd>
             <dd><a href="javascript:;">消息管理</a></dd>

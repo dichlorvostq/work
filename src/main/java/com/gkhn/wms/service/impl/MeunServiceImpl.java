@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gkhn.wms.mapper.MeunMapper;
+import com.gkhn.wms.mapper.UserMapper;
+import com.gkhn.wms.pojo.Dept;
+import com.gkhn.wms.pojo.GclasVo;
 import com.gkhn.wms.pojo.Meun;
 import com.gkhn.wms.service.MeunService;
 
@@ -19,6 +22,8 @@ public class MeunServiceImpl implements MeunService {
 	
 	@Autowired   MeunMapper meunMapper;
 
+	@Autowired   UserMapper  userMapper;
+	
 	
 	public Set<String> selectMeunByusername(  String userName) {
 		System.out.println("这里是shiro servcie里面的userName---------------------------->>>"+userName);
@@ -41,5 +46,13 @@ public class MeunServiceImpl implements MeunService {
 		List<Meun> re=meunMapper.selectUserSoonByusername(username);
 		return re;
 	}
+
+
+	public int selectUserQx(GclasVo username) {
+		return  	userMapper.selectUserQx(username);
+	}
+
+ 
+	 
 
 }

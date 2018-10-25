@@ -30,6 +30,15 @@
         </li>
       </ul>
       <ul class="layui-nav layui-layout-right kit-nav">
+       <li class="layui-nav-item">
+          <a href="javascript:;" id="username">
+           欢迎您：  ${username}
+          </a>
+         <!--  <dl class="layui-nav-child">
+            <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
+            <dd><a href="javascript:;">安全设置</a></dd>
+          </dl> -->
+        </li>
         <li class="layui-nav-item">
           <a href="javascript:;">
            <!--  <i class="layui-icon">&#xe63f;</i> 皮肤 -->
@@ -42,17 +51,24 @@
             <dd><a href="javascript:;" data-skin="blue.1" style="color:#00c0ef;"><i class="layui-icon">&#xe658;</i> 天空蓝</a></dd>
             <dd><a href="javascript:;" data-skin="red" style="color:#dd4b39;"><i class="layui-icon">&#xe658;</i> 枫叶红</a></dd>
           </dl> -->
+             登录部门： 
         </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;" id="username">
-           欢迎您：  ${username}
-          </a>
-         <!--  <dl class="layui-nav-child">
-            <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
-            <dd><a href="javascript:;">安全设置</a></dd>
-          </dl> -->
-        </li>
-        <li class="layui-nav-item"><a href="index"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+           <li class="layui-nav-item"  >
+           
+           	<div  id="huoqubumen">
+                ${bumenmz}
+                </div> 
+           </li>
+        	
+      <%--    <li class="layui-nav-item">
+             <select id="mySelectDier"    style=" margin-top: -1px;">
+             	<c:forEach   items="${bumen}" var="m">   
+                   <option > ${m.deptname }</option>
+         		 </c:forEach>
+			  </select>
+			  </li> --%>
+       
+        <li class="layui-nav-item"><a href="login"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
       </ul>
     </div>
 

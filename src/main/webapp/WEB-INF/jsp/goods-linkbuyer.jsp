@@ -187,14 +187,7 @@ layui.use('table', function(){
            });
          });
        }
-     
-     
   });
-  
-  
-  
-  
-  
   
   
   var $ = layui.$, active = {
@@ -232,7 +225,7 @@ $('#tjhplxrjl').on('click', function(){
 	      title: '新增订单联系人记录',
 	      maxmin: true,
 	      shadeClose: true, //点击遮罩关闭层 （空白地方关闭子页面）
-	      area : ['39%' , '85%'],
+	      area : ['80%' , '85%'],
 	      content: 'addlinkbuyer',
 	    	  end: function(){
 					 location.reload();  

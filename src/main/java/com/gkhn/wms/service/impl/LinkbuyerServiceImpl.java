@@ -26,6 +26,11 @@ public class LinkbuyerServiceImpl  implements LinkbuyerService{
 	   
 		return linkbuyerMapper.selectBuyerCount(lk);
 	}
+
+	public int addLinkBuyer(Linkbuyer dx) {
+		
+		return linkbuyerMapper.addLinkBuyer(dx);
+	}
 	
 	
 }

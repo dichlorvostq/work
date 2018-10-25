@@ -13,24 +13,23 @@
  
  <div style="width: 95%;">
  
- 	 <div class="layui-form-item">
-       <label class="layui-form-label">所属部门：</label>
+ 	<!--  <div class="layui-form-item">
+       <label class="layui-form-label">所属货主：</label>
        <div class="layui-input-inline">
         <input type="text" name="ssbumen" id="ssbumen" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-        <input type="hidden" name="ycbmbh" id="ycbmbh"  >        
-         <input type="hidden" name="ychzbh" id="ychzbh"  >  
+        <input type="text" name="ycbmbh" id="ycbmbh"  >        
+         <input type="text" name="ychzbh" id="ychzbh"  >  
        </div>
-       <button class="layui-btn" id="xzbmen">选择部门</button>
-   </div>
-   
-   
-   
+       <button class="layui-btn" id="xzbmen">选择货主</button>
+   </div> -->
    
    
    <div class="layui-form-item">
        <label class="layui-form-label">商品编码：</label>
        <div class="layui-input-inline">
         <input type="text" name="spbianma" id="spbianma" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+         <input type="hidden" name="nbcode" id="nbcode"  >        
+         <input type="hidden" name="ycxzbh" id="ycxzbh"  >  
        </div>
        <button class="layui-btn" id="xzhebianma">选择编码</button>
    </div>
@@ -40,7 +39,9 @@
     <div class="layui-input-inline">
       <input type="text" name="lianxiren"  id="lianxiren" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
-    <button class="layui-btn" id="">选择联系人</button>
+     <input type="hidden" name="lxrid" id="lxrid"  >        
+     <input type="hidden" name="lxrcode" id="lxrcode"  > 
+    <button class="layui-btn" id="xzlxren">选择联系人</button>
   </div>
    
  <div class="layui-form-item">
@@ -48,7 +49,8 @@
     <div class="layui-input-inline">
       <input type="text" name="caigouyuan"  id="caigouyuan" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
-    <button class="layui-btn" id="">选择采购员</button>
+	    <input type="hidden" name="cgyid" id="cgyid"  >        
+    <button class="layui-btn" id="xzcaigy">选择采购员</button>
   </div>
    
   <div class="layui-form-item">
@@ -56,7 +58,8 @@
     <div class="layui-input-inline">
       <input type="text" name="cpai"  id="cpai" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
-    <button class="layui-btn" id="">选择厂牌</button>
+    <input type="hidden" name="cpaibh" id="cpaibh"  >      
+    <button class="layui-btn" id="xzchangp">选择厂牌</button>
   </div> 
   
    
@@ -93,23 +96,80 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 });
 
                
+ 
+ 	  
+ 	  
 //弹出一个页面层
- $('#xzbmen').on('click', function(){
+ $('#xzhebianma').on('click', function(){
 	 
  	 //弹出一个iframe层
  	    layer.open({
  	      type: 2,
- 	      title: '选择部门',
+ 	      title: '选择商品',
  	      maxmin: true,
  	      shadeClose: true, //点击遮罩关闭层
  	      area : ['90%' , '85%'],
- 	      content: 'ChooseDepartment',
+ 	      content: 'ChooseCommoditycode',
  	    	  end: function(){
  					 /* location.reload();   */
  				}
 
  	    });
  	  });
+ 	  
+//弹出一个页面层
+ $('#xzlxren').on('click', function(){
+	 
+ 	 //弹出一个iframe层
+ 	    layer.open({
+ 	      type: 2,
+ 	      title: '选择联系人',
+ 	      maxmin: true,
+ 	      shadeClose: true, //点击遮罩关闭层
+ 	      area : ['90%' , '85%'],
+ 	      content: 'SelectContact',
+ 	    	  end: function(){
+ 					 /* location.reload();   */
+ 				}
+ 	    });
+ 	  });  
+ 	  
+ 
+//弹出一个页面层
+ $('#xzcaigy').on('click', function(){
+	 
+ 	 //弹出一个iframe层
+ 	    layer.open({
+ 	      type: 2,
+ 	      title: '选择采购员',
+ 	      maxmin: true,
+ 	      shadeClose: true, //点击遮罩关闭层
+ 	      area : ['90%' , '85%'],
+ 	      content: 'SelectPurchasers',
+ 	    	  end: function(){
+ 					 /* location.reload();   */
+ 				}
+ 	    });
+ 	  });  
+
+//弹出一个页面层
+ $('#xzchangp').on('click', function(){
+	 
+ 	 //弹出一个iframe层
+ 	    layer.open({
+ 	      type: 2,
+ 	      title: '选择厂牌',
+ 	      maxmin: true,
+ 	      shadeClose: true, //点击遮罩关闭层
+ 	      area : ['90%' , '85%'],
+ 	      content: 'Choosebrands',
+ 	    	  end: function(){
+ 					 /* location.reload();   */
+ 				}
+ 	    });
+ 	  });  
+ 
+ 
  
  
  function cg(){
@@ -135,36 +195,20 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	     var tiaoxm=$("#cpai").val("");
    });
  
-  
- 
- 
- 
    $("#tijiaoanniua").click(function(){
-	    var ypmchen=$("#ypmchen").val().trim();
-	    var ypgge=$("#ypgge").val().trim();
-	    var ypflei=$("#ypflei").val().trim();
-	    var ypjchen=$("#ypjchen").val().trim();
-	    var tiaoxm=$("#tiaoxm").val().trim();
-	    var sccjia=$("#sccjia").val().trim();
-	    
-	    var cgjge=$("#cgjge").val().trim();
-	    var xsjge=$("#xsjge").val().trim();
-	    var ypgxs=$("#ypgxs").val().trim();
-	    
-	    /* console.log("一"+ypflei+"二"+ypgge+"三"+ypjchen+"四"+ypmchen+"五"+ypphao+"六"+sccjia+"七"+kcsliang+"八"+cgjge+"九"+xsjge); */
-	    
-	     if(ypmchen == "" || ypmchen == null || ypmchen == undefined || ypgge == "" || ypgge == null || ypgge == undefined ||
-	        ypflei == "" || ypflei == null || ypflei == undefined || ypjchen == "" || ypjchen == null || ypjchen == undefined ||	
-	        sccjia == "" || sccjia == null || sccjia == undefined || tiaoxm == ""  || tiaoxm== null || tiaoxm== undefined ||
-	        cgjge == "" || cgjge == null || cgjge == undefined ||
-	        xsjge == "" || xsjge == null || xsjge == undefined || ypgxs == "" || ypgxs == null || ypgxs == undefined ){
+	    var spbianma=$("#nbcode").val().trim();
+	    var lianxiren=$("#lianxiren").val().trim();
+	    var caigouyuan=$("#cgyid").val().trim();
+	    var cpai=$("#cpaibh").val().trim();
+	     if(spbianma == "" || spbianma == null || spbianma == undefined || lianxiren == "" || lianxiren == null || lianxiren == undefined ||
+	    		 caigouyuan == "" || caigouyuan == null || caigouyuan == undefined || cpai == "" || cpai == null || cpai == undefined  ){
 	    	  bbb();
 	    	  return;
 	     }
 	    
 	    $.ajax({  
-		    url: "addDrugss",  
-		    data: {ypmchen:ypmchen,ypgge:ypgge,ypflei:ypflei,ypjchen:ypjchen,sccjia:sccjia,cgjge:cgjge,xsjge:xsjge,ypgxs:ypgxs,tiaoxm:tiaoxm},  
+		    url: "addLinkbuyer",  
+		    data: {spbianma:spbianma,lianxiren:lianxiren,caigouyuan:caigouyuan,cpai:cpai},  
 		    type: "POST",  
 		    dataType: "json",  
 		    success: function (data) {  

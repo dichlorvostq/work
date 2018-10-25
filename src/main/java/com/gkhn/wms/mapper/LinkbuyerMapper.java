@@ -10,4 +10,6 @@ public interface LinkbuyerMapper {
 	    
 	    int  selectBuyerCount(LinkbuyerVo lk); 
 	    
+	    int addLinkBuyer(Linkbuyer dx);
+	    
 } 

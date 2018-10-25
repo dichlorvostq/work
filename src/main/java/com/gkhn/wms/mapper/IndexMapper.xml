@@ -5,9 +5,29 @@
     <id column="empcode" property="empcode"  />
     <result column="empname" property="empname"   />
     <result column="password" property="password"  />
+    <result column="empid" property="empid"  />
   </resultMap>
        <select id="LoginByEmpCode" resultMap="BaseResultMap"   parameterType="java.lang.String">
              select * from pub_emp  where  empid=#{empcode}
        </select> 
+       
+ 
+  		<select id="selectBuyer" resultMap="BaseResultMap"   >
+             select * from pub_emp  
+				<where>
+				    <if test="empname!=null">
+						empname  like '%${empname}%'		
+				    </if>
+				       and job_pur=1 		
+				</where>
+       
+       </select >
+       			  
+       <select  id="selectEmpcode"    resultType="java.lang.Integer" >
+          select COUNT(*) from pub_emp where empcode=#{empcode}
+       </select>
+       
+       
+       
        
 </mapper>

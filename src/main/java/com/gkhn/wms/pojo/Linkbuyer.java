@@ -1,6 +1,7 @@
 package com.gkhn.wms.pojo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Linkbuyer {
        private int OWNERID;
@@ -8,9 +9,25 @@ public class Linkbuyer {
        private int LINKID;
        private int  BUYERID;
        private String  WAREBRAND;
-       private Date CREATEDATE;
-       private int  CREATEUSER;
+       private String CREATEDATE;
+   
+       private String  CREATEUSER;
        private String  MARK;
+       
+	 
+	 
+	public String getCREATEDATE() {
+		return CREATEDATE;
+	}
+	public void setCREATEDATE(String cREATEDATE) {
+		CREATEDATE = cREATEDATE;
+	}
+	public String getCREATEUSER() {
+		return CREATEUSER;
+	}
+	public void setCREATEUSER(String cREATEUSER) {
+		CREATEUSER = cREATEUSER;
+	}
 	public int getOWNERID() {
 		return OWNERID;
 	}
@@ -41,18 +58,8 @@ public class Linkbuyer {
 	public void setWAREBRAND(String wAREBRAND) {
 		WAREBRAND = wAREBRAND;
 	}
-	public Date getCREATEDATE() {
-		return CREATEDATE;
-	}
-	public void setCREATEDATE(Date cREATEDATE) {
-		CREATEDATE = cREATEDATE;
-	}
-	public int getCREATEUSER() {
-		return CREATEUSER;
-	}
-	public void setCREATEUSER(int cREATEUSER) {
-		CREATEUSER = cREATEUSER;
-	}
+	 
+	 
 	public String getMARK() {
 		return MARK;
 	}

@@ -31,6 +31,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- anon表示此地址不需要任何权限即可访问 -->
+				/xzbumen=anon
 				/login=anon
 				/index=anon
 				/static/**=anon

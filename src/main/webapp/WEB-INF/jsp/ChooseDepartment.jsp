@@ -20,7 +20,7 @@
 </div>
  
  
-<table class="layui-table" lay-data="{width: 485,   url:'ChooseDepartments',  id:'idTests' ,page: true}" lay-filter="huanzhemlist">
+<table class="layui-table" lay-data="{width: 485,   url:'ChooseDepartments',  id:'idTests' }" lay-filter="huanzhemlist">
   <thead>
     <tr>
       <!-- <th lay-data="{type:'checkbox', fixed: 'left'}"></th> -->
@@ -33,7 +33,6 @@
 </table>
  
 <script type="text/html" id="czannius">
-   
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="choices">选择</a>
 </script>
                
@@ -65,10 +64,10 @@ layui.use('table', function(){
 		      
 		      //执行重载
 		      table.reload('idTests', {
-		        page: {
+		      /*   page: {
 		          curr: 1 //重新从第 1 页开始
 		        }
-		        ,where: {
+		        , */where: {
 		            name: dd.val()
 		        }
 		      });

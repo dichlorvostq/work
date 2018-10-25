@@ -8,7 +8,7 @@
 %>
 <HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>xx管理登录</TITLE>
 <META content="text/html; charset=gb2312" http-equiv=Content-Type>
-<SCRIPT src="static/js/jquery.min.js"></SCRIPT>
+<SCRIPT src="static/js/jquery-1.8.3.min.js"></SCRIPT>
 <SCRIPT language=javascript type=text/javascript>
 
  
@@ -63,8 +63,27 @@
 			 $("#password").val("");
 			 $("#tips").text("");
 		})
+
+		$("#username").change(function(){
+		    var bm=$("#username").val();
+			$("#mySelect option").remove();
+		    $.ajax({  
+				    url: "xzbumen",  
+				    data: {bm:bm},  
+//					data: formData,
+				    type: "POST",  
+				    dataType: "json",  
+				    success: function (data) {
+				    	for (var i = 0; i < data.length; i++) {
+				    		                  $("#mySelect").append("<option>" + data[i].deptname + "</option>");
+				    		            }
+				    },
+				});
+		});
 	});
+	
 </SCRIPT>
+
 
 <STYLE type=text/css>BODY {
 	TEXT-ALIGN: center; PADDING-BOTTOM: 0px; BACKGROUND-COLOR: #ddeef2; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
@@ -104,7 +123,7 @@ A:active {
       <DIV style="BACKGROUND-COLOR: #278296">
       <DIV style="MARGIN: 0px auto; WIDTH: 936px">
       <DIV 
-      style="BACKGROUND: url(static/images/body_05.jpg) no-repeat; HEIGHT: 155px">   
+      style="BACKGROUND: url(static/images/body_005.jpg) no-repeat; HEIGHT: 155px">   
       <DIV  style="TEXT-ALIGN: left; WIDTH: 265px; FLOAT: right; HEIGHT: 125px; _height: 95px;position: relative;">
       <TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
         <TBODY>
@@ -112,7 +131,13 @@ A:active {
           <TD style="HEIGHT: 43px"><INPUT id=username class=input type=text  name=username></TD></TR>
         <TR>
           <TD><INPUT id=password class=input type=password name=password></TD></TR>
-          <div style="position: absolute;top:75px;left:0;font-size: 12px;font-weight: 700;color: red;" id="tips">${error}</div>
+           <TR>
+			         <TD>
+			          <select id="mySelect"  name="xlxname"  style=" margin-top: 10px;">
+			          </select>
+			          </TD>
+			</TR>
+          <div style="position: absolute;top:100px;left:0;font-size: 12px;font-weight: 700;color: red;" id="tips">${error}  </div>
         <TR>
        	  
            </TR></TBODY></TABLE></DIV>

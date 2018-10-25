@@ -5,5 +5,5 @@ import java.util.List;
 import com.gkhn.wms.pojo.Odept;
 
 public interface OPdeptServcie {
-	List <Odept>  selectDeptList();
+	List <Odept>  selectDeptList(String name);
 }

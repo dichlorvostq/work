@@ -17,7 +17,7 @@
   <select id="selectLinkbuyerList" resultMap="BaseResultMap"> 
 		select * from  user_hn_linkbuyer
 	<where>
-	 	  CREATEUSER=${empId}
+	 	  CREATEUSER=${empId} and OWNERID=${OWNERID}
 	</where>
 	 
   </select>
@@ -25,11 +25,15 @@
         <select id="selectBuyerCount" resultType="java.lang.Integer" >
 		     select count(*)  from  user_hn_linkbuyer
 			<where>
-				CREATEUSER=${empId}
+				CREATEUSER=${empId} and OWNERID=${OWNERID}
 			</where>
 		  </select>
        
-       
+      <insert id="addLinkBuyer" parameterType="com.gkhn.wms.pojo.Linkbuyer" >
+			INSERT INTO user_hn_linkbuyer  	VALUES (${OWNERID },	${GOODID },${LINKID },	${BUYERID },'${WAREBRAND }',	to_date('${CREATEDATE}','yyyy-MM-dd HH24:mi:ss'),
+			  ${CREATEUSER},
+			'${MARK}' )	
+</insert>
        
        
 </mapper>

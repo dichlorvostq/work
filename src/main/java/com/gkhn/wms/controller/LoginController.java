@@ -1,6 +1,8 @@
 package com.gkhn.wms.controller;
 
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -30,16 +32,32 @@ public class LoginController {
 	  
 	  
 	@RequestMapping(value="/login") 
-	public String login(Model model,String username, String password,HttpServletRequest request) {
+	public String login(Model model,String username, String password,HttpServletRequest request) throws UnsupportedEncodingException {
+		String a=request.getParameter("xlxname");
+		//如果部门为空 返回login
+		
+		 if(a!=null && a!="") {
+			  a = new String(a.getBytes("iso-8859-1"),"utf-8");
+		  }else{
+			  return "login"; 
+		  }
+		//如果用户名 密码为空 返回login
+		if(username==null || password==null){
+			 return "login"; 
+		}
         Subject subject = SecurityUtils.getSubject();  
         System.out.println("程序开始的地方"+username +password);
+        
         DbcontextHolder.setDbType("OracledataSource");
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);  
         try {  
             subject.login(token);
             Session session=subject.getSession();
             Pubemp p=	indexService.LoginByEmpCode(username);
-            session.setAttribute("username",p.getEmpname());
+            session.setAttribute("txusername",username);  // 登录时填的 用户名 empcode
+            session.setAttribute("username",p.getEmpname());//登录显示的人的名字
+            session.setAttribute("bumen", a);//登录时下拉的部门
+            System.out.println(p.getEmpname()+"这里是登录用户名");
             session.setAttribute("subject", subject);
             return "redirect:toIndex";
         } catch (AuthenticationException e) {  

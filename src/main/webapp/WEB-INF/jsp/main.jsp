@@ -13,11 +13,14 @@
   <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
-
-
+   <div>
+   			欢迎界面，这个界面需要做设计。
+   	
+   </div>
+<!-- 
  <div class="content">
  <div style="width:59%;margin: 0 auto;">
-<!-- 				<img alt="" src="/eshop/img/jian00-2.jpg"> -->
+				<img alt="" src="/eshop/img/jian00-2.jpg">
 				<img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180319.jpg" style="width:100%">	
 				<br><br>
 				<p style="text-align:center;font-size:20px;font-weight:bold;line-height:200%;width: 100%">
@@ -39,30 +42,11 @@
 佐安堂名医俱乐部----造福会员，一切只为你成功！
          		</p>   
          		<p style="width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
          		</p>
-         		 			
     			</div>
-
-
-       
-       
-       
-       
-
-
-
-
-
-
-
-
-
-
-
 					<img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180419.jpg" style="width:100%">
 					</div>
-			</div>
+			</div> -->
 
 
 </body>

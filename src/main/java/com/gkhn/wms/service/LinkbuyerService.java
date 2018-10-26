@@ -12,5 +12,6 @@ public interface LinkbuyerService {
           int  selectBuyerCount(LinkbuyerVo lk); 
          
           int addLinkBuyer(Linkbuyer dx);
-          
+
+        int   delLinkBuyer(Linkbuyer dx);
 }

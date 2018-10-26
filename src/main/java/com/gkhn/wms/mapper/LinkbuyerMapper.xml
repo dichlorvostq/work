@@ -11,29 +11,69 @@
     <result column="CREATEUSER" property="CREATEUSER"  />
     <result column="MARK" property="MARK" />
  
+ <result column="deptname" property="deptname" />
+ <result column="linkcode" property="linkcode" />
+ <result column="linkname" property="linkname" />
+ <result column="name" property="name" />
+ <result column="spec" property="spec" />
+ <result column="msunitno" property="msunitno" />
+ <result column="packnum" property="packnum" />
+  <result column="producer" property="producer" />
+  <result column="goodsbrand" property="goodsbrand" />
+    
+   <result column="empname" property="empname" />
+   <result column="buyername" property="buyername" />
+   <result column="createempcode" property="createempcode" />
+    <result column="createempname" property="createempname" />
   </resultMap>
      
        		<!-- //查询列表 -->
   <select id="selectLinkbuyerList" resultMap="BaseResultMap"> 
-		select * from  user_hn_linkbuyer
-	<where>
-	 	  CREATEUSER=${empId} and OWNERID=${OWNERID}
-	</where>
-	 
+	    
+  SELECT * FROM  (  
+SELECT t1.*, ROWNUM RN  
+FROM (select a.ownerid,d.deptname,a.linkid,e.linkcode,e.linkname,a.goodid,b.goods,b.name,b.spec,b.msunitno,b.packnum,b.producer,
+		b.warebrand goodsbrand,
+        a.buyerid,c.empname as buyername,a.warebrand,a.createdate,a.createuser,c1.empcode createempcode,c1.empname createempname
+		from user_hn_linkbuyer a,
+	     pub_waredict b,
+	     pub_emp c,
+	     pub_dept d,
+	     pub_emp c1,
+	     scm_buyercst_linkman e
+	    where a.goodid = b.goodid and a.buyerid = c.empid and a.ownerid = d.deptid and a.createuser = c1.empid
+	    and   a.linkid = e.linkid  and  a.OWNERID=${OWNERID} 
+
+   	<if test="name!=null">
+			and ( b.name like '%${name}%' or  a.goodid like '%${goodid}%') 
+     </if>
+		) t1  
+WHERE ROWNUM &lt;=  ${size} )  WHERE RN > ${startpage}
+	    
   </select>
        
         <select id="selectBuyerCount" resultType="java.lang.Integer" >
-		     select count(*)  from  user_hn_linkbuyer
-			<where>
-				CREATEUSER=${empId} and OWNERID=${OWNERID}
-			</where>
+		 select count(*)  from user_hn_linkbuyer a,
+	     pub_waredict b,
+	     pub_emp c,
+	     pub_dept d,
+	     pub_emp c1,
+	     scm_buyercst_linkman e
+	    where a.goodid = b.goodid and a.buyerid = c.empid and a.ownerid = d.deptid and a.createuser = c1.empid
+	    and   a.linkid = e.linkid   and  a.OWNERID=${OWNERID}
 		  </select>
        
       <insert id="addLinkBuyer" parameterType="com.gkhn.wms.pojo.Linkbuyer" >
 			INSERT INTO user_hn_linkbuyer  	VALUES (${OWNERID },	${GOODID },${LINKID },	${BUYERID },'${WAREBRAND }',	to_date('${CREATEDATE}','yyyy-MM-dd HH24:mi:ss'),
-			  ${CREATEUSER},
-			'${MARK}' )	
+			  ${CREATEUSER},'${MARK}' )	
 </insert>
+       
+	          <delete id="delLinkBuyer" parameterType="com.gkhn.wms.pojo.Linkbuyer">
+			  	DELETE FROM user_hn_linkbuyer 
+				WHERE createuser=${CREATEUSER} and goodid=${GOODID}
+			  </delete>
+	       
+       
        
        
 </mapper>

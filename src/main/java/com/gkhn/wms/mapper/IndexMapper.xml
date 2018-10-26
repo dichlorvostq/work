@@ -8,26 +8,43 @@
     <result column="empid" property="empid"  />
   </resultMap>
        <select id="LoginByEmpCode" resultMap="BaseResultMap"   parameterType="java.lang.String">
-             select * from pub_emp  where  empid=#{empcode}
+             select * from pub_emp  where  empcode=#{empcode}
        </select> 
        
  
   		<select id="selectBuyer" resultMap="BaseResultMap"   >
-             select * from pub_emp  
-				<where>
-				    <if test="empname!=null">
-						empname  like '%${empname}%'		
-				    </if>
-				       and job_pur=1 		
-				</where>
+  		
+				  		SELECT * FROM  
+				(  
+				SELECT A.*, ROWNUM RN  
+				FROM ( select * from pub_emp 
+								<where>
+								    <if test="empname!=null">
+										empname  like '%${empname}%'		
+								    </if>
+								       and job_pur=1 		
+								</where> ) A  
+				WHERE ROWNUM &lt;= ${limit}) WHERE RN >= ${page}
        
        </select >
-       			  
+       
+         <select id="selectBuyerCount" resultType="java.lang.Integer" >
+		 select count(*)  from pub_emp 
+		  <where>
+		    <if test="empname!=null">
+				empname  like '%${empname}%'		
+		    </if>
+		       and job_pur=1 		
+		</where>
+		  </select>
+       
        <select  id="selectEmpcode"    resultType="java.lang.Integer" >
           select COUNT(*) from pub_emp where empcode=#{empcode}
        </select>
        
-       
+       <select  id="selectEmpID"   resultType="java.lang.Integer"  >
+				select empid from pub_emp where empcode=#{empcode}
+       </select>
        
        
 </mapper>

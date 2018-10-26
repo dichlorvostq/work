@@ -24,10 +24,20 @@ public class IndexServiceImpl  implements IndexService{
 		 List<Pubemp>   pp=indexMapper.selectBuyer(empname);
 		return pp;
 	}
+	
+	public int selectBuyerCount(GclasVo empname) {
+	
+		return indexMapper.selectBuyerCount(empname);
+	}
 
 	
 	public int selectEmpcode(String empcode) {
 	    int a=indexMapper.selectEmpcode(empcode);
 		return a;
 	}
+
+	public int selectEmpID(String empcode) {
+     	return	indexMapper.selectEmpID(empcode);
+	}
+
 }

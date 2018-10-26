@@ -12,4 +12,5 @@ public interface LinkbuyerMapper {
 	    
 	    int addLinkBuyer(Linkbuyer dx);
 	    
+	    int delLinkBuyer(Linkbuyer dx);
 } 

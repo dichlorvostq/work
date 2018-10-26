@@ -51,16 +51,17 @@ public class LinkBuyerController {
 	@RequestMapping("/linkbuyer")
 	@ResponseBody
 	public Object selectLinkbuyerList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
-		
-		/* HttpSession session = request.getSession();
-		 String loginName = (String)session.getAttribute("loginName");
-		String  name=request .getParameter("name");
-		 if(name!=null && name!="") {
-			  name = new String(name.getBytes("iso-8859-1"),"utf-8");
-		  }*/
-		
+ 
 	    DbcontextHolder.setDbType("OracledataSource");
-		 page = (page-1) * 10 ;
+	    
+	    String  name=request .getParameter("drugname");
+	     if(name!=null && name!="") {
+			  name = new String(name.getBytes("iso-8859-1"),"utf-8");
+		  }
+	     System.out.println(name+"搜索的条件");
+	     
+	    int a=  limit * ( page - 1 ) ;
+		 int b= limit * page;
 		LinkbuyerVo  lk=new LinkbuyerVo();
 		 HttpSession session = request.getSession();
 		 String dlcode=(String)session.getAttribute("txusername");
@@ -68,7 +69,14 @@ public class LinkBuyerController {
 		  
 		 int ownerid =  (Integer) session.getAttribute("ownerid"); 
 		 lk.setOWNERID(ownerid);
+		 lk.setName(name);
+		 lk.setGoodid(name);
 		lk.setEmpId(dlcodes);    //这里需要从 人员表带出  人员empId   
+		lk.setSize(limit);
+		lk.setStartpage(page);
+     	lk.setSize(b);
+    	lk.setStartpage(a);
+		
 		List<Linkbuyer> list= linkbuyerService.selectLinkbuyerList(lk);
 		int counts=linkbuyerService.selectBuyerCount(lk);
 		
@@ -100,7 +108,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@RequestMapping("/ChooseCommoditycodes")
 		@ResponseBody
 		
-	public Object selectOwarrdicttList(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
+	public Object selectOwarrdicttList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
 		     DbcontextHolder.setDbType("OracledataSource");
 		     String s="";
 		     String  name=request .getParameter("name");
@@ -110,10 +118,16 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 			  }else{
 				   s="消炎";
 			  }
-			 List<Opwaredict> list= owaredictService.selectOpwaredictList(s);
+		  int a=  limit * ( page - 1 ) ;
+		    int b= limit * page;
+			 List<Opwaredict> list= owaredictService.selectOpwaredictList(s,a,b);
+			 int  aa= owaredictService. selectWaredictListCount(s);
+			 
 			 JsonResult aJsonResult=new JsonResult();
+			 aJsonResult.setCount(aa);
 			 aJsonResult.setData(list);
 			 return aJsonResult; 
+			 
 		}
 	
 		
@@ -122,7 +136,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@RequestMapping("/SelectContacts")
 		@ResponseBody
 		
-	public Object selectOlinkmanList(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
+	public Object selectOlinkmanList(HttpServletRequest request ,Map<String,Object>map ,String id,int page,int limit) throws UnsupportedEncodingException {
 		     DbcontextHolder.setDbType("OracledataSource");
 		     String  name=request .getParameter("name");
 		     if(name!=null && name!="") {
@@ -130,8 +144,12 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 			  }else{
 				  name="212";
 			  }
-		     List<Olinkman> list =olinkmanService.selectLinkmanList(name);
-			 JsonResult aJsonResult=new JsonResult();
+		        int a=  limit * ( page - 1 ) ;
+			    int b= limit * page;
+		     List<Olinkman> list =olinkmanService.selectLinkmanList(name,a,b);
+		     int  aa= olinkmanService.selectLinkmanListCount(name);
+		     JsonResult aJsonResult=new JsonResult();
+			 aJsonResult.setCount(aa);
 			 aJsonResult.setData(list);
 			 return aJsonResult; 
 		}	
@@ -141,7 +159,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@RequestMapping("/SelectPurchaserss")
 		@ResponseBody
 		
-	public Object selectOcaigouyuanList(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
+	public Object selectOcaigouyuanList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
 		     DbcontextHolder.setDbType("OracledataSource");
 		     String  name=request .getParameter("name");
 		     
@@ -149,13 +167,16 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 				  name = new String(name.getBytes("iso-8859-1"),"utf-8");
 			  }
 		     
-		     /*else{
-				  name="212";
-			  }*/
+		     int a=  limit * ( page - 1 ) ;
+			 int b= limit * page;
+			 
 		     GclasVo n =new GclasVo();
-		        n.setEmpname(name);
+		     n.setLimit(b);
+		     n.setPage(a);
+		     n.setEmpname(name);
 		     List<Pubemp> list =indexService.selectBuyer(n);
-			 JsonResult aJsonResult=new JsonResult();
+		     JsonResult aJsonResult=new JsonResult();
+			 aJsonResult.setCount(indexService.selectBuyerCount(n));
 			 aJsonResult.setData(list);
 			 return aJsonResult; 
 		}	
@@ -201,7 +222,10 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		     HttpSession session = request.getSession();
 			 int ownerid =  (Integer) session.getAttribute("ownerid"); 
 			 
-			 String empcodes =   (String) session.getAttribute("txusername"); 
+			  String empcodes =   (String) session.getAttribute("txusername"); 
+			  int empID= indexService.selectEmpID(empcodes); 
+			  session.setAttribute("empID", empID);
+		 
 		     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    
 		    String b= df.format(new Date());
@@ -216,7 +240,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		     dx.setBUYERID(caigouyuans);
 		     dx.setWAREBRAND(cpai);
 		     dx.setCREATEDATE(b);
-		     dx.setCREATEUSER(empcodes);
+		     dx.setCREATEUSER(empID);
 		     dx.setMARK(" ");
 		     
 		    int cc=  linkbuyerService.addLinkBuyer(dx);
@@ -231,5 +255,32 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 			 return aJsonResult; 
 		}	
 		
+		
+		
+		@RequestMapping("/DelLinkbuyer")
+		@ResponseBody
+		public Object delLinkbuyerone(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
+			  String goodid=request.getParameter("goodid");
+			  int goodids=Integer.parseInt(goodid);
+			  
+			  HttpSession session = request.getSession();
+			  int empID =  (Integer) session.getAttribute("empID"); 
+			System.out.println(empID+"-----"+goodid);
+			Linkbuyer  dx=new Linkbuyer();
+			dx.setGOODID(goodids);
+			dx.setCREATEUSER(empID);
+			int aa=linkbuyerService.delLinkBuyer(dx);
+			System.out.println(aa+"删除的结果");
+			return map;
+		}
 	
+		
+		@RequestMapping("/modLinkbuyer")
+		@ResponseBody
+		public Object modifyLinkbuyer(HttpServletRequest request ,Map<String,Object>map){
+			return map;
+				 
+		}
+		
+		
 }

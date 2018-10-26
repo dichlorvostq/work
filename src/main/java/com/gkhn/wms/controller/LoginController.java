@@ -50,11 +50,17 @@ public class LoginController {
         
         DbcontextHolder.setDbType("OracledataSource");
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);  
+        System.out.println(token+"tuoken");
         try {  
             subject.login(token);
             Session session=subject.getSession();
+            System.out.println("_______"+username);
             Pubemp p=	indexService.LoginByEmpCode(username);
             session.setAttribute("txusername",username);  // 登录时填的 用户名 empcode
+            int empID= indexService.selectEmpID(username);
+            System.out.println(empID+"shfou 取到了 id");
+            session.setAttribute("empID", empID);
+            
             session.setAttribute("username",p.getEmpname());//登录显示的人的名字
             session.setAttribute("bumen", a);//登录时下拉的部门
             System.out.println(p.getEmpname()+"这里是登录用户名");

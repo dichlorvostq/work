@@ -10,6 +10,9 @@ public interface IndexService {
 	    Pubemp   LoginByEmpCode(String empcode);
 	    
 	    List<Pubemp> selectBuyer(GclasVo empname);
+	    int     selectBuyerCount(GclasVo empname);
 	    
 	    int  selectEmpcode(String empcode);
+	    
+	    int    selectEmpID(String empcode  );
 }

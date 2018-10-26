@@ -8,6 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="static/css/layui.css"  media="all">
+   <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
  <div class="drugfid">
@@ -15,7 +16,7 @@
   <div class="layui-inline">
     <input class="layui-input" name="id" id="drugsearchid" autocomplete="off">
   </div>
-  <button class="layui-btn" data-type="reload" id="drugfid">搜索</button>
+  <button class="layui-btn" data-type="reload" id="qiguai">搜索</button>
   <button class="layui-btn" data-type="reload" id="tjhplxrjl">添加一条记录</button>
 </div>
  
@@ -39,35 +40,51 @@
 <script src="static/js/layui.js" charset="utf-8"></script>
 
  <script type="text/html" id="deltaocan">
-   <a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="dell">修改</a>
+   <a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="dell">删除</a>
+<a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="modify">修改</a>
 </script>  
 
 <script>
 layui.use('table', function(){
   var table = layui.table; 
   
-  
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
     ,url: 'linkbuyer'
+    	 ,cellMinWidth: 120
     ,cols: [[
       {checkbox: true, fixed: true}
       /* ,{field:'id', title:'序号',width:80, sort: true, style:'color:#000;',fixed: true,templet: '<div><a href="/detail/{{d.id}}" class="layui-table-link">{{d.LAY_TABLE_INDEX+1}}</a></div>'} */
-      ,{field:'ownerid', title: '货主', sort: true, fixed: true}
-      ,{field:'goodid', title: '商品编码'}
-      ,{field:'linkid', title: '联系人'}
-      ,{field:'buyerid', title: '采购员'}
-      ,{field:'warebrand', title: '厂牌'}
+      ,{field:'ownerid', title: '货主id', sort: true }
+      ,{field:'deptname', title: '货主名称'}
+      ,{field:'linkid', title: '联系人id'}
+      ,{field:'linkcode', title: '联系人编码'}
+      ,{field:'linkname', title: '联系人名称'}
+      ,{field:'goodid', title: '商品id'}
+      ,{field:'goods', title: '商品编码'}
+      ,{field:'name', title: '商品名称'}
+      ,{field:'spec', title: '商品规格'}
+      ,{field:'msunitno', title: '商品单位'}
+      ,{field:'packnum', title: '商品数量'}
+      ,{field:'producer',   minWidth:280, title: '厂家' }
+      ,{field:'goodsbrand',  minWidth:280,  title: '商品厂家名'}
+      ,{field:'buyerid', title: '采购员id'}
+      ,{field:'buyername', title: '采购员名称'}
+      ,{field:'warebrand', title: '待定'}
       ,{field:'createdate', title: '创建时间'}
+      ,{field:'createempcode', title: '创建人id'}
+      ,{field:'createempname', title: '创建人名字'}
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
-      ,{field:'right', title: '修改品种', toolbar:"#deltaocan",width:150,align:'center'} 
+       ,{field:'right', title: '修改品种', toolbar:"#deltaocan",width:150,align:'center'}   
     ]]
     ,id: 'druglistid'
     ,page: true
-     
+    
+    ,limit: 5 
+    ,limits: [3,5,10,20,30]
   });
   
   
@@ -75,12 +92,10 @@ layui.use('table', function(){
 //监听单元格事件
   table.on('tool(druglist)', function(obj){
     var data = obj.data;
-    var drugnames=data.drugid;
-	var drugname=data.drugname; 
-	var tcbs=data.tcbs;
+    var goodid=data.goodid;
+    var name=data.name;
     
-    
-     console.log(drugname+"条件")
+     
     if(obj.event === 'setSigns'){
       layer.prompt({
         formType: 2
@@ -123,12 +138,12 @@ layui.use('table', function(){
     }
      
      if(obj.event === 'dell'){
-	      layer.confirm('您确定要将【'+drugname+'】从药品库中删除吗？',  {
+	      layer.confirm('您确定要将【'+name+'】从药品库中删除吗？',  {
 			  btn: ['确定','取消'] //按钮
 			}, function(){
 				$.ajax({  
-				    url: "delDrugs",  
-				    data: {drugname:drugname},  
+				    url: "DelLinkbuyer",  
+				    data: {goodid:goodid},  
 				    type: "POST",  
 				    dataType: "json",  
 				    success: function (state) {
@@ -147,45 +162,27 @@ layui.use('table', function(){
 			} );
 	    }  
      
-     if(obj.event === 'setsalesprice'){
-         layer.prompt({
-           formType: 2
-           ,title: '修改['+ data.drugname +']的销售价格？'
-           ,value: data.sign
-         }, function(value, index){
-           layer.close(index);
-           
-           	 var reg = /^[0-9]+.?[0-9]*$/;
-           	  if (!reg.test(value)) {
-           		  layer.alert("请输入正确的数字！");
-           	      return;
-           	  }
-           $.ajax({  
-   		    url: "modsalesprice",  
-   		    data: {drugnames:drugnames,value:value},  
-   		    type: "POST",  
-   		    dataType: "json",  
-   		    success: function (state) {  
-   		    	if(state.state==100){
-   		    		 layer.alert("数据保存成功！" , function(index){
-   		    					  layer.close(index);
-   		    					  table.reload('druglistid', {
-   		    						  /* page: {
-   		    					          curr: 1 //重新从第 1 页开始
-   		    					        } */
-   		    					  });
-   		    					});
-   		    	}
-   		    	if(state.state==200){
-   		    		layer.alert("数据保存失败，请重新填写！"); 
-   		    	}
-   		    	/* window.location.reload(); */
-   		    }  
-   		});
-           obj.update({
-             sign: value
-           });
-         });
+     if(obj.event === 'modify'){
+    	 var checkStatus = table.checkStatus('druglistid');// 获取父页面名为“repairDataInfo”的表格中，选中的事件
+    		console.log(checkStatus.data);
+    		if(checkStatus.data == "" || checkStatus.data == null || checkStatus.data == undefined){
+    			 layer.alert("请勾选一条记录！")
+    		}else{
+    			 //弹出一个iframe层
+    		    layer.open({
+    		      type: 2,
+    		      title: '修改患者',
+    		      maxmin: true,
+    		      shadeClose: true, //点击遮罩关闭层
+    		      area : ['26%' , '85%'],
+    		      content: 'modlinkbuyer',
+    		    	  end: function(){
+    						 location.reload();  
+    					}
+
+    		    });
+    		}
+    		
        }
   });
   
@@ -206,7 +203,7 @@ layui.use('table', function(){
 		      });
 		    }
 		  };
-  $("#drugfid").on('click', function(){
+  $("#qiguai").on('click', function(){
 	    var type = $(this).data('type');
 	    console.log("点击触发"+type)
 	    active[type] ? active[type].call(this) : '';

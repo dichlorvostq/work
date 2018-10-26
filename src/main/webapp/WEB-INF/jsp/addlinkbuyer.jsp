@@ -58,8 +58,8 @@
     <div class="layui-input-inline">
       <input type="text" name="cpai"  id="cpai" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
-    <input type="hidden" name="cpaibh" id="cpaibh"  >      
-    <button class="layui-btn" id="xzchangp">选择厂牌</button>
+    <!-- <input type="hidden" name="cpaibh" id="cpaibh"  >      
+    <button class="layui-btn" id="xzchangp">选择厂牌</button> -->
   </div> 
   
    
@@ -126,7 +126,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
  	      title: '选择联系人',
  	      maxmin: true,
  	      shadeClose: true, //点击遮罩关闭层
- 	      area : ['90%' , '85%'],
+ 	      area : ['60%' , '85%'],
  	      content: 'SelectContact',
  	    	  end: function(){
  					 /* location.reload();   */
@@ -144,7 +144,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
  	      title: '选择采购员',
  	      maxmin: true,
  	      shadeClose: true, //点击遮罩关闭层
- 	      area : ['90%' , '85%'],
+ 	      area : ['60%' , '85%'],
  	      content: 'SelectPurchasers',
  	    	  end: function(){
  					 /* location.reload();   */
@@ -196,10 +196,10 @@ layui.use(['form', 'layedit', 'laydate'], function(){
    });
  
    $("#tijiaoanniua").click(function(){
-	    var spbianma=$("#nbcode").val().trim();
-	    var lianxiren=$("#lianxiren").val().trim();
-	    var caigouyuan=$("#cgyid").val().trim();
-	    var cpai=$("#cpaibh").val().trim();
+	    var spbianma=$("#nbcode").val() ;
+	    var lianxiren=$("#lianxiren").val() ;
+	    var caigouyuan=$("#cgyid").val() ;
+	    var cpai=$("#cpai").val() ;
 	     if(spbianma == "" || spbianma == null || spbianma == undefined || lianxiren == "" || lianxiren == null || lianxiren == undefined ||
 	    		 caigouyuan == "" || caigouyuan == null || caigouyuan == undefined || cpai == "" || cpai == null || cpai == undefined  ){
 	    	  bbb();

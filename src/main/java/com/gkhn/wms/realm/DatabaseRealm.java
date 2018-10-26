@@ -36,6 +36,7 @@ public class DatabaseRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 		//能进入到这里，表示账号已经通过验证了
 		String userName =(String) principalCollection.getPrimaryPrincipal();
+		/*System.out.println(userName+"??________");*/
 		//通过service获取角色和权限
 		Set<String> permissions = meunService.selectMeunByusername(userName);
 		Set<String> roles = new HashSet<String>();
@@ -54,12 +55,14 @@ public class DatabaseRealm extends AuthorizingRealm {
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		String userName= token.getPrincipal().toString();
 		String psw= new String( t.getPassword());
+		System.out.println(userName+"密码是什么？"+psw);
 		
 		String password = xjMD5.StandardMD5(psw);
-		//System.out.println("页面上输入的密码"+password);
+		System.out.println("页面上输入的密码"+password);
 		//获取数据库中的密码
+		System.out.println(userName+"页面上传的用户名");
       	Pubemp p=	indexService.LoginByEmpCode(userName);
-      	//System.out.println(p.getPassword()+"数据库获取的密码");
+        System.out.println(p.getPassword()+"数据库获取的密码");
 		String passwordInDB = p.getPassword();
      
 		

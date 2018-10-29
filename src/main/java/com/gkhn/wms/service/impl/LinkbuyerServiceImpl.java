@@ -35,6 +35,11 @@ public class LinkbuyerServiceImpl  implements LinkbuyerService{
 	public int delLinkBuyer(Linkbuyer dx) {
 		 return linkbuyerMapper.delLinkBuyer(dx);
 	}
+
+	public int updateLinkBuyer(Linkbuyer dx) {
+		 
+		return linkbuyerMapper.updateLinkBuyer(dx);
+	}
 	
 	
 }

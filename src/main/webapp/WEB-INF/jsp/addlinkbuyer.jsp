@@ -58,8 +58,8 @@
     <div class="layui-input-inline">
       <input type="text" name="cpai"  id="cpai" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
-    <!-- <input type="hidden" name="cpaibh" id="cpaibh"  >      
-    <button class="layui-btn" id="xzchangp">选择厂牌</button> -->
+   <input type="hidden" name="cpaibh" id="cpaibh"  >      
+    <button class="layui-btn" id="xzchangp">选择厂牌</button>
   </div> 
   
    
@@ -179,6 +179,15 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	});
  }
 
+ function sb(){
+	 	layui.use('layer', function(){
+		  var layer = layui.layer;     
+		  layer.msg('提交失败,请检查是否有重复！');
+		});
+	 }
+ 
+ 
+ 
  function bbb(){
 	 layui.use('layer', function(){
 		  var layer = layui.layer;
@@ -218,6 +227,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 		    		 setTimeout(" var index = parent.layer.getFrameIndex(window.name);  parent.layer.close(index)", 1000 )
 		    	}
 		    	if(data.state==200){
+		    		sb();
 		    	}
 		    	/* window.location.reload(); */
 		    }  

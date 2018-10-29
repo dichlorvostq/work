@@ -52,11 +52,11 @@ layui.use('table', function(){
   table.render({
     elem: '#LAY_table_user'
     ,url: 'linkbuyer'
-    	 ,cellMinWidth: 120
+    ,cellMinWidth: 120
     ,cols: [[
-      {checkbox: true, fixed: true}
       /* ,{field:'id', title:'序号',width:80, sort: true, style:'color:#000;',fixed: true,templet: '<div><a href="/detail/{{d.id}}" class="layui-table-link">{{d.LAY_TABLE_INDEX+1}}</a></div>'} */
-      ,{field:'ownerid', title: '货主id', sort: true }
+       {type:'radio',fixed: true}
+      ,{field:'ownerid', title: '货主id', sort: true   }
       ,{field:'deptname', title: '货主名称'}
       ,{field:'linkid', title: '联系人id'}
       ,{field:'linkcode', title: '联系人编码'}
@@ -71,18 +71,17 @@ layui.use('table', function(){
       ,{field:'goodsbrand',  minWidth:280,  title: '商品厂家名'}
       ,{field:'buyerid', title: '采购员id'}
       ,{field:'buyername', title: '采购员名称'}
-      ,{field:'warebrand', title: '待定'}
+      ,{field:'warebrand',minWidth:280, title: '厂牌'}
       ,{field:'createdate', title: '创建时间'}
       ,{field:'createempcode', title: '创建人id'}
       ,{field:'createempname', title: '创建人名字'}
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
-       ,{field:'right', title: '修改品种', toolbar:"#deltaocan",width:150,align:'center'}   
+       ,{field:'right', title: '修改品种',fixed: 'right', toolbar:"#deltaocan",width:150,align:'center' }   
     ]]
     ,id: 'druglistid'
     ,page: true
-    
     ,limit: 5 
     ,limits: [3,5,10,20,30]
   });
@@ -94,8 +93,9 @@ layui.use('table', function(){
     var data = obj.data;
     var goodid=data.goodid;
     var name=data.name;
-    
-     
+    var linkid=data.linkid;
+    var ownerid=data.ownerid;
+    var  buyerid=data.buyerid; 
     if(obj.event === 'setSigns'){
       layer.prompt({
         formType: 2
@@ -115,7 +115,7 @@ layui.use('table', function(){
 		    type: "POST",  
 		    dataType: "json",  
 		    success: function (state) {  
-		    	if(state.state==100){
+		    	if(state.state==200){
 		    		 layer.alert("数据保存成功！" , function(index){
 		    					  layer.close(index);
 		    					  table.reload('druglistid', {
@@ -125,7 +125,7 @@ layui.use('table', function(){
 		    					  });
 		    					});
 		    	}
-		    	if(state.state==200){
+		    	if(state.state==100){
 		    		layer.alert("数据保存失败，请重新填写！"); 
 		    	}
 		    	/* window.location.reload(); */
@@ -143,7 +143,7 @@ layui.use('table', function(){
 			}, function(){
 				$.ajax({  
 				    url: "DelLinkbuyer",  
-				    data: {goodid:goodid},  
+				    data: {goodid:goodid,ownerid:ownerid,linkid:linkid,buyerid:buyerid},  
 				    type: "POST",  
 				    dataType: "json",  
 				    success: function (state) {
@@ -171,10 +171,10 @@ layui.use('table', function(){
     			 //弹出一个iframe层
     		    layer.open({
     		      type: 2,
-    		      title: '修改患者',
+    		      title: '修改联系人信息',
     		      maxmin: true,
     		      shadeClose: true, //点击遮罩关闭层
-    		      area : ['26%' , '85%'],
+    		      area : ['45%' , '75%'],
     		      content: 'modlinkbuyer',
     		    	  end: function(){
     						 location.reload();  

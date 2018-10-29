@@ -68,12 +68,16 @@ WHERE ROWNUM &lt;=  ${size} )  WHERE RN > ${startpage}
 			  ${CREATEUSER},'${MARK}' )	
 </insert>
        
-	          <delete id="delLinkBuyer" parameterType="com.gkhn.wms.pojo.Linkbuyer">
-			  	DELETE FROM user_hn_linkbuyer 
-				WHERE createuser=${CREATEUSER} and goodid=${GOODID}
-			  </delete>
-	       
-       
+	    <delete id="delLinkBuyer" parameterType="com.gkhn.wms.pojo.Linkbuyer">
+	  	DELETE FROM user_hn_linkbuyer 
+		WHERE createuser=${CREATEUSER} and goodid=${GOODID} and ownerid=${OWNERID}  and linkid=${LINKID} and buyerid=${BUYERID}
+	  </delete>
+     
+       <update id="updateLinkBuyer"  parameterType="com.gkhn.wms.pojo.Linkbuyer">
+				UPDATE user_hn_linkbuyer
+				SET buyerid=${BUYERID},warebrand='${WAREBRAND}'
+				WHERE ownerid=${OWNERID} and goodid=${GOODID} and linkid=${LINKID} and buyerid=${BUYERIDS}
+       </update>
        
        
 </mapper>

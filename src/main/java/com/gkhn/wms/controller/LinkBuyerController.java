@@ -213,7 +213,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		     int shangpbm=   Integer.parseInt(spbianma);
 		     
 		     String lianxiren=request.getParameter("lianxiren");
-		     int lianxirens=   Integer.parseInt(lianxiren);
+		      Long lianxirens=  Long.parseLong(lianxiren);
 		     
 		     String caigouyuan=request.getParameter("caigouyuan");
 		     int caigouyuans=   Integer.parseInt(caigouyuan);
@@ -243,15 +243,21 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		     dx.setCREATEUSER(empID);
 		     dx.setMARK(" ");
 		     
-		    int cc=  linkbuyerService.addLinkBuyer(dx);
-		     System.out.println(cc+"最后的结果---》");
+		     int cc;
+				try {
+					  cc=  linkbuyerService.addLinkBuyer(dx);
+				} catch (Exception e) {
+				   cc=0;	 
+				}
 		     
+				System.out.println(cc+"添加的状态");
 			 JsonResult aJsonResult=new JsonResult();
 			    if(cc>0){
 			    	aJsonResult.setState(100);
 			    }else{
 			    	aJsonResult.setState(200);
 			    }
+			    System.out.println(aJsonResult.getState()+"返回状态");
 			 return aJsonResult; 
 		}	
 		
@@ -262,23 +268,73 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		public Object delLinkbuyerone(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
 			  String goodid=request.getParameter("goodid");
 			  int goodids=Integer.parseInt(goodid);
-			  
+			  String linkid=request.getParameter("linkid");
+			  Long linkids=Long.parseLong(linkid);
+			  String ownerid=request.getParameter("ownerid");
+			  int ownerids=Integer.parseInt(ownerid);
+			  String buyerid=request.getParameter("buyerid");
+			  int buyerids=Integer.parseInt(buyerid);
 			  HttpSession session = request.getSession();
 			  int empID =  (Integer) session.getAttribute("empID"); 
 			System.out.println(empID+"-----"+goodid);
 			Linkbuyer  dx=new Linkbuyer();
+			dx.setBUYERID(buyerids);
 			dx.setGOODID(goodids);
+			dx.setLINKID(linkids);
+			dx.setOWNERID(ownerids);
 			dx.setCREATEUSER(empID);
-			int aa=linkbuyerService.delLinkBuyer(dx);
-			System.out.println(aa+"删除的结果");
-			return map;
+			 int aa;
+			try {
+				 aa=linkbuyerService.delLinkBuyer(dx);
+				
+			} catch (Exception e) {
+			   aa=0;	 
+			}
+			
+			 JsonResult aJsonResult=new JsonResult();
+			    if(aa>0){
+			    	aJsonResult.setState(100);
+			    }else{
+			    	aJsonResult.setState(200);
+			    }
+			 return aJsonResult;
 		}
 	
 		
 		@RequestMapping("/modLinkbuyer")
 		@ResponseBody
 		public Object modifyLinkbuyer(HttpServletRequest request ,Map<String,Object>map){
-			return map;
+			   String linkid =request.getParameter("linkid");
+			   Long  linkids=Long.parseLong(linkid);
+			   String caigouyuan =request.getParameter("caigouyuan");
+			   int caigouyuans=Integer.parseInt(caigouyuan);
+			   String cpai=request.getParameter("cpai");
+			   
+			   String buyerid=request.getParameter("buyerid");
+			   int buyerids=Integer.parseInt(buyerid);
+			   
+			   String ownerid=request.getParameter("ownerid");
+			   int ownerids=Integer.parseInt(ownerid);
+			   
+			   String goodid=request.getParameter("goodid");
+			   int goodids=Integer.parseInt(goodid);
+			   Linkbuyer  dx=new Linkbuyer();   
+			   dx.setBUYERIDS(buyerids);
+			   dx.setLINKID(linkids);
+			   dx.setBUYERID(caigouyuans);
+			   dx.setWAREBRAND(cpai);
+			   dx.setOWNERID(ownerids);
+			   dx.setGOODID(goodids);
+			   int jg= linkbuyerService.updateLinkBuyer(dx);
+			   
+			   System.out.println(jg+"更新结果");
+			   JsonResult aJsonResult=new JsonResult();
+			    if(jg>0){
+			    	aJsonResult.setState(100);
+			    }else{
+			    	aJsonResult.setState(200);
+			    }
+			 return aJsonResult;
 				 
 		}
 		

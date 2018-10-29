@@ -6,7 +6,7 @@ import java.util.Date;
 public class Linkbuyer {
        private int OWNERID;
        private int GOODID;
-       private int LINKID;
+       private Long  LINKID;
        private int  BUYERID;
        private String  WAREBRAND;
        private String CREATEDATE;
@@ -28,11 +28,23 @@ public class Linkbuyer {
        private String  buyername;
        private String  createempcode;
        private  String createempname;
-       
+       private  int BUYERIDS;
        
 	 
        
        
+	public Long getLINKID() {
+		return LINKID;
+	}
+	public void setLINKID(Long lINKID) {
+		LINKID = lINKID;
+	}
+	public int getBUYERIDS() {
+		return BUYERIDS;
+	}
+	public void setBUYERIDS(int bUYERIDS) {
+		BUYERIDS = bUYERIDS;
+	}
 	public int getCREATEUSER() {
 		return CREATEUSER;
 	}
@@ -142,12 +154,7 @@ public class Linkbuyer {
 	public void setGOODID(int gOODID) {
 		GOODID = gOODID;
 	}
-	public int getLINKID() {
-		return LINKID;
-	}
-	public void setLINKID(int lINKID) {
-		LINKID = lINKID;
-	}
+	 
 	public int getBUYERID() {
 		return BUYERID;
 	}

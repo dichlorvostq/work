@@ -48,7 +48,7 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();  
         System.out.println("程序开始的地方"+username +password);
         
-        DbcontextHolder.setDbType("OracledataSource");
+        /*DbcontextHolder.setDbType("OracledataSource");*/
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);  
         System.out.println(token+"tuoken");
         try {  

@@ -52,7 +52,7 @@ public class LinkBuyerController {
 	@ResponseBody
 	public Object selectLinkbuyerList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
  
-	    DbcontextHolder.setDbType("OracledataSource");
+	/*    DbcontextHolder.setDbType("OracledataSource");*/
 	    
 	    String  name=request .getParameter("drugname");
 	     if(name!=null && name!="") {
@@ -92,7 +92,7 @@ public class LinkBuyerController {
 	@ResponseBody
 	
 public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
-	     DbcontextHolder.setDbType("OracledataSource");
+	    /* DbcontextHolder.setDbType("OracledataSource");*/
 	     String  name=request .getParameter("name");
 	     if(name!=null && name!="") {
 			  name = new String(name.getBytes("iso-8859-1"),"utf-8");
@@ -109,7 +109,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@ResponseBody
 		
 	public Object selectOwarrdicttList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
-		     DbcontextHolder.setDbType("OracledataSource");
+		     /*DbcontextHolder.setDbType("OracledataSource");*/
 		     String s="";
 		     String  name=request .getParameter("name");
 		     if(name!=null && name!="") {
@@ -137,7 +137,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@ResponseBody
 		
 	public Object selectOlinkmanList(HttpServletRequest request ,Map<String,Object>map ,String id,int page,int limit) throws UnsupportedEncodingException {
-		     DbcontextHolder.setDbType("OracledataSource");
+		/*     DbcontextHolder.setDbType("OracledataSource");*/
 		     String  name=request .getParameter("name");
 		     if(name!=null && name!="") {
 				  name = new String(name.getBytes("iso-8859-1"),"utf-8");
@@ -160,7 +160,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@ResponseBody
 		
 	public Object selectOcaigouyuanList(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
-		     DbcontextHolder.setDbType("OracledataSource");
+		   /*  DbcontextHolder.setDbType("OracledataSource");*/
 		     String  name=request .getParameter("name");
 		     
 		     if(name!=null && name!="") {
@@ -187,7 +187,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@ResponseBody
 		
 	public Object selectChoosebrandList(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
-		     DbcontextHolder.setDbType("OracledataSource");
+		/*     DbcontextHolder.setDbType("OracledataSource");*/
 		     String  name=request .getParameter("name");
 		     if(name!=null && name!="") {
 				  name = new String(name.getBytes("iso-8859-1"),"utf-8");
@@ -208,7 +208,7 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 		@RequestMapping("/addLinkbuyer")
 		@ResponseBody
 		public Object addLinkbuyerone(HttpServletRequest request ,Map<String,Object>map) throws UnsupportedEncodingException {
-		     DbcontextHolder.setDbType("OracledataSource");
+		/*     DbcontextHolder.setDbType("OracledataSource");*/
 		     String spbianma =request.getParameter("spbianma");
 		     int shangpbm=   Integer.parseInt(spbianma);
 		     

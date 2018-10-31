@@ -17,7 +17,7 @@ public class QxmlServiceImpl  implements QxmlService{
 	  QxmlMapper qxmlMapper;
 	  
 	public List<Qxml> selectQxmlByUsername(String username) {
-		System.out.println("qxml·þÎñ²ãµÄue"+username);
+	 
 		 List <Qxml> list =qxmlMapper.selectQxmlByUsername(username);
 		return list;
 	}

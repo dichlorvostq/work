@@ -16,8 +16,8 @@
     <result column="order" property="order"  />
     <result column="status" property="status"  />
   </resultMap>
-       <select id="selectQxmlByUsername" resultMap="BaseResultMap"   parameterType="java.lang.String">
+       <!-- <select id="selectQxmlByUsername" resultMap="BaseResultMap"   parameterType="java.lang.String">
              SELECT * FROM  sys_menu WHERE menuid  IN (SELECT menuid FROM sys_role_menu WHERE roleid=(SELECT roleid FROM sys_user_role WHERE uid= (SELECT uid FROM sys_user WHERE username='老大')))
-       </select> 
+       </select>  -->
        
 </mapper>

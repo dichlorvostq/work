@@ -63,7 +63,7 @@ layui.use('table', function(){
       ,{field:'linkname', title: '联系人名称'}
       ,{field:'goodid', title: '商品id'}
       ,{field:'goods', title: '商品编码'}
-      ,{field:'name', title: '商品名称'}
+      ,{field:'name',minWidth:280, title: '商品名称'}
       ,{field:'spec', title: '商品规格'}
       ,{field:'msunitno', title: '商品单位'}
       ,{field:'packnum', title: '商品数量'}

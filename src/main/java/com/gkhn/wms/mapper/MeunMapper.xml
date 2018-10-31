@@ -9,31 +9,46 @@
     <result column="mid" property="mid"  />
   </resultMap>
        <select id="selectPathByusername" resultMap="BaseResultMap"   parameterType="java.lang.String">
-               				SELECT p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM sys_user u 
-							LEFT JOIN sys_user_role ru ON u.uid = ru.uid 
+						  SELECT p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
+							LEFT JOIN sys_user_role ru ON u.empcode = ru.userid 
 							LEFT JOIN sys_role r ON r.rid = ru.roleid 
 							LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
 							LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
-						        WHERE u.username ='#{0}'     
+						        WHERE u.empcode ='#{0}' 
        </select> 
  
  
 	    <select id="selectUserAllByusername" resultMap="BaseResultMap"   parameterType="java.lang.String">
-	               				SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM sys_user u 
+	               			<!--  之前在mysql表的sql 	SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM sys_user u 
 								LEFT JOIN sys_user_role ru ON u.uid = ru.uid 
 								LEFT JOIN sys_role r ON r.rid = ru.roleid 
 								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
 								LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
-							        WHERE u.username =#{username}   AND p.`paremenuid`=0
+							        WHERE u.username =#{username}   AND p.`paremenuid`=0 -->
+							        
+								SELECT    p.mid,p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
+								LEFT JOIN sys_user_role ru ON u.empcode = ru.userid 
+								LEFT JOIN sys_role r ON r.rid = ru.roleid 
+								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
+								LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
+						        WHERE u.empcode =#{username}   AND p.paremenuid=0 ORDER BY p.menuid   ASC
 	       </select>      
 	       
 	        <select id="selectUserSoonByusername" resultMap="BaseResultMap"   parameterType="java.lang.String">
-	               				SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM sys_user u 
+	        
+	        SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
+								LEFT JOIN sys_user_role ru ON u.empcode = ru.userid 
+								LEFT JOIN sys_role r ON r.rid = ru.roleid 
+								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
+								LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
+							        WHERE u.empcode =#{username}    AND p.paremenuid!=0
+							        
+	               				<!-- SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM sys_user u 
 								LEFT JOIN sys_user_role ru ON u.uid = ru.uid 
 								LEFT JOIN sys_role r ON r.rid = ru.roleid 
 								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
 								LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
-							        WHERE u.username =#{username}   AND p.`paremenuid`!=0
+							        WHERE u.username =#{username}   AND p.`paremenuid`!=0 -->
 	       </select>  
 	       
 	       

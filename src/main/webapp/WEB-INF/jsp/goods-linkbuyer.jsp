@@ -18,6 +18,7 @@
   </div>
   <button class="layui-btn" data-type="reload" id="qiguai">搜索</button>
   <button class="layui-btn" data-type="reload" id="tjhplxrjl">添加一条记录</button>
+  
 </div>
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="druglist"></table> 

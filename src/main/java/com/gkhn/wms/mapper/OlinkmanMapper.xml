@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.OlinkmanMapper" >      
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Olinkman" >  
+    <id column="linkid" property="linkid"/>
+    <result column="linkcode " property="linkcode"  />
+    <result column="linkname" property="linkname"  />
+  </resultMap>
+     
+       		<!-- //查询列表 -->
+<select id="selectLinkmanList" resultMap="BaseResultMap" parameterType ="String"> 
+		SELECT * FROM  
+(  
+SELECT A.*, ROWNUM RN  
+FROM (  select * from   scm_buyercst_linkman
+       <if test="bhname!=null">
+   			 where   linkname  like '%${bhname}%'
+		or 
+		 linkname like '%${bhname}%'
+       </if>) A  
+WHERE ROWNUM &lt;= ${limit}) WHERE RN > ${page}
+		
+  </select> 
+  
+      <select id="selectLinkmanListCount" resultType="java.lang.Integer" >
+		 select count(*) from scm_buyercst_linkman
+       <if test="bhname!=null">
+   			where   linkname  like '%${bhname}%'
+		     or 
+		    linkname like '%${bhname}%'
+       </if>
+		  </select>
+  
+  
+  
+  
+       
+</mapper>

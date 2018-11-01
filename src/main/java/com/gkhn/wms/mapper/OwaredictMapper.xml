@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.OwaredictMapper" >      
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Opwaredict" >  
+    <id column="goodid" property="goodid"/>
+    <result column="goods " property="goods"  />
+    <result column="name" property="name"  />
+    <result column="spec" property="spec"  />
+    <result column="prchead" property="prchead"  />
+    <result column="msunitno" property="msunitno"  />
+    <result column="producer" property="producer"  />
+    <result column="warebrand" property="warebrand"  />
+    <result column="IMPORT" property="IMPORT"  />
+    <result column="packnum" property="packnum"  />
+    <result column="marketno" property="marketno"  />
+  </resultMap>
+     
+       		<!-- //查询列表 -->
+<select id="selectWaredictList" resultMap="BaseResultMap" parameterType ="String"> 
+
+SELECT * FROM  
+(  
+SELECT A.*, ROWNUM RN  
+FROM (SELECT GOODID,   
+          GOODS,   
+          PRCHEAD,   
+          NAME,   
+          SPEC,   
+          GNAME,   
+          MSUNITNO,   
+          PRODUCER,   
+          nvl(WAREBRAND,'A') as WAREBRAND,
+          decode(PUB_WAREDICT.import,'00','国产','10','进口','20','合资') as import,
+          PUB_WAREDICT.Packnum,nvl(PUB_WAREDICT.marketno,'A') as marketno
+   		  FROM PUB_WAREDICT  
+       <if test="bhname!=null">
+   			WHERE name like '%${bhname}%' or goods like '%${bhname}%' or prchead like '%${bhname}%'
+       </if>) A  
+WHERE ROWNUM &lt;= ${limit}) WHERE RN > ${page}
+   </select> 
+   
+      <select id="selectWaredictListCount" resultType="java.lang.Integer" >
+		 select count(*) from PUB_WAREDICT  
+       <if test="bhname!=null">
+   			WHERE name like '%${bhname}%' or goods like '%${bhname}%' or prchead like '%${bhname}%'
+       </if>
+		  </select>
+   
+     
+       
+</mapper>

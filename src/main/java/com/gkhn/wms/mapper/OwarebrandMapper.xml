@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.OwarebrandMapper" >      
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Owarebrand" >  
+    <id column="prdno" property="prdno"/>
+    <result column="producer " property="producer"  />
+  </resultMap>
+     
+       		<!-- //查询列表 -->
+<select id="selectWarebrandtList" resultMap="BaseResultMap"  > 
+		select * from    PUB_WAREDICT_warebrand      
+		<if test="producer!=null">
+		where   producer  like '%${producer}%'
+		</if>
+  </select> 
+       
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.DeptMapper" > 
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Dept" >
+    <result column="deptid" property="deptid"  />
+    <result column="deptname" property="deptname"  />
+    
+  </resultMap>
+       <select id="selectDeptList" resultMap="BaseResultMap"  >
+            <!-- SELECT  deptname FROM sys_dept  t1 LEFT JOIN sys_role_dept t2  ON t1.deptid=t2. deptid   WHERE  roleid=${roleid} -->
+            
+            SELECT  deptname FROM pub_dept  t1 LEFT JOIN sys_role_dept t2  ON t1.deptid=t2. deptid   WHERE  roleid=${roleid}
+       </select> 
+	       
+	    <select id="selectDeptOwnerid"  resultType="java.lang.Integer"  >
+	    			select   ownerid  from pub_dept where deptname='${bumenname}'
+	    </select>   
+	       
+	       
+</mapper>

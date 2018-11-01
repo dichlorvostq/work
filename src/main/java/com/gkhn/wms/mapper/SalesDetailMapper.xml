@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.SalesDetailMapper" >   <!-- 命名空间  -->
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.SalesDetail" ><!--  实体类 -->   
+    <id column="id" property="id"  />
+    <result column="billno" property="billno"   />
+    <result column="createdate" property="createdate"  />
+    <result column="empname" property="empname"  />
+    <result column="cstcode" property="cstcode"  />
+    <result column="dname" property="dname"  />
+    <result column="goods" property="goods"  />
+    <result column="marketno" property="marketno"  />
+    <result column="name" property="name"  />
+    <result column="spec" property="spec"  />
+    <result column="packnum" property="packnum"  />
+    <result column="warebrand" property="warebrand"  />
+    <result column="billqty" property="billqty"  />
+    <result column="prc" property="prc"  />
+    <result column="sumvalue" property="sumvalue"  />
+    <result column="taxrate" property="taxrate"  />
+    <result column="invoicedate" property="invoicedate"  />
+    <result column="invoiceno" property="invoiceno"  />
+    <result column="deptname" property="deptname"  />
+    <result column="bthdesc" property="bthdesc"  />
+    <result column="flowname" property="flowname"  />
+    <result column="gname" property="gname"  />
+    <result column="woempcode" property="woempcode"  />
+    <result column="woempname" property="woempname"  />
+    <result column=" backreasonname" property=" backreasonname"  />
+    <result column="yddate " property=" yddate"  />
+    <result column=" curempname" property="curempname "  />
+    <result column=" osbillno" property=" osbillno"  />
+    <result column=" linkcode_bth" property=" linkcode_bth"  />
+    <result column=" linkname_bth" property=" linkname_bth"  />
+    <result column=" supcode_bth" property=" supcode_bth"  />
+    <result column="supname_bth " property=" supname_bth"  />
+    <result column=" indate" property="indate "  />
+    <result column=" buyercode " property=" buyercode "  />
+      <result column="  buyername" property=" buyername "  />
+      <result column=" inprc" property=" inprc"  />
+      <result column=" batchid " property=" batchid "  />
+       <result column=" invcnt " property="invcnt  "  />
+       <result column="  ddeptname" property="  ddeptname"  />
+  </resultMap>
+  
+  
+       <select id="SalesDetailList" resultMap="BaseResultMap"   parameterType="java.lang.String">
+       
+        SELECT * FROM  (  
+SELECT t1.*, ROWNUM RN  
+FROM (
+       
+                     select id,
+					     billno,
+					     a.createdate,
+					     e.empname,
+					     b.cstcode,
+					     b.dname,
+					     c.goods,
+					     c.marketno,
+					     c.name,
+					     c.spec,
+					     c.packnum,
+					     c.warebrand,
+					     billqty,
+					     prc,
+					     sumvalue,
+					     taxrate,
+					     invoicedate,
+					     invoiceno,
+					     f.deptname,
+					     bthdesc,
+					     flowname,
+					     g.name as gname ,
+					     woempcode,
+					     woempname,
+					     backreasonname,
+					     yddate,
+					     curempname,
+					     osbillno,
+					     linkcode_bth,
+					     linkname_bth,
+					     supcode_bth,
+					     supname_bth,
+					     indate,
+					     buyercode,
+					     buyername,
+					     inprc,
+					     batchid,
+					     invcnt,
+					     d.deptname as ddeptname,
+					     
+					     a.OSBILLNODATE,
+					     a.OSBILLNOPRC,
+					     a.FLOWID,
+					     isflag
+					  from cmshn_scm_salbill_hdr2018 a,
+					     pub_clients               b,
+					     pub_waredict              c,
+					     pub_dept                  d,
+					     pub_emp                   e,
+					     pub_dept                  f,
+					     pub_clients_kind          g
+					 where a.cstid = b.cstid
+					  and a.goodid = c.goodid
+					  and a.saledeptid = d.deptid
+					  and a.createuser = e.empid
+					  and a.saledeptid = f.deptid
+					  and a.pctype = g.kindid
+					  and a.createdate >= to_date('2018-09-25', 'yyyy-mm-dd')
+					  AND a.createdate &lt;= to_date('2018-10-01', 'yyyy-mm-dd') + 1  ) t1  
+WHERE ROWNUM &lt;= ${limit} )  WHERE RN > ${page}
+  
+       </select> 
+       
+        <select id="SalesDetailCount" resultType="java.lang.Integer" >
+ 
+       select count(*)	  from cmshn_scm_salbill_hdr2018 a,
+					     pub_clients               b,
+					     pub_waredict              c,
+					     pub_dept                  d,
+					     pub_emp                   e,
+					     pub_dept                  f,
+					     pub_clients_kind          g
+					 where a.cstid = b.cstid
+					  and a.goodid = c.goodid
+					  and a.saledeptid = d.deptid
+					  and a.createuser = e.empid
+					  and a.saledeptid = f.deptid
+					  and a.pctype = g.kindid
+					  and a.createdate >= to_date('2018-09-25', 'yyyy-mm-dd')
+					  AND a.createdate &lt;= to_date('2018-10-01', 'yyyy-mm-dd') + 1  
+        </select>
+       
+       
+       
+       
+       
+       
+       
+       
+       
+</mapper>

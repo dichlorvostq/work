@@ -11,4 +11,6 @@ public    interface SalesDetailService {
 	  List <SalesDetail>  SalesDetailList(GclasVo x);
 	  
 	  int SalesDetailCount(GclasVo x);
+	  
+	  List<SalesDetail> SalesDetailListALL(GclasVo x);
 }

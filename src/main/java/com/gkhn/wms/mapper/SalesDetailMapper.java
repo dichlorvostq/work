@@ -10,4 +10,6 @@ public interface SalesDetailMapper {
       List <SalesDetail>  SalesDetailList(GclasVo x);
       
       int SalesDetailCount(GclasVo x);
+      
+      List<SalesDetail> SalesDetailListALL(GclasVo x);
 }

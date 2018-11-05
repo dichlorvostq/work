@@ -13,23 +13,28 @@
   <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
-   <div>
-   			欢迎界面，这个界面需要做设计。
-   	
-   </div>
-<!-- 
+    
+ 
  <div class="content">
- <div style="width:59%;margin: 0 auto;">
-				<img alt="" src="/eshop/img/jian00-2.jpg">
-				<img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180319.jpg" style="width:100%">	
+ <div style="width:80%;margin: 0 auto;"   align="center">
+				 <img alt="" src="static/images/gktp.jpg"  > 
+			<!-- 	<img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180319.jpg" style="width:100%">	 -->
 				<br><br>
-				<p style="text-align:center;font-size:20px;font-weight:bold;line-height:200%;width: 100%">
-				佐安堂名医俱乐部平台介绍
-				</p>
+				</div>
+				<div>
+				<p style="font-size:20px;font-weight:bold;line-height:200%;width: 100%">
+					<span style="width: 40%">关爱生命</span>
+					<span style="width: 80%">呵护健康</span>
+				    
+				</p></div>
+				<div style="width:80%;margin: 0 auto;"   align="center">
 				<div style="line-height:200%;width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;							
-佐安堂名医俱乐部----是湖南恒昌医药有限公司于2017年3月发起成立的专门为全国十万基层医生服务的“抱团大包平台”、“在线诊疗平台”和“知识共享平台”。
+					健康之于生命，如光芒之于太阳
+					拥有健康，生命才生生不息，灿烂辉煌。
+					生活因健康而美好，生命因健康而精彩。
+					关爱生命，呵护健康，是我们崇高的使命。
 				<p></p>
-				<p style="width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<!-- 		<p style="width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 佐安堂名医俱乐部从基层医疗最主要的收入来源“药品”着手，通过抱团采购、砍掉一切中间环节，切实降低采购成本50%以上。所有产品贴牌控销、垄断经营，让基层医生真正掌握产品定价权。平台以高品质、高附加值的药品为纽带，逐步开展在线诊疗、众筹培训、知识共享、设备联采等一系列服务，在全国将十万基层医生抱成一团，立志“建基层医疗大平台、助你永做一方名医”。
 				</p>
 				<p style="width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,11 +47,12 @@
 佐安堂名医俱乐部----造福会员，一切只为你成功！
          		</p>   
          		<p style="width:100%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         		</p>
+         		</p> -->
     			</div>
-					<img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180419.jpg" style="width:100%">
+    			</div>
+					<!-- <img alt="" src="http://oss.hnhcyy.cn/picture/jian-zat-180419.jpg" style="width:100%"> -->
 					</div>
-			</div> -->
+		<!-- 	</div>   -->
 
 
 </body>

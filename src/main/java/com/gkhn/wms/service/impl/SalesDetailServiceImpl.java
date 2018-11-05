@@ -26,4 +26,9 @@ public class SalesDetailServiceImpl implements SalesDetailService {
 		return salesDetailMapper.SalesDetailCount(x);
 	}
 
+	public List<SalesDetail> SalesDetailListALL(GclasVo x) {
+		 
+		return salesDetailMapper.SalesDetailListALL(x);
+	}
+
 }

@@ -18,13 +18,25 @@
   </div>
   <button class="layui-btn" data-type="reload" id="qiguai">搜索</button>
   <button class="layui-btn" data-type="reload" id="tjhplxrjl">添加一条记录</button>
-  
 </div>
  
+
+ 
 <table class="layui-hide" id="LAY_table_user" lay-filter="druglist"></table> 
+
+
+ <div   >
+ <div style="float: left;">
+ <button class="layui-btn" data-type="reload" id="shengcwenjian">生成excel</button>
+ </div>
  
- 
- 
+ <div  style="float: left;" >
+  <form  action="exdownload"  method="post"  >
+   <input type="hidden" name="ycdxzdz" id="ycdxzdz"  >   
+  <button class="layui-btn" data-type="reload" id="xiazaiwenjian"  disabled="disabled"  style="margin-left: 20px;">下载文件</button>
+ </form >
+ </div>
+ </div>
  
 <!-- <table class="layui-table" lay-data="{height: 313, url:'PirvateList'}" lay-filter="demoEvent" id="druglistid">
   <thead>
@@ -48,7 +60,6 @@
 <script>
 layui.use('table', function(){
   var table = layui.table; 
-  
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -57,45 +68,45 @@ layui.use('table', function(){
     ,cols: [[
       /* ,{field:'id', title:'序号',width:80, sort: true, style:'color:#000;',fixed: true,templet: '<div><a href="/detail/{{d.id}}" class="layui-table-link">{{d.LAY_TABLE_INDEX+1}}</a></div>'} */
        {type:'radio',fixed: true}
-       ,{field:'id', title: '1', sort: true }
-      ,{field:'billno', title: '2' }
-      ,{field:'createdate', title: '货主名称'}
-      ,{field:'empname', title: '联系人id'}
-      ,{field:'cstcode', title: '联系人编码'}
-      ,{field:'dname', title: '联系人名称'}
-      ,{field:'goods', title: '商品id'}
-      ,{field:'marketno', title: '商品编码'}
-      ,{field:'name',minWidth:280, title: '商品名称'}
-      ,{field:'spec', title: '商品规格'}
-      ,{field:'packnum', title: '商品单位'}
-      ,{field:'warebrand', title: '商品数量'}
-      ,{field:'billqty',   minWidth:280, title: '厂家' }
-      ,{field:'prc',  minWidth:280,  title: '商品厂家名'}
-      ,{field:'sumvalue', title: '采购员id'}
-      ,{field:'taxrate', title: '采购员名称'}
-      ,{field:'invoicedate',minWidth:280, title: '厂牌'}
-      ,{field:'invoiceno', title: '创建时间'}
-      ,{field:'deptname', title: '创建人id'}
-      ,{field:'bthdesc', title: '创建人名字'}
-      ,{field:'flowname', title: '创建人名字'}
-      ,{field:'gname', title: '创建人名字'}
-      ,{field:'woempcode', title: '创建人名字'}
-      ,{field:'woempname', title: '创建人名字'}
-      ,{field:'backreasonname', title: '创建人名字'}
-      ,{field:'yddate', title: '创建人名字'}
-      ,{field:'curempname', title: '创建人名字'}
-      ,{field:'osbillno', title: '创建人名字'}
-      ,{field:'linkcode_bth', title: '创建人名字'}
-      ,{field:'linkname_bth', title: '创建人名字'}
-      ,{field:'supcode_bth', title: '创建人名字'}
-      ,{field:'supname_bth', title: '创建人名字'}
-      ,{field:'indate', title: '创建人名字'}
-      ,{field:'buyercode', title: '创建人名字'}
-      ,{field:'buyername', title: '创建人名字'}
-      ,{field:'inprc', title: '创建人名字'}
-      ,{field:'batchid', title: '创建人名字'}
-      ,{field:'invcnt', title: '创建人名字'}
-      ,{field:'ddeptname', title: '创建人名字'}
+      /*  ,{field:'id', title: '1', sort: true } */
+      ,{field:'billno', title: '订单号' }
+      ,{field:'createdate', title: '开单日期'}
+      ,{field:'empname', title: '开票员'}
+      ,{field:'cstcode', title: '客户代码'}
+      ,{field:'dname', title: '客户名称'}
+      ,{field:'goods', title: '商品代码'}
+      ,{field:'marketno', title: '市场码'}
+      ,{field:'name',minWidth:280, title: '品名'}
+      ,{field:'spec', title: '规格'}
+      ,{field:'packnum', title: '包装'}
+      ,{field:'warebrand', title: '厂牌'}
+      ,{field:'billqty',   minWidth:280, title: '数量' }
+      ,{field:'prc',  minWidth:280,  title: '含税单价'}
+      ,{field:'sumvalue', title: '含税金额'}
+      ,{field:'taxrate', title: '税率'}
+      ,{field:'invoicedate',minWidth:280, title: '发票日期'}
+      ,{field:'invoiceno', title: '发票号'}
+      ,{field:'deptname', title: '销售部门'}
+      ,{field:'bthdesc', title: '订单批号'}
+      ,{field:'flowname', title: '业务类型'}
+      ,{field:'gname', title: '商品通用名'}
+      ,{field:'woempcode', title: '责任采购员ID'}
+      ,{field:'woempname', title: '责任采购员'}
+      ,{field:'backreasonname', title: '退货/差价原因'}
+      ,{field:'yddate', title: '原单销售时间'}
+      ,{field:'curempname', title: '当前业务员'}
+      ,{field:'osbillno', title: '原订单号'}
+      ,{field:'linkcode_bth', title: '批次联系人ID'}
+      ,{field:'linkname_bth', title: '批次联系人'}
+      ,{field:'supcode_bth', title: '批次供应商ID'}
+      ,{field:'supname_bth', title: '批次供应商'}
+      ,{field:'indate', title: '批次进仓日期'}
+      ,{field:'buyercode', title: '采购员ID'}
+      ,{field:'buyername', title: '采购员'}
+      ,{field:'inprc', title: '批次进货含税单价'}
+      ,{field:'batchid', title: '批次号'}
+      ,{field:'invcnt', title: '票数'}
+      ,{field:'ddeptname', title: '部门名称'}
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
@@ -105,6 +116,10 @@ layui.use('table', function(){
     ,page: true
     ,limit: 5 
     ,limits: [3,5,10,20,30]
+    , done: function(res, curr, count){
+    	layer.close(endload);
+		  }
+		 
   });
   
   
@@ -156,7 +171,7 @@ layui.use('table', function(){
           sign: value
         });
       });
-    }
+    }  
      
      if(obj.event === 'dell'){
 	      layer.confirm('您确定要将【'+name+'】从药品库中删除吗？',  {
@@ -251,6 +266,55 @@ $('#tjhplxrjl').on('click', function(){
 
 	    });
 	  });
+	  
+	
+/* $("#testtzjz").click(function(){
+    alert(12312312312)
+	  layer.closeAll('loading');
+	 
+}); */
+
+	var endload=layer.msg('加载中', {
+	 icon: 16
+	 ,shade: 0.01
+	 ,time: 9999999
+	});
+	  
+ 
+ $("#shengcwenjian").click(function(){
+	 var a=0;
+	 layer.msg('表格生成中',{
+		 icon:16
+		 ,shade:0.01
+		 ,time:9999999
+	 });
+	 $.ajax({  
+		    url: "exportSalesDetailList",  
+		    
+		    type: "POST",  
+		    dataType: "json",  
+		    success: function (data) {
+		    	   console.log( data.message+"<--");  
+		    	$("#ycdxzdz").val(data.message);
+		    	$("#xiazaiwenjian").removeAttr("disabled");
+		    	layer.confirm('文件已经生成', {
+		    		  btn: ['确定'] //按钮
+		    		}, function(){
+		    			 layer.closeAll();
+		    		});
+		    	
+		    }  
+		});	
+	 
+ })
+ 
+ 
+ 
+ 
+ 
+ 
+	  
+	  
 </script>
 </body>
 </html>

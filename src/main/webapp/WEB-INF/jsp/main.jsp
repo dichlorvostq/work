@@ -22,8 +22,8 @@
 				<br><br>
 				</div>
 				<div>
-				<p style="font-size:20px;font-weight:bold;line-height:200%;width: 100%">
-					<span style="width: 40%">关爱生命</span>
+				<p style="  text-align:center ; font-size:20px;font-weight:bold;line-height:200%;width: 100%">
+					<span style="width: 20%">关爱生命</span>
 					<span style="width: 80%">呵护健康</span>
 				    
 				</p></div>

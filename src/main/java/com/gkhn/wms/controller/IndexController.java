@@ -58,8 +58,9 @@ public class IndexController {
 	    List<Meun> list=	meunService.selectMeunByusernamess(txname);//这里的变量到时候根据数据库来定  （人员信息表）
 	    List<Meun> soons=	meunService.selectUserSoonByusername(txname);
 	    
-	    
-	   List <Dept>mess=(List<Dept>) request.getSession().getAttribute("ss");
+ 
+	   @SuppressWarnings("unchecked")
+	List <Dept>mess=(List<Dept>) request.getSession().getAttribute("ss");
 	    model.addAttribute("bumen",mess);
  		model.addAttribute("list", list);
  		model.addAttribute("bumenmz",bumen);

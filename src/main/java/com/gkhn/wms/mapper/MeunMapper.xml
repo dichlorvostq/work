@@ -7,6 +7,7 @@
     <result column="menuname" property="menuname"  />
     <result column="paremenuid" property="paremenuid"  />
     <result column="mid" property="mid"  />
+      <result column="id" property="id"  />
   </resultMap>
        <select id="selectPathByusername" resultMap="BaseResultMap"   parameterType="java.lang.String">
 						  SELECT p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
@@ -26,7 +27,7 @@
 								LEFT JOIN sys_menu p ON p.menuid = rp.menuid 
 							        WHERE u.username =#{username}   AND p.`paremenuid`=0 -->
 							        
-								SELECT    p.mid,p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
+								SELECT  p.id , p.mid,p.menuid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
 								LEFT JOIN sys_user_role ru ON u.empcode = ru.userid 
 								LEFT JOIN sys_role r ON r.rid = ru.roleid 
 								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 
@@ -36,7 +37,7 @@
 	       
 	        <select id="selectUserSoonByusername" resultMap="BaseResultMap"   parameterType="java.lang.String">
 	        
-	        SELECT p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
+	        SELECT  p.id,p.menuid,p.mid, p.menuname ,p.menupath,p.paremenuid  FROM pub_emp u 
 								LEFT JOIN sys_user_role ru ON u.empcode = ru.userid 
 								LEFT JOIN sys_role r ON r.rid = ru.roleid 
 								LEFT JOIN sys_role_menu rp ON r.rid = rp.roleid 

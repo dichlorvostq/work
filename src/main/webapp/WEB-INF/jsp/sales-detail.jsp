@@ -11,19 +11,89 @@
    <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
- <div class="drugfid">
-  请输入商品编码：
-  <div class="layui-inline">
-    <input class="layui-input" name="id" id="drugsearchid" autocomplete="off">
-  </div>
-  <button class="layui-btn" data-type="reload" id="qiguai">搜索</button>
-  <button class="layui-btn" data-type="reload" id="tjhplxrjl">添加一条记录</button>
+
+<!-- 开始 -->
+<div>
+<div class="layui-form-item">
+       <div class="layui-inline">
+       <label class="layui-form-label">厂牌:</label>
+          <div class="layui-input-inline">
+		       <input class="layui-input" name="changpai" id="changpai" autocomplete="off">
+		    </div>
+		    
+		   <label class="layui-form-label">联系人:</label> 
+          <div class="layui-input-inline">
+		       <input class="layui-input" name="lianxirenlxr" id="lianxirenlxr" autocomplete="off">
+		    </div> 
+		    
+		    	  <div class="layui-inline">
+		    	  <label class="layui-form-label">日期:</label> 
+	      			<div class="layui-input-inline">
+	           			 <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"  readonly="readonly">
+	      			  </div>
+       				</div>
+	      			  
+	      			  <div class="layui-inline">
+					      <div class="layui-input-inline">
+					        <input type="text" name="date1" id="date1" lay-verify="date1"placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"  readonly="readonly">
+					      </div> 
+					   </div>
+        </div>
 </div>
+
+
+<div class="layui-form-item">
+  
+        <div class="layui-inline">
+          <label class="layui-form-label">货主:</label> 
+          <div class="layui-input-inline">
+		    <input class="layui-input" name="huozhuhz" id="huozhuhz" autocomplete="off"   readonly="readonly">
+		    <input   name="huozhuhzid" id="huozhuhzid"  type="hidden" >
+		    </div>
+        </div>
+        
+	   <button   class="layui-btn   layui-btn-sm "  id="xzhuozhu">选择货主</button>
+            <div class="layui-inline">
+			    <label class="layui-form-label">供应商:</label> 
+			      <div class="layui-input-inline">
+			        <input class="layui-input" name="gongysname" id="gongysname"  readonly="readonly"  style="width: 100%">
+			        <input    type="hidden"  name="gongysid" id="gongysid"  >
+			      </div>
+    		</div>
+    		<div class="layui-inline">
+		      <!-- <div class="layui-input-inline">
+		        <input class="layui-input" name="gongysmcheng" id="gongysmcheng" autocomplete="off"  >
+		      </div> -->
+       		<button class="layui-btn  layui-btn-sm " id="xzgongys">选择供应商</button>
+    	</div>
+    </div>
  
 
+  <div class="layui-form-item">
+    <div class="layui-inline">
+    <label class="layui-form-label">商品编码:</label> 
+      <div class="layui-input-inline">
+        <input  name="shangpbianmid"  id="shangpbianmid"    class="layui-input"  readonly="readonly">
+        <input  name="shangpbianm"  id="shangpbianm"   type="hidden" >
+      </div>
+    </div>
+    <div class="layui-inline">
+     <!--  <div class="layui-input-inline">
+        <input  name="shangpbianm"  id="shangpbianm"  class="layui-input">
+      </div> -->
+           <button class="layui-btn   layui-btn-sm" id="xzbianma">选择编码</button>
+    </div>
+
+  <div class="layui-inline"  style=" left: 130px;">
+		  
+		      <button class="layui-btn" data-type="reload" id="sousuoann">搜索</button>
+		     <button  id="resetcz" class="layui-btn layui-btn-primary">重置</button>
+   </div>
+     </div>
+</div>
+<!-- 结束 -->
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="druglist"></table> 
-
 
  <div   >
  <div style="float: left;">
@@ -37,18 +107,6 @@
  </form >
  </div>
  </div>
- 
-<!-- <table class="layui-table" lay-data="{height: 313, url:'PirvateList'}" lay-filter="demoEvent" id="druglistid">
-  <thead>
-    <tr>
-      <th lay-data="{field:'id', width:80}">ID</th>
-      <th lay-data="{field:'name', width:80,sort: true}">用户名</th>
-      <th lay-data="{field:'gg', width:'50%', event: 'setSign', style:'cursor: pointer;'}">签名</th>
-      <th lay-data="{field:'usage'}">积分</th>
-    </tr>
-  </thead>
-</table> 
-          -->      
           
 <script src="static/js/layui.js" charset="utf-8"></script>
 
@@ -58,8 +116,21 @@
 </script>  
 
 <script>
-layui.use('table', function(){
+layui.use(   ['table', 'laydate'], function(){
   var table = layui.table; 
+  var laydate = layui.laydate;
+  
+  
+  //日期
+  laydate.render({
+    elem: '#date'
+    ,value: new Date( )
+  });
+  laydate.render({
+    elem: '#date1'
+  	,value: new Date( ) 
+  });
+  
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -107,6 +178,7 @@ layui.use('table', function(){
       ,{field:'batchid', title: '批次号'}
       ,{field:'invcnt', title: '票数'}
       ,{field:'ddeptname', title: '部门名称'}
+      ,{field:'kname', title: '核算采购员'}
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
@@ -114,8 +186,8 @@ layui.use('table', function(){
     ]]
     ,id: 'druglistid'
     ,page: true
-    ,limit: 5 
-    ,limits: [3,5,10,20,30]
+    ,limit: 7 
+    ,limits: [3,5,7,10,20,30]
     , done: function(res, curr, count){
     	layer.close(endload);
 		  }
@@ -225,8 +297,15 @@ layui.use('table', function(){
   
   var $ = layui.$, active = {
 		    reload: function(){
-		      var drugsearchid = $('#drugsearchid');
-		      console.log(drugsearchid.val()+"获取输入框的值")
+		      
+		      var changpai = $('#changpai').val();
+		      var lianxiren=$("#lianxirenlxr").val();
+		      var ksriqi=$("#date").val();
+		      console.log(ksriqi+"开始日期");
+		      var jsriqi=$("#date1").val();
+		      var  huozhu=$("#huozhuhz").val();
+		      var gongyshangid=$("#gongysid").val();
+		      var shangpbianmid=$("#shangpbianmid").val();
 		      
 		      //执行重载
 		      table.reload('druglistid', {
@@ -234,16 +313,32 @@ layui.use('table', function(){
 		          curr: 1 //重新从第 1 页开始
 		        }
 		        ,where: {
-		        	drugname: drugsearchid.val()
+		        	changpai: changpai
+		        	,lianxiren:lianxiren
+		        	,ksriqi:ksriqi
+		        	,jsriqi:jsriqi
+		        	,huozhu:huozhu
+		        	,gongyshangid:gongyshangid
+		        	,shangpbianmid:shangpbianmid
 		        }
 		      });
 		    }
 		  };
-  $("#qiguai").on('click', function(){
+  $("#sousuoann").on('click', function(){
 	    var type = $(this).data('type');
 	    console.log("点击触发"+type)
 	    active[type] ? active[type].call(this) : '';
 	  });
+  
+  $("#resetcz").click(function(){
+	     var ypmchen=$("#changpai").val("");
+	     var ypgge=$("#lianxirenlxr").val("") ;
+	     var ypflei=$("#date").val("") ;
+	     var ypjchen=$("#date1").val("") ;
+	     var tiadoxm=$("#huozhuhz").val("");
+	     var tiadsoxm=$("#gongysid").val("");
+	     var tiaodssxm=$("#gongysname").val("");
+  });
   
 });
 </script>
@@ -251,28 +346,52 @@ layui.use('table', function(){
 <script type="text/javascript" src="static/js/lay/modules/layer.js"></script>
 <script>
 //弹出一个页面层
-$('#tjhplxrjl').on('click', function(){
+$('#xzgongys').on('click', function(){
 	 //弹出一个iframe层
 	    layer.open({
 	      type: 2,
-	      title: '新增订单联系人记录',
+	      title: '选择供应商',
 	      maxmin: true,
 	      shadeClose: true, //点击遮罩关闭层 （空白地方关闭子页面）
 	      area : ['80%' , '85%'],
-	      content: 'addlinkbuyer',
+	      content: 'ChooseSupplier ',
 	    	  end: function(){
-					 location.reload();  
+					/*  location.reload(); */  //刷新父页面 （主表）
 				}
-
 	    });
 	  });
 	  
-	
-/* $("#testtzjz").click(function(){
-    alert(12312312312)
-	  layer.closeAll('loading');
-	 
-}); */
+	  
+$('#xzhuozhu').on('click', function(){
+	 //弹出一个iframe层
+	    layer.open({
+	      type: 2,
+	      title: '选择货主',
+	      maxmin: true,
+	      shadeClose: true, //点击遮罩关闭层 （空白地方关闭子页面）
+	      area : ['40%' , '85%'],
+	      content: 'ChooseDept',
+	    	  end: function(){
+					/*  location.reload(); */  //刷新父页面 （主表）
+				}
+	    });
+	  });	  
+	  
+$('#xzbianma').on('click', function(){
+	 //弹出一个iframe层
+	    layer.open({
+	      type: 2,
+	      title: '选择商品编码',
+	      maxmin: true,
+	      shadeClose: true, //点击遮罩关闭层 （空白地方关闭子页面）
+	      area : ['80%' , '85%'],
+	      content: 'ChooseCommoditycode',
+	    	  end: function(){
+					/*  location.reload(); */  //刷新父页面 （主表）
+				}
+	    });
+	  });	 
+	  
 
 	var endload=layer.msg('加载中', {
 	 icon: 16
@@ -297,7 +416,7 @@ $('#tjhplxrjl').on('click', function(){
 		    	   console.log( data.message+"<--");  
 		    	$("#ycdxzdz").val(data.message);
 		    	$("#xiazaiwenjian").removeAttr("disabled");
-		    	layer.confirm('文件已经生成', {
+		    	layer.confirm('文件已经生成,请点击下载按钮下载！', {
 		    		  btn: ['确定'] //按钮
 		    		}, function(){
 		    			 layer.closeAll();
@@ -308,13 +427,6 @@ $('#tjhplxrjl').on('click', function(){
 	 
  })
  
- 
- 
- 
- 
- 
-	  
-	  
 </script>
 </body>
 </html>

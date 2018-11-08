@@ -1,12 +1,23 @@
 package com.gkhn.wms.pojo;
 
 public class Meun {
+	private int id;
     private String menupath;
     private int menuid;
     private String menuname;
     private int paremenuid;
     private int mid;
     
+    
+    
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public int getMid() {
 		return mid;
 	}

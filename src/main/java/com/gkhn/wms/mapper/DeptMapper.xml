@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Dept" >
     <result column="deptid" property="deptid"  />
     <result column="deptname" property="deptname"  />
-    
+     <result column="ownerid" property="ownerid"  />
   </resultMap>
        <select id="selectDeptList" resultMap="BaseResultMap"  >
             <!-- SELECT  deptname FROM sys_dept  t1 LEFT JOIN sys_role_dept t2  ON t1.deptid=t2. deptid   WHERE  roleid=${roleid} -->
@@ -15,6 +15,11 @@
 	    <select id="selectDeptOwnerid"  resultType="java.lang.Integer"  >
 	    			select   ownerid  from pub_dept where deptname='${bumenname}'
 	    </select>   
+	    
+	     <select id="selectDeptAllList"  resultMap="BaseResultMap" >
+	   			  select ownerid , deptname from pub_dept where deptstyle =10 
+	     </select>  
+	       
 	       
 	       
 </mapper>

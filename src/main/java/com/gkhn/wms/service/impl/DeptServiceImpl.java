@@ -33,4 +33,9 @@ public class DeptServiceImpl implements DeptService {
 		return  deptMapper.selectDeptOwnerid(deptname);
 	}
 
+	public List<Dept> selectDeptAllList() {
+		 
+		return deptMapper.selectDeptAllList();
+	}
+
 }

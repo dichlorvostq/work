@@ -60,6 +60,8 @@ layui.use('table', function(){
     if(obj.event === 'choices'){
       /* layer.msg('ID：'+ data.tcbs + ' 的查看操作'); */
        
+      parent.$('#shangpbianmid').val(data.goodid);
+      parent.$('#shangpbianm').val(data.name);
       parent.$('#spbianma').val(data.name);
       parent.$('#nbcode').val(data.goodid);
       parent.$('#ycxzbh').val(data.spec);

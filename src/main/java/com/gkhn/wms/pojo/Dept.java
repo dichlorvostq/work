@@ -3,7 +3,15 @@ package com.gkhn.wms.pojo;
 public class Dept {
       private int deptid;
       private String deptname;
+      private int ownerid;
       
+      
+	public int getOwnerid() {
+		return ownerid;
+	}
+	public void setOwnerid(int ownerid) {
+		this.ownerid = ownerid;
+	}
 	public int getDeptid() {
 		return deptid;
 	}

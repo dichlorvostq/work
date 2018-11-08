@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+ 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
@@ -26,8 +30,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gkhn.wms.pojo.Clients;
+import com.gkhn.wms.pojo.Dept;
 import com.gkhn.wms.pojo.GclasVo;
+import com.gkhn.wms.pojo.Opwaredict;
 import com.gkhn.wms.pojo.SalesDetail;
+import com.gkhn.wms.service.ClientsService;
+import com.gkhn.wms.service.DeptService;
 import com.gkhn.wms.service.SalesDetailService;
 import com.gkhn.wms.util.JsonResult;
 
@@ -39,15 +48,70 @@ public class SalesDetailController {
 	
 	
 	@Autowired SalesDetailService   salesDetailService; 
+	@Autowired DeptService    deptService ;
+	@Autowired ClientsService clientsService; 
      
+	GclasVo x=new GclasVo();
+	
+	
 	@RequestMapping("selectSalesDetailList")
 	@ResponseBody
-	public Object selectSalesDetailList(  HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit){
+	public Object selectSalesDetailList(  HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException{
 		
 		
+		String  changpai=request.getParameter("changpai");
+		if(changpai!=null || changpai!=""){
+			 x.setWarebrand(changpai);
+		} 
+			x.setWarebrand(null);
+		
+		String lianxiren=request.getParameter("lianxiren");
+		if(lianxiren!=null || lianxiren!=""){
+			x.setLinkcode_bth(lianxiren);
+		} 
+		x.setLinkcode_bth(null);
+		String ksriqi=request.getParameter("ksriqi");
+		if(ksriqi==null || ksriqi==""){
+			 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
+	          ksriqi=  df.format(new Date()); 
+			 
+		}
+		String jsriqi=request.getParameter("jsriqi");
+		if(jsriqi==null || jsriqi==""){
+			 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
+			 jsriqi=  df.format(new Date()); 
+		}
+		
+		String huozhu=request.getParameter("huozhu");
+	     
+		 if(huozhu!=null && huozhu!="") {
+			 huozhu = new String(huozhu.getBytes("iso-8859-1"),"utf-8");
+			 
+			int  huozhus=Integer.parseInt(huozhu);
+			
+			  x.setOwnerid(huozhus);
+		  } 
+		 
+		 String gongyshangid=request.getParameter("gongyshangid");
+		 if(gongyshangid!=null || gongyshangid!=""){
+			    x.setSupcode_bth(gongyshangid);
+		} 
+		    x.setSupcode_bth(null);
+		 
+		String shangpbianmid=request.getParameter("shangpbianmid");
+		 if(shangpbianmid!=null || shangpbianmid!=""){
+			   x.setGoods(shangpbianmid);
+		} 
+		   x.setGoods(null);
+		 
+		HttpSession session = request.getSession();
+		 String dlcode=(String)session.getAttribute("txusername");
+		 x.setEmpcode(dlcode);
+		System.out.println(dlcode+"登录code"+changpai+"<-厂牌"+lianxiren+"<-联系人"+ksriqi+"开始日期"+jsriqi+"结束日期"+huozhu+"货主"+gongyshangid+"供应商"+shangpbianmid+"商品编码id");
 		 int a=  limit * ( page - 1 ) ;
 		 int b= limit * page;
-	    GclasVo x=new GclasVo();
+	    x.setStarcreatedate(ksriqi);
+	    x.setEndcreatedate(jsriqi);
 	    x.setPage(a);
 	    x.setLimit(b);
 		List<SalesDetail>  aa= salesDetailService.SalesDetailList(x);
@@ -68,11 +132,9 @@ public class SalesDetailController {
 		String fileName =  System.currentTimeMillis() + ".xlsx";//文件名
 		String filePath = docsPath + FILE_SEPARATOR + fileName;
 		System.out.println(docsPath);
-		 GclasVo x=new GclasVo();
-		List<SalesDetail>  aa= salesDetailService.SalesDetailListALL(x);
+		 
+		List<SalesDetail>  aa= salesDetailService.SalesDetailList(x);
 		
-
- 
 		try {
 			// 输出流
 			OutputStream os = new FileOutputStream(filePath);
@@ -129,7 +191,7 @@ public class SalesDetailController {
       			row.createCell(34).setCellValue("批次进货含税单价");
       			row.createCell(35).setCellValue("批次号");
       			row.createCell(36).setCellValue("票数");
-      			row.createCell(36).setCellValue("部门名称");
+      			row.createCell(37).setCellValue("部门名称");
 			 for (int i =0;i< aa.size();i++){
 				 row = (SXSSFRow) sheet.createRow(i+1);
 		 
@@ -172,7 +234,6 @@ public class SalesDetailController {
 				 row.createCell(36).setCellValue(aa.get(i).getInvcnt());
 				 row.createCell(37).setCellValue(aa.get(i).getDdeptname());
 		        }
-			
 			// 写文件
 			wb.write(os);
 			// 关闭输出流
@@ -181,12 +242,10 @@ public class SalesDetailController {
 			e.printStackTrace();
 		}
 		/*download(filePath, response);*/
-		
 		 JsonResult aJsonResult=new JsonResult();
 	 	aJsonResult.setMessage(fileName);
 		 return aJsonResult; 
 	} 
-	 
 	 
 	 
 	 @RequestMapping("exdownload")
@@ -224,5 +283,50 @@ public class SalesDetailController {
 				ex.printStackTrace();
 			}
 		}
+	 
+	 
+	 @RequestMapping("ChooseDepts")  
+	 @ResponseBody
+	 public Object ChooseDeptss( HttpServletResponse response,HttpServletRequest request){
+		 JsonResult aJsonResult=new JsonResult();
+		 List<Dept> list =deptService.selectDeptAllList();
+		 aJsonResult.setData(list);
+		 return aJsonResult; 
+		 
+	 }
+	 
+	 
+	//选择编码
+			@RequestMapping("/ChooseSuppliers")
+			@ResponseBody
+			
+		public Object ChooseSuppliers(HttpServletRequest request ,Map<String,Object>map,String id,int page,int limit) throws UnsupportedEncodingException {
+			     String s="";
+			     String  name=request .getParameter("name");
+			     if(name!=null && name!="") {
+			    	 name = new String(name.getBytes("iso-8859-1"),"utf-8");
+			    	 s=name.toUpperCase();
+				  }else{
+					   s="医院";
+				  }
+			    int a=  limit * ( page - 1 ) ;
+			    int b= limit * page;
+			    GclasVo g=new GclasVo();
+			    g.setSearch(s);
+			    g.setPage(b);
+			    g.setLimit(a);
+			    List<Clients> list=clientsService.selectClients(g);
+				int  aa= clientsService. selectClientsCount(g);
+				
+				 JsonResult aJsonResult=new JsonResult();
+				 aJsonResult.setCount(aa);
+				 aJsonResult.setData(list);
+				 return aJsonResult; 
+				 
+			}
+		
+	 
+	 
+	 
 	
 }

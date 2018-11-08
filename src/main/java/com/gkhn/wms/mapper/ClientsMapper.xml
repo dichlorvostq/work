@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.ClientsMapper" > 
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Clients" >
+    <result column="dname" property="dname"  />
+    <result column="prchead" property="prchead"  />
+     <result column="cstcode" property="cstcode"  />
+       <result column="cstid" property="cstid"  />
+  </resultMap>
+      
+	     <select id="selectClients"  resultMap="BaseResultMap" >
+	   			  
+	   			   SELECT * FROM  (  
+					SELECT t1.*, ROWNUM RN  
+					FROM ( select dname,prchead,cstcode,cstid     from pub_clients     where 1=1  and
+					 (cstcode like '%${search}%' or dname like '%${search}%' or prchead like '%${search}%') ) t1  
+					WHERE ROWNUM &lt;=  ${page} )  WHERE RN >  ${limit} 
+	     </select>  
+	       
+	       
+	          <select id="selectClientsCount" resultType="java.lang.Integer" >
+						 select count(*)  from pub_clients     where 1=1  and
+					 (cstcode like '%${search}%' or dname like '%${search}%' or prchead like '%${search}%')
+				  </select>
+</mapper>

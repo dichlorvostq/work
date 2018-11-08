@@ -50,86 +50,147 @@
 SELECT t1.*, ROWNUM RN  
 FROM (
        
-                     select id,
-					     billno,
-					     a.createdate,
-					     e.empname,
-					     b.cstcode,
-					     b.dname,
-					     c.goods,
-					     c.marketno,
-					     c.name,
-					     c.spec,
-					     c.packnum,
-					     c.warebrand,
-					     billqty,
-					     prc,
-					     sumvalue,
-					     taxrate,
-					     invoicedate,
-					     invoiceno,
-					     f.deptname,
-					     bthdesc,
-					     flowname,
-					     g.name as gname ,
-					     woempcode,
-					     woempname,
-					     backreasonname,
-					     yddate,
-					     curempname,
-					     osbillno,
-					     linkcode_bth,
-					     linkname_bth,
-					     supcode_bth,
-					     supname_bth,
-					     indate,
-					     buyercode,
-					     buyername,
-					     inprc,
-					     batchid,
-					     invcnt,
-					     d.deptname as ddeptname,
-					     
-					     a.OSBILLNODATE,
-					     a.OSBILLNOPRC,
-					     a.FLOWID,
-					     isflag
-					  from cmshn_scm_salbill_hdr2018 a,
-					     pub_clients               b,
-					     pub_waredict              c,
-					     pub_dept                  d,
-					     pub_emp                   e,
-					     pub_dept                  f,
-					     pub_clients_kind          g
-					 where a.cstid = b.cstid
-					  and a.goodid = c.goodid
-					  and a.saledeptid = d.deptid
-					  and a.createuser = e.empid
-					  and a.saledeptid = f.deptid
-					  and a.pctype = g.kindid
-					  and a.createdate >= to_date('2018-08-10', 'yyyy-mm-dd')
-					  AND a.createdate &lt;= to_date('2018-10-01', 'yyyy-mm-dd') + 1  ) t1  
-WHERE ROWNUM &lt;= ${limit} )  WHERE RN > ${page}
+              select id,
+               billno,
+               a.createdate,
+               e.empname,
+               b.cstcode,
+               b.dname,
+               c.goods,
+               c.marketno,
+               c.name,
+               c.spec,
+               c.packnum,
+               c.warebrand,
+               billqty,
+               prc,
+               sumvalue,
+               taxrate,
+               invoicedate,
+               invoiceno,
+               f.deptname,
+               bthdesc,
+               flowname,
+               g.name as gname ,
+               woempcode,
+               woempname,
+               backreasonname,
+               yddate,
+               curempname,
+               osbillno,
+               linkcode_bth,
+               linkname_bth,
+               supcode_bth,
+               supname_bth,
+               indate,
+               buyercode,
+               buyername,
+               inprc,
+               batchid,
+               invcnt,
+               d.deptname as ddeptname,
+               a.OSBILLNODATE,
+               a.OSBILLNOPRC,
+               a.FLOWID,
+               isflag,
+               k.empname as kname
+            from cmshn_scm_salbill_hdr2018 a,
+               pub_clients               b,
+               pub_waredict              c,
+               pub_dept                  d,
+               pub_emp                   e,
+               pub_dept                  f,
+               pub_clients_kind          g,
+               pub_emp                   k,
+               user_hn_linkbuyer     h
+           where a.cstid = b.cstid
+            and a.goodid = c.goodid
+            and a.saledeptid = d.deptid
+            and a.createuser = e.empid
+            and a.saledeptid = f.deptid
+            and a.goodid=h.goodid(+)
+            and a.linkid=h.linkid(+)
+            and  k.empid=h.buyerid 
+            and a.pctype = g.kindid
+            
+             <if test="supcode_bth!= null">  
+				 and a.supcode_bth  =${supcode_bth }
+			</if>
+            
+            <if test="ownerid!= 0">
+				 and a.ownerid = ${ownerid}
+			</if>
+			
+			 <if test="linkcode_bth!= null">
+				  and a.linkcode_bth = ${linkcode_bth}
+			</if>
+           
+          <if test="empcode!= null">
+				  and h.buyerid = (select empid from pub_emp where empcode = '${empcode}')
+			</if>
+           
+           <if test="warebrand!= null">
+				  and h.warebrand ='${warebrand}'
+			</if>
+			
+			 <if test="goods!= null">
+				  and c.goods ='${goods}'
+			</if>
+            and a.createdate >= to_date('${starcreatedate}', 'yyyy-mm-dd')
+            AND a.createdate &lt;= to_date('${endcreatedate}', 'yyyy-mm-dd') + 1 ) t1  
+            WHERE ROWNUM &lt;= ${limit} )  WHERE RN > ${page}
   
        </select> 
+       
+       
+       
        
         <select id="SalesDetailCount" resultType="java.lang.Integer" >
  
        select count(*)	  from cmshn_scm_salbill_hdr2018 a,
-					     pub_clients               b,
-					     pub_waredict              c,
-					     pub_dept                  d,
-					     pub_emp                   e,
-					     pub_dept                  f,
-					     pub_clients_kind          g
-					 where a.cstid = b.cstid
-					  and a.goodid = c.goodid
-					  and a.saledeptid = d.deptid
-					  and a.createuser = e.empid
-					  and a.saledeptid = f.deptid
-					  and a.pctype = g.kindid
-					  and a.createdate >= to_date('2018-08-10', 'yyyy-mm-dd')
-					  AND a.createdate &lt;= to_date('2018-10-01', 'yyyy-mm-dd') + 1  
+               pub_clients               b,
+               pub_waredict              c,
+               pub_dept                  d,
+               pub_emp                   e,
+               pub_dept                  f,
+               pub_clients_kind          g,
+               pub_emp                   k,
+               user_hn_linkbuyer     h
+           where a.cstid = b.cstid
+            and a.goodid = c.goodid
+            and a.saledeptid = d.deptid
+            and a.createuser = e.empid
+            and a.saledeptid = f.deptid
+            and a.goodid=h.goodid(+)
+            and a.linkid=h.linkid(+)
+            and  k.empid=h.buyerid 
+            and a.pctype = g.kindid
+            
+             <if test="supcode_bth!= null">  
+				 and a.supcode_bth  =${supcode_bth }
+			</if>
+            
+            <if test="ownerid!= 0">
+				 and a.ownerid = ${ownerid}
+			</if>
+			
+			 <if test="linkcode_bth!= null">
+				  and a.linkcode_bth = ${linkcode_bth}
+			</if>
+           
+          <if test="empcode!= null">
+				  and h.buyerid = (select empid from pub_emp where empcode = '${empcode}')
+			</if>
+           
+           <if test="warebrand!= null">
+				  and h.warebrand ='${warebrand}'
+			</if>
+			
+			 <if test="goods!= null">
+				  and c.goods ='${goods}'
+			</if>
+            and a.createdate >= to_date('${starcreatedate}', 'yyyy-mm-dd')
+            AND a.createdate &lt;= to_date('${endcreatedate}', 'yyyy-mm-dd') + 1
         </select>
        
        

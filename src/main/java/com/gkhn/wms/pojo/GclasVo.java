@@ -18,7 +18,92 @@ public class GclasVo {
 			  private int page;
 			  private int limit; 
 			  
+			  private String search;//供应商搜索条件
 			  
+			  private String supcode_bth;   // 供应商
+			  private int ownerid; // 货主
+			  private String   linkcode_bth; // 联系人
+			  private String  empcode;  // 登录人
+			  private String   warebrand; //厂牌
+			  private String goods;//商品编码
+			  private String starcreatedate;// 开始时间
+			  private String endcreatedate;// 结束时间
+			  
+			  
+			  
+			  
+			public String getSupcode_bth() {
+				return supcode_bth;
+			}
+
+			public void setSupcode_bth(String supcode_bth) {
+				this.supcode_bth = supcode_bth;
+			}
+
+			public int getOwnerid() {
+				return ownerid;
+			}
+
+			public void setOwnerid(int ownerid) {
+				this.ownerid = ownerid;
+			}
+
+			public String getLinkcode_bth() {
+				return linkcode_bth;
+			}
+
+			public void setLinkcode_bth(String linkcode_bth) {
+				this.linkcode_bth = linkcode_bth;
+			}
+
+			public String getEmpcode() {
+				return empcode;
+			}
+
+			public void setEmpcode(String empcode) {
+				this.empcode = empcode;
+			}
+
+			public String getWarebrand() {
+				return warebrand;
+			}
+
+			public void setWarebrand(String warebrand) {
+				this.warebrand = warebrand;
+			}
+
+			public String getGoods() {
+				return goods;
+			}
+
+			public void setGoods(String goods) {
+				this.goods = goods;
+			}
+
+			public String getStarcreatedate() {
+				return starcreatedate;
+			}
+
+			public void setStarcreatedate(String starcreatedate) {
+				this.starcreatedate = starcreatedate;
+			}
+
+			public String getEndcreatedate() {
+				return endcreatedate;
+			}
+
+			public void setEndcreatedate(String endcreatedate) {
+				this.endcreatedate = endcreatedate;
+			}
+
+			public String getSearch() {
+				return search;
+			}
+
+			public void setSearch(String search) {
+				this.search = search;
+			}
+
 			public int getPage() {
 				return page;
 			}

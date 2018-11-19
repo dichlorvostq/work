@@ -29,10 +29,16 @@ public class Linkbuyer {
        private String  createempcode;
        private  String createempname;
        private  int BUYERIDS;
-       
+       private String    newwarebran;
 	 
        
        
+	public String getNewwarebran() {
+		return newwarebran;
+	}
+	public void setNewwarebran(String newwarebran) {
+		this.newwarebran = newwarebran;
+	}
 	public Long getLINKID() {
 		return LINKID;
 	}

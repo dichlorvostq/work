@@ -16,4 +16,6 @@ public interface LinkbuyerService {
         int   delLinkBuyer(Linkbuyer dx);
         
         int updateLinkBuyer (Linkbuyer dx);
+        
+        List <Linkbuyer> exportLinkBuyerList(LinkbuyerVo ls);
 }

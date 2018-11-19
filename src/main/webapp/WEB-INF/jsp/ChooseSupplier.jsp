@@ -55,6 +55,9 @@ layui.use('table', function(){
        
       parent.$('#gongysname').val(data.dname);
       parent.$('#gongysid').val(data.cstid);
+      
+      parent.$('#gongysname2').val(data.dname);
+      parent.$('#gongysid2').val(data.cstid);
       parent.layer.closeAll();
     }  
   });

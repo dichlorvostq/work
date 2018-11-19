@@ -89,7 +89,7 @@
             <c:if test="${menu.mid==permission.paremenuid}">
             <dl class="layui-nav-child">
               <dd>
-                <a href="javascript:;" kit-target data-options="{url:' ${permission.menupath}',icon:'&#xe658;',title:' ${permission.menuname }',id:'${menu.id}'}"><i class="layui-icon">&#xe658;</i><span> ${permission.menuname }</span></a>
+                <a href="javascript:;" kit-target data-options="{url:' ${permission.menupath}',icon:'&#xe658;',title:' ${permission.menuname }',id:'${permission.id}'}"><i class="layui-icon">&#xe658;</i><span> ${permission.menuname }</span></a>
               </dd>
             </dl>
               </c:if>

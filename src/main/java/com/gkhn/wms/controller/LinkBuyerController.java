@@ -1,5 +1,7 @@
  package com.gkhn.wms.controller;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -8,8 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +31,7 @@ import com.gkhn.wms.pojo.Olinkman;
 import com.gkhn.wms.pojo.Opwaredict;
 import com.gkhn.wms.pojo.Owarebrand;
 import com.gkhn.wms.pojo.Pubemp;
+import com.gkhn.wms.pojo.SalesDetail;
 import com.gkhn.wms.service.IndexService;
 import com.gkhn.wms.service.LinkbuyerService;
 import com.gkhn.wms.service.OPdeptServcie;
@@ -46,7 +53,7 @@ public class LinkBuyerController {
    @Autowired  	 OlinkmanService  olinkmanService;
    @Autowired  	 IndexService   indexService ;
    @Autowired      OwarebrandService  owarebrandService;
-   
+   LinkbuyerVo  lk=new LinkbuyerVo();
 	
 	@RequestMapping("/linkbuyer")
 	@ResponseBody
@@ -62,7 +69,7 @@ public class LinkBuyerController {
 	     
 	    int a=  limit * ( page - 1 ) ;
 		 int b= limit * page;
-		LinkbuyerVo  lk=new LinkbuyerVo();
+		
 		 HttpSession session = request.getSession();
 		 String dlcode=(String)session.getAttribute("txusername");
 		 int dlcodes=   Integer.parseInt(dlcode);
@@ -337,6 +344,100 @@ public Object selectOdeptList(HttpServletRequest request ,Map<String,Object>map)
 			 return aJsonResult;
 				 
 		}
+		
+		
+		
+		
+		
+		
+		  @RequestMapping("exportLinkBuyerList")
+			@ResponseBody
+			public JsonResult exportLinkBuyerList(HttpServletRequest request ,HttpServletResponse response,Map<String,Object>map){
+				      
+				System.out.println("请求进来没");
+				String docsPath = request.getSession().getServletContext().getRealPath("docs");
+				String fileName =  System.currentTimeMillis() + ".xlsx";//文件名
+				String filePath = docsPath + "/" + fileName;
+				System.out.println(docsPath);
+				 
+				List<Linkbuyer> aa= linkbuyerService.exportLinkBuyerList(lk);
+				
+				try {
+					// 输出流
+					OutputStream os = new FileOutputStream(filePath);
+					// 工作区
+					SXSSFWorkbook wb = new SXSSFWorkbook();
+					SXSSFSheet sheet = (SXSSFSheet) wb.createSheet("test");
+					/*for (int i = 0; i < 10; i++) {
+						// 创建第一个sheet
+						// 生成第一行
+						XSSFRow row = sheet.createRow(i);
+						// 给这一行的第一列赋值
+						row.createCell(0).setCellValue("ces111");
+						// 给这一行的第一列赋值
+						row.createCell(1).setCellValue("cswww2222");
+						System.out.println(i);
+					}*/
+					SXSSFRow row;
+					  row = (SXSSFRow) sheet.createRow(0);
+		      			 
+		      			row.createCell(0).setCellValue("商品编码");
+		      			row.createCell(1).setCellValue("商品名称");
+		      			row.createCell(2).setCellValue("商品规格");
+		      			row.createCell(3).setCellValue("厂家");
+		      			row.createCell(4).setCellValue("联系人名称");
+		      			row.createCell(5).setCellValue("采购员名称");
+		      			row.createCell(6).setCellValue("原始厂牌");
+		      			row.createCell(7).setCellValue("新增厂牌");
+		      			row.createCell(8).setCellValue("货主ID");
+		      			row.createCell(9).setCellValue("货主名称");
+		      			row.createCell(10).setCellValue("联系人ID");
+		      			row.createCell(11).setCellValue("联系人编码");
+		      			row.createCell(12).setCellValue("商品ID");
+		      			row.createCell(13).setCellValue("商品单位");
+		      			row.createCell(14).setCellValue("商品数量");
+		      			row.createCell(15).setCellValue("商品厂家名");
+		      			row.createCell(16).setCellValue("创建时间");
+		      		 
+		      		 
+					 for (int i =0;i< aa.size();i++){
+						 row = (SXSSFRow) sheet.createRow(i+1);
+				 
+						 row.createCell(0).setCellValue(aa.get(i).getGoods());
+						 row.createCell(1).setCellValue(aa.get(i).getName());
+						 row.createCell(2).setCellValue(aa.get(i).getSpec());
+						 row.createCell(3).setCellValue(aa.get(i).getProducer());
+						 row.createCell(4).setCellValue(aa.get(i).getLinkname());
+						 row.createCell(5).setCellValue(aa.get(i).getBuyername());
+						 row.createCell(6).setCellValue(aa.get(i).getWAREBRAND());
+						 row.createCell(7).setCellValue(aa.get(i).getNewwarebran());
+						 row.createCell(8).setCellValue(aa.get(i).getOWNERID());
+						 row.createCell(9).setCellValue(aa.get(i).getDeptname());
+						 row.createCell(10).setCellValue(aa.get(i).getLINKID());
+						 row.createCell(11).setCellValue(aa.get(i).getLinkcode());
+						 row.createCell(12).setCellValue(aa.get(i).getGOODID());
+						 row.createCell(13).setCellValue(aa.get(i).getMsunitno());
+						 row.createCell(14).setCellValue(aa.get(i).getPacknum());
+						 row.createCell(15).setCellValue(aa.get(i).getGoodsbrand());
+						 row.createCell(16).setCellValue(aa.get(i).getCREATEDATE());
+				        }
+					// 写文件
+					wb.write(os);
+					// 关闭输出流
+					os.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				 
+				 JsonResult aJsonResult=new JsonResult();
+			 	aJsonResult.setMessage(fileName);
+				 return aJsonResult; 
+			}  
+		
+		
+		
+		
+		
 		
 		
 }

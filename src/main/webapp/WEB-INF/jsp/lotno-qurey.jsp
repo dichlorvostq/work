@@ -26,33 +26,48 @@
 		       <input class="layui-input" name="lianxirenlxr" id="lianxirenlxr" autocomplete="off">
 		    </div> 
 		    
-		    	  <div class="layui-inline">
+		    	<!--   <div class="layui-inline">
 		    	  <label class="layui-form-label">日期:</label> 
 	      			<div class="layui-input-inline">
 	           			 <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"  readonly="readonly">
 	      			  </div>
-       				</div>
+       				</div> -->
 	      			  
-	      			  <div class="layui-inline">
+	      			 <!--  <div class="layui-inline">
 					      <div class="layui-input-inline">
 					        <input type="text" name="date1" id="date1" lay-verify="date1"placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"  readonly="readonly">
 					      </div> 
-					   </div>
+					   </div> -->
         </div>
 </div>
 
 
 <div class="layui-form-item">
   
-        <div class="layui-inline">
+      <!--   <div class="layui-inline">
           <label class="layui-form-label">货主:</label> 
           <div class="layui-input-inline">
 		    <input class="layui-input" name="huozhuhz" id="huozhuhz" autocomplete="off"   readonly="readonly">
 		    <input   name="huozhuhzid" id="huozhuhzid"  type="hidden" >
 		    </div>
-        </div>
+        </div> 
         
-	   <button   class="layui-btn   layui-btn-sm "  id="xzhuozhu">选择货主</button>
+	   <button   class="layui-btn   layui-btn-sm "  id="xzhuozhu">选择货主</button>-->
+	   
+	    <div class="layui-inline">
+    <label class="layui-form-label">商品编码:</label> 
+      <div class="layui-input-inline">
+        <input  name="shangpbianmid"  id="shangpbianmid"    class="layui-input"  readonly="readonly">
+        <input  name="shangpbianm"  id="shangpbianm"   type="hidden" >
+      </div>
+    </div>
+    <div class="layui-inline">
+     <!--  <div class="layui-input-inline">
+        <input  name="shangpbianm"  id="shangpbianm"  class="layui-input">
+      </div> -->
+           <button class="layui-btn   layui-btn-sm" id="xzbianma">选择编码</button>
+    </div>
+	   
             <div class="layui-inline">
 			    <label class="layui-form-label">供应商:</label> 
 			      <div class="layui-input-inline">
@@ -66,47 +81,20 @@
 		      </div> -->
        		<button class="layui-btn  layui-btn-sm " id="xzgongys">选择供应商</button>
     	</div>
+    	<div class="layui-inline">
+    	   <button class="layui-btn" data-type="reload" id="sousuoann">搜索</button>
+		     <button  id="resetcz" class="layui-btn layui-btn-primary">重置</button>
+		     </div>
     </div>
  
 
-  <div class="layui-form-item">
-    <div class="layui-inline">
-    <label class="layui-form-label">商品编码:</label> 
-      <div class="layui-input-inline">
-        <input  name="shangpbianmid"  id="shangpbianmid"    class="layui-input"  readonly="readonly">
-        <input  name="shangpbianm"  id="shangpbianm"   type="hidden" >
-      </div>
-    </div>
-   
-    <div class="layui-inline">
-     <!--  <div class="layui-input-inline">
-        <input  name="shangpbianm"  id="shangpbianm"  class="layui-input">
-      </div> -->
-           <button class="layui-btn   layui-btn-sm" id="xzbianma">选择编码</button>
-    </div>
-
-
- <div class="layui-inline">
-    <label class="layui-form-label">核算采购员:</label> 
-      <div class="layui-input-inline">
-        <input  name="caigouyuanmingz"  id="caigouyuanmingz"    class="layui-input"  readonly="readonly" >
-      <!--   <input  name="shangpbianm"  id="shangpbianm"   type="hidden" > -->
-      </div>
-          <input type="hidden" name="cgyids" id="cgyids"  >        
-          <button class="layui-btn   layui-btn-sm" id="xzcaigy">选择购员</button>
-    </div>
-  <div class="layui-inline"  style=" left: 130px;">
-		  
-		      <button class="layui-btn" data-type="reload" id="sousuoann">搜索</button>
-		     <button  id="resetcz" class="layui-btn layui-btn-primary">重置</button>
-   </div>
-     </div>
+ 
 </div>
 <!-- 结束 -->
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="druglist"></table> 
 
- <div   >
+<!--  <div   >
  <div style="float: left;">
  <button class="layui-btn" data-type="reload" id="shengcwenjian">生成excel</button>
  </div>
@@ -117,7 +105,7 @@
   <button class="layui-btn" data-type="reload" id="xiazaiwenjian"  disabled="disabled"  style="margin-left: 20px;">下载文件</button>
  </form >
  </div>
- </div>
+ </div> -->
           
 <script src="static/js/layui.js" charset="utf-8"></script>
 
@@ -145,51 +133,78 @@ layui.use(   ['table', 'laydate'], function(){
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-    ,url: 'selectSalesDetailList'
+    ,url: 'selectLotnoQureyLists'
     ,cellMinWidth: 120
     ,cols: [[
       /* ,{field:'id', title:'序号',width:80, sort: true, style:'color:#000;',fixed: true,templet: '<div><a href="/detail/{{d.id}}" class="layui-table-link">{{d.LAY_TABLE_INDEX+1}}</a></div>'} */
        {type:'radio',fixed: true}
       /*  ,{field:'id', title: '1', sort: true } */
-      ,{field:'createdate', title: '开单日期'}
-      ,{field:'billno', title: '订单号' }
-      ,{field:'empname', title: '开票员'}
-      ,{field:'curempname', title: '当前销售代表'}
-      ,{field:'deptname', title: '销售部门'}
-      ,{field:'flowname', title: '业务类型'}
-      ,{field:'cstcode', title: '客户代码'}
-      ,{field:'dname', title: '客户名称'}
-      ,{field:'marketno', title: '市场码'}
-      ,{field:'goods', title: '商品代码'}
-      ,{field:'name',minWidth:280, title: '品名'}
-      ,{field:'spec', title: '规格'}
-      ,{field:'packnum', title: '包装'}
-      ,{field:'billqty',   minWidth:280, title: '数量' }
-      ,{field:'bthdesc', title: '订单批号'}
-      ,{field:'prc',  minWidth:280,  title: '含税单价'}
-      ,{field:'sumvalue', title: '含税金额'}
-      ,{field:'backreasonname', title: '退货/差价原因'}
-      ,{field:'yddate', title: '原单销售时间'}
-      ,{field:'warebrand', title: '厂牌'}
-      ,{field:'inprc', title: '批次进货含税单价'}
-      ,{field:'osbillno', title: '原订单号'}
-      ,{field:'aa', title: '批次联系人ID'}
-      ,{field:'bb', title: '批次联系人'}
-      ,{field:'woempcode', title: '责任采购员ID'}
-      ,{field:'woempname', title: '责任采购员'}
-      ,{field:'invoiceno', title: '发票号'}
-      ,{field:'indate', title: '批次进仓日期'}
-      ,{field:'taxrate', title: '税率'}
-      ,{field:'invoicedate',minWidth:280, title: '发票日期'}
-      ,{field:'gname', title: '商品通用名'}
-      ,{field:'cc', title: '批次供应商ID'}
-      ,{field:'dd', title: '批次供应商'}
-      ,{field:'buyercode', title: '采购员ID'}
-      ,{field:'buyername', title: '采购员'}
-      ,{field:'batchid', title: '批次号'}
-      ,{field:'invcnt', title: '票数'}
-      ,{field:'ddeptname', title: '部门名称'}
-      ,{field:'kname', title: '核算采购员'}
+      ,{field:'compid', title: '所有者代码' }
+      ,{field:'ownerid', title: '所有者名称'}
+      ,{field:'ownercode', title: '仓库代码'}
+      ,{field:'ownername', title: '仓库名称'}
+      ,{field:'deptid', title: ' 逻辑库'}
+      ,{field:'deptcode', title: '商品代码'}
+      ,{field:'deptname', title: '市场码'}
+      ,{field:'lotid',minWidth:280, title: '品名'}
+      ,{field:'batchid', title: '规格'}
+      ,{field:'status', title: '包装'}
+      ,{field:'qltstatus', title: '厂牌'}
+      ,{field:'goods',   minWidth:280, title: '数量' }
+      ,{field:'name',  minWidth:280,  title: '含税单价'}
+      ,{field:'producer', title: '含税金额'}
+      ,{field:'packnum', title: '税率'}
+      ,{field:'msunitno',minWidth:280, title: '发票日期'}
+      ,{field:'unipurchase', title: '发票号'}
+      ,{field:'lotno', title: '销售部门'}
+      ,{field:'prddate', title: '订单批号'}
+      ,{field:'enddate', title: '业务类型'}
+      ,{field:'goodid', title: '商品通用名'}
+      ,{field:'allo_qty', title: '责任采购员ID'}
+      ,{field:'unallo_qty', title: '责任采购员'}
+      ,{field:'scmlocked_qty', title: '退货/差价原因'}
+      ,{field:'logiclocked_qty', title: '原单销售时间'}
+      ,{field:'difflockedqty', title: '当前业务员'}
+      ,{field:'packpiece', title: '原订单号'}
+      ,{field:'ratifier', title: '批次联系人ID'}
+      ,{field:'agree_code', title: '批次联系人'}
+      ,{field:'checkno', title: '批次供应商ID'}
+      ,{field:'rtnflag', title: '批次供应商'}
+      ,{field:'allo_in_date', title: '批次进仓日期'}
+      ,{field:'allo_out_date', title: '采购员ID'}
+      ,{field:'unallo_in_date', title: '采购员'}
+      ,{field:'unallo_out_date', title: '批次进货含税单价'}
+      ,{field:'AVGPRICE', title: '批次号'}
+      ,{field:'memo1', title: '票数'}
+      ,{field:'memo2', title: '部门名称'}
+      ,{field:'germlotno', title: '核算采购员'}
+      ,{field:'sumprice1', title: '核算采购员'}
+      ,{field:'sumprice2', title: '核算采购员'}
+      ,{field:'depositflag', title: '核算采购员'}
+      ,{field:'deposittype', title: '核算采购员'}
+      ,{field:'marketno', title: '核算采购员'}
+      ,{field:'spdrug', title: '核算采购员'}
+      ,{field:'cordialflag', title: '核算采购员'}
+      ,{field:'empcode', title: '核算采购员'}
+      ,{field:'empname', title: '核算采购员'}
+      ,{field:'cstcode', title: '核算采购员'}
+      ,{field:'cstname', title: '核算采购员'}
+      ,{field:'lastpurdate', title: '核算采购员'}
+      ,{field:'batchno', title: '核算采购员'}
+      ,{field:'lastavgprc', title: '核算采购员'}
+      ,{field:'avgsum', title: '核算采购员'}
+      ,{field:'linkcode', title: '核算采购员'}
+       ,{field:'linkname', title: '核算采购员'}
+       ,{field:'warebrand', title: '核算采购员'}
+       ,{field:'deptlogicname', title: '核算采购员'}
+       ,{field:'gys_code', title: '核算采购员'}
+       ,{field:'ys_name', title: '核算采购员'}
+       ,{field:'indate', title: '核算采购员'}
+       ,{field:'inprc', title: '核算采购员'}
+       ,{field:'inprice', title: '核算采购员'}
+       ,{field:'jjr', title: '核算采购员'}
+        
+      
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
@@ -317,7 +332,6 @@ layui.use(   ['table', 'laydate'], function(){
 		      var  huozhu=$("#huozhuhz").val();
 		      var gongyshangid=$("#gongysid").val();
 		      var shangpbianmid=$("#shangpbianmid").val();
-		      var cgyids=$("#cgyids").val();
 		      
 		      //执行重载
 		      table.reload('druglistid', {
@@ -332,7 +346,6 @@ layui.use(   ['table', 'laydate'], function(){
 		        	,huozhu:huozhu
 		        	,gongyshangid:gongyshangid
 		        	,shangpbianmid:shangpbianmid
-		        	,cgyids:cgyids
 		        }
 		      });
 		    }
@@ -373,27 +386,6 @@ $('#xzgongys').on('click', function(){
 				}
 	    });
 	  });
-	  
-//弹出一个页面层
-$('#xzcaigy').on('click', function(){
-	 
-	 //弹出一个iframe层
-	    layer.open({
-	      type: 2,
-	      title: '选择采购员',
-	      maxmin: true,
-	      shadeClose: true, //点击遮罩关闭层
-	      area : ['60%' , '85%'],
-	      content: 'SelectPurchasers',
-	    	  end: function(){
-					 /* location.reload();   */
-				}
-	    });
-	  });    
-	  
-	  
-	  
-	  
 	  
 	  
 $('#xzhuozhu').on('click', function(){

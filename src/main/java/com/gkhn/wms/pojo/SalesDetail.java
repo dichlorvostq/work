@@ -34,7 +34,7 @@ public class SalesDetail {
        private String yddate;
        private String curempname;
        private String osbillno;
-       private String linkcode_bth;
+       private String  linkcode_bth;
        private String linkname_bth;
        private String supcode_bth;
        private String supname_bth;
@@ -45,6 +45,51 @@ public class SalesDetail {
        private  long  batchid;
        private double  invcnt;
        private String  ddeptname;
+       private String  kname;
+       private String aa;
+       private String bb;
+       private String cc;
+       private String dd;
+       
+       
+       
+	 
+	public String getAa() {
+		return aa;
+	}
+	public void setAa(String aa) {
+		this.aa = aa;
+	}
+	public String getBb() {
+		return bb;
+	}
+	public void setBb(String bb) {
+		this.bb = bb;
+	}
+	public String getCc() {
+		return cc;
+	}
+	public void setCc(String cc) {
+		this.cc = cc;
+	}
+	public String getDd() {
+		return dd;
+	}
+	public void setDd(String dd) {
+		this.dd = dd;
+	}
+	public String getLinkcode_bth() {
+		return linkcode_bth;
+	}
+	public void setLinkcode_bth(String linkcode_bth) {
+		this.linkcode_bth = linkcode_bth;
+	}
+	public String getKname() {
+		return kname;
+	}
+	public void setKname(String kname) {
+		this.kname = kname;
+	}
 	public int getId() {
 		return id;
 	}
@@ -213,12 +258,7 @@ public class SalesDetail {
 	public void setOsbillno(String osbillno) {
 		this.osbillno = osbillno;
 	}
-	public String getLinkcode_bth() {
-		return linkcode_bth;
-	}
-	public void setLinkcode_bth(String linkcode_bth) {
-		this.linkcode_bth = linkcode_bth;
-	}
+	 
 	public String getLinkname_bth() {
 		return linkname_bth;
 	}

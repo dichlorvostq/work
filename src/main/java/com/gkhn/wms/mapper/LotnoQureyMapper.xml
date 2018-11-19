@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.LotnoQureyMapper" >   <!-- 命名空间  -->
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.LotnoQurey" ><!--  实体类 -->   
+    <id column="compid" property="compid"  />
+    <result column="ownerid" property="ownerid"   />
+    <result column="ownercode" property="ownercode"  />
+    <result column="ownername" property="ownername"  />
+    <result column="deptid" property="deptid"  />
+    <result column="deptcode" property="deptcode"  />
+    <result column="deptname" property="deptname"  />
+    <result column="lotid" property="lotid"  />
+    <result column="batchid" property="batchid"  />
+    <result column="status" property="status"  />
+    <result column="qltstatus" property="qltstatus"  />
+    <result column="goods" property="goods"  />
+    <result column="name" property="name"  />
+    <result column="producer" property="producer"  />
+    <result column="packnum" property="packnum"  />
+    <result column="msunitno" property="msunitno"  />
+    <result column="unipurchase" property="unipurchase"  />
+    <result column="lotno" property="lotno"  />
+    <result column="prddate" property="prddate"  />
+    <result column="enddate" property="enddate"  />
+    <result column="goodid" property="goodid"  />
+    <result column="allo_qty" property="allo_qty"  />
+    <result column="unallo_qty" property="unallo_qty"  />
+    <result column="scmlocked_qty" property="scmlocked_qty"  />
+    <result column=" logiclocked_qty" property=" logiclocked_qty"  />
+    <result column="difflockedqty " property=" difflockedqty"  />
+    <result column=" packpiece" property="packpiece "  />
+    <result column=" ratifier" property=" ratifier"  />
+    <result column=" agree_code" property=" agree_code"  />
+    <result column=" checkno" property=" checkno"  />
+    <result column=" rtnflag" property=" rtnflag"  />
+    <result column="allo_in_date " property=" allo_in_date"  />
+    <result column=" allo_out_date" property="allo_out_date "  />
+    <result column=" unallo_in_date " property=" unallo_in_date "  />
+      <result column="  unallo_out_date" property=" unallo_out_date "  />
+      <result column=" AVGPRICE" property=" AVGPRICE"  />
+      <result column=" memo1 " property=" memo1 "  />
+       <result column=" memo2 " property="memo2  "  />
+       <result column="  germlotno" property="  germlotno"  />
+       <result column="  sumprice1" property="  sumprice1"  />
+       <result column="  sumprice2" property="  sumprice2"  />
+       <result column="  sumprice" property="  sumprice"  />
+       <result column="  depositflag" property="  depositflag"  />
+       <result column="  deposittype" property="  deposittype"  />
+       <result column="  marketno" property="  marketno"  />
+         <result column="  spdrug" property="  spdrug"  />
+         <result column="  cordialflag" property="  cordialflag"  />
+         <result column="  empcode" property="  empcode"  />
+         <result column="  empname" property="  empname"  />
+          <result column="  cstcode" property="  cstcode"  />
+          <result column="  cstname" property="  cstname"  />
+          <result column="  lastpurdate" property="  lastpurdate"  />
+          <result column="  batchno" property="  batchno"  />
+            <result column="  lastavgprc" property="  lastavgprc"  />
+             <result column="  avgsum" property="  avgsum"  />
+             <result column="  linkcode" property="  linkcode"  />
+              <result column="  linkname" property="  linkname"  />
+              <result column="  warebrand" property="  warebrand"  />
+              <result column="  deptlogicname" property="  deptlogicname"  />
+             <result column="  gys_code" property="  gys_code"  />
+                <result column="  ys_name" property="  ys_name"  />    
+	          <result column="  indate" property="  indate"  />
+	           <result column="  inprc" property="  inprc"  />
+	           <result column="  inprice" property="  inprice"  />
+	            <result column="  jjr" property="  jjr"  />
+  </resultMap>
+  
+  <select id="selectLotnoQureyList" resultMap="BaseResultMap"  >
+					          SELECT * FROM  (  
+								SELECT t1.*, ROWNUM RN  
+								FROM (select
+								ta.compid,
+								ta.ownerid,
+								tb.deptcode as ownercode,
+								tb.deptname as ownername,
+								ta.deptid,
+								te.deptcode,
+								te.deptname,
+								ta.lotid,
+								ta.batchid,
+								ta.status,
+								tg.qltstatus,
+								tc.goods,
+								tc.name ||'/'||tc.spec as name,
+								tc.producer,
+								tc.packnum,
+								tc.msunitno,
+								tc.unipurchase,
+								td.lotno,
+								td.prddate,
+								td.enddate,
+								ta.goodid,
+								ta.allo_qty,
+								ta.unallo_qty,
+								ta.scmlocked_qty,
+								ta.unallo_qty - ta.scmlocked_qty as logiclocked_qty,
+								ta.difflockedqty,
+								decode(tc.packnum,null,0,0,0,trunc(ta.allo_qty/tc.packnum,0)) as  packpiece,
+								decode(nvl(td.ratifier,'0'),'0',tc.ratifier,td.ratifier) AS ratifier,
+								decode(nvl(td.register_code,'0'),'0',tc.register,td.register_code) AS agree_code,
+								td.checkno,
+								td.rtnflag,
+								ta.allo_in_date,
+								ta.allo_out_date,
+								ta.unallo_in_date,
+								ta.unallo_out_date,
+								AVGPRICE,
+								td.germlotno,
+								round(nvl(ta.unallo_qty - ta.scmlocked_qty ,0)*nvl(AVGPRICE,0),2) as sumprice1,
+								round(nvl(allo_qty,0)*nvl(AVGPRICE,0),2) as sumprice2,
+								round((ta.allo_qty+ta.unallo_qty)*nvl(AVGPRICE,0),2) as sumprice,
+								tc.depositflag,
+								tc.deposittype,
+								tc.marketno,
+								tc.spdrug,
+								tc.cordialflag,
+								ta.tobepicked_qty,
+								tw.empcode,
+								tw.empname,
+								tw.cstcode,
+								tw.cstname,
+								tw.lastpurdate,
+								th.batchno,
+								aa.lastavgprc,
+								round(nvl(ta.allo_qty,0) * nvl(aa.lastavgprc,0),2) as avgsum,
+								tc.import,
+								0.0000 as prc,
+								l.linkcode,
+								l.linkname,
+								tc.warebrand,
+								dp.deptname as deptlogicname,
+								ta.bth1,
+								ta.logicdept,
+								c.cstcode as gys_code,
+								c.dname as ys_name,
+								th.indate,
+								th.inprc,
+								th.inprice,
+								decode(instr(l.linkname,'/'),0,'', substr(l.linkname,instr(l.linkname,'/')+1) ) as jjr,
+								tc.prdarea,
+								tw.ownerlevemark,
+								th.invcnt,
+								'' as PURINVINFO 
+								from scm_lot_stock ta,pub_dept tb,pub_waredict tc, pub_waredict_owner_v tw,scm_lot_list td,
+								    pub_dept te, FIN_WARE_AVGPRC_V tf, BPM_QUALITY_DEF tg,scm_batch_list_v th,
+								    (  select b.compid,b.ownerid,b.goodid, b.lastavgprc
+								       from fin_ware_balance b
+								       where b.compid = '1'
+							 
+								        and wareyear||waremonth = 
+								        ( select max(wareyear||waremonth)
+								           from fin_ware_balance
+								          where compid = '1'
+ 										<if test="ownerid!=null">
+								             and ownerid = '${ownerid}'
+								          </if> 
+								           and goodid = b.goodid 
+								           
+								               and decode(${supcode_bth},null,1,2) = 1
+								           
+								          )
+								        union
+								        select b.compid,b.ownerid,b.goodid, b.lastavgprc
+								            from fin_ware_balance b
+								         where b.compid = '1'
+								          and wareyear||waremonth = 
+								          ( select max(wareyear||waremonth)
+								             from fin_ware_balance
+								            where compid = '1'
+								         	<if test="ownerid!=null">
+								             and ownerid = '${ownerid}'
+								          </if> 
+								             and goodid = b.goodid 
+								             and goodid IS NULL
+								          )
+								        ) aa,scm_buyercst_linkman l,
+								    (SELECT compid, deptid, deptname FROM PUB_DEPT WHERE deptstyle = '70') dp,
+								     pub_clients c
+								where ta.ownerid = tb.deptid(+) and 
+								      ta.goodid  = tc.goodid(+) and 
+								      ta.compid  = tw.compid(+) and
+								      ta.ownerid = tw.ownerid(+) and
+								      ta.goodid  = tw.goodid(+) and
+								      ta.deptid  = te.deptid(+) and 
+								      ta.lotid=td.lotid(+) and
+								      ta.compid = tf.compid(+) and
+								       ta.ownerid = tf.ownerid(+) and
+								      ta.goodid = tf.goodid(+) and
+								      ta.compid = tg.compid(+) and
+								     ta.status = tg.locktype(+) and
+								      ta.batchid = th.batchid(+) and
+								      ta.compid = aa.compid(+) and
+								      ta.ownerid = aa.ownerid(+) and
+								      ta.goodid = aa.goodid(+) and
+								    th.linkid = l.linkid(+) and
+								    ta.compid = dp.compid(+) and
+								    ta.logicdept = dp.deptid(+) and
+								    th.cstid = c.cstid(+) and
+								      ta.compid = '1'  AND (1=1 AND ta.ownerid = '1'
+								      <if test="ownerid!=null">
+								   		     AND ta.goodid = '${goods}'
+								      </if>
+										AND EXISTS (
+											SELECT
+												1
+											FROM
+												scm_purcha_hdr t1,
+												scm_purcha_dtl t2
+											WHERE
+												t1. ID = t2.hdrid
+											AND ta.goodid = t2.goodid
+											<if test="linkcode_bth!=null">
+												AND t1.buyerid = '${linkcode_bth}'
+											</if>
+											<if test="supcode_bth!=null">
+												AND t1.cstid = '${supcode_bth}'
+											</if>
+										)
+										AND ta.allo_qty &lt;> 0
+										<if test="warebrand!=null">
+											AND tc.warebrand LIKE '%${warebrand}%' 
+										</if>
+										) ) t1  
+								            WHERE ROWNUM &lt;= ${limit} )  WHERE RN >${page}
+								   </select>  
+      
+       
+       <select   id="selectLotnoQureyCount" resultType="java.lang.Integer" >
+             select count(*)	 from scm_lot_stock ta,pub_dept tb,pub_waredict tc, pub_waredict_owner_v tw,scm_lot_list td,
+								    pub_dept te, FIN_WARE_AVGPRC_V tf, BPM_QUALITY_DEF tg,scm_batch_list_v th,
+								    (  select b.compid,b.ownerid,b.goodid, b.lastavgprc
+								       from fin_ware_balance b
+								       where b.compid = '1'
+								     
+								        and wareyear||waremonth = 
+								        ( select max(wareyear||waremonth)
+								           from fin_ware_balance
+								          where compid = '1'
+								         	<if test="ownerid!=null">
+								             and ownerid = '${ownerid}'
+								          </if> 
+								           and goodid = b.goodid 
+								         
+								               and decode(${supcode_bth},null,1,2) = 1
+								           
+								          )
+								        union
+								        select b.compid,b.ownerid,b.goodid, b.lastavgprc
+								            from fin_ware_balance b
+								         where b.compid = '1'
+								          and wareyear||waremonth = 
+								          ( select max(wareyear||waremonth)
+								             from fin_ware_balance
+								            where compid = '1'
+								      	<if test="ownerid!=null">
+								             and ownerid = '${ownerid}'
+								          </if> 
+								             and goodid = b.goodid 
+								             and goodid IS NULL
+								          )
+								        ) aa,scm_buyercst_linkman l,
+								    (SELECT compid, deptid, deptname FROM PUB_DEPT WHERE deptstyle = '70') dp,
+								     pub_clients c
+								where ta.ownerid = tb.deptid(+) and 
+								      ta.goodid  = tc.goodid(+) and 
+								      ta.compid  = tw.compid(+) and
+								      ta.ownerid = tw.ownerid(+) and
+								      ta.goodid  = tw.goodid(+) and
+								      ta.deptid  = te.deptid(+) and 
+								      ta.lotid=td.lotid(+) and
+								      ta.compid = tf.compid(+) and
+								       ta.ownerid = tf.ownerid(+) and
+								      ta.goodid = tf.goodid(+) and
+								      ta.compid = tg.compid(+) and
+								     ta.status = tg.locktype(+) and
+								      ta.batchid = th.batchid(+) and
+								      ta.compid = aa.compid(+) and
+								      ta.ownerid = aa.ownerid(+) and
+								      ta.goodid = aa.goodid(+) and
+								    th.linkid = l.linkid(+) and
+								    ta.compid = dp.compid(+) and
+								    ta.logicdept = dp.deptid(+) and
+								    th.cstid = c.cstid(+) and
+								      ta.compid = '1'  AND (1=1 AND ta.ownerid = '1'
+								      <if test="ownerid!=null">
+								   		     AND ta.goodid = '${goods}'
+								      </if>
+										AND EXISTS (
+											SELECT
+												1
+											FROM
+												scm_purcha_hdr t1,
+												scm_purcha_dtl t2
+											WHERE
+												t1. ID = t2.hdrid
+											AND ta.goodid = t2.goodid
+											<if test="linkcode_bth!=null">
+												AND t1.buyerid = '${linkcode_bth}'
+											</if>
+											<if test="supcode_bth!=null">
+												AND t1.cstid = '${supcode_bth}'
+											</if>
+										)
+										AND ta.allo_qty &lt;> 0
+										<if test="warebrand!=null">
+											AND tc.warebrand LIKE '%${warebrand}%' 
+										</if>
+										) 
+       
+       </select>
+       
+       
+       
+</mapper>

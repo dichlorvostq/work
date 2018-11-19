@@ -32,22 +32,15 @@
   </div> 
   
    
-    <div class="layui-form-item" style="
-    margin-left: 20px;
-">
- 
+    <div class="layui-form-item" style="margin-left: 20px;">
       <button class="layui-btn"   id="tijiaoanniua2">立即提交</button>
       <button type="reset" class="layui-btn layui-btn-primary"  id="chongzhi">重置</button>
-   
   </div>
-   
- 
  </div>
  
- 
+ <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>  
  <script type="text/javascript" src="static/js/lay/modules/layer.js"></script>
  <script  type="text/javascript" src="static/js/layui.js" charset="utf-8"></script>
- <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>  
    <script>
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form
@@ -84,7 +77,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
  	      title: '选择采购员',
  	      maxmin: true,
  	      shadeClose: true, //点击遮罩关闭层
- 	      area : ['60%' , '85%'],
+ 	      area : ['95%' , '89%'],
  	      content: 'SelectPurchasers',
  	    	  end: function(){
  					 /* location.reload();   */
@@ -152,9 +145,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 		    type: "POST",  
 		    dataType: "json",  
 		    success: function (data) {  
-		    	console.log(data)
+		    	console.log(data);
+		    	cg();
+		    	console.log(data.state);
 		    	if(data.state==100){
-		    		 cg();
+		    		/*  cg(); */
 		    		 location.reload();
 		    		/*  setTimeout(" var index = parent.layer.getFrameIndex(window.name);  parent.layer.close(index)", 1000 ) */
 		    	}

@@ -40,6 +40,11 @@ public class LinkbuyerServiceImpl  implements LinkbuyerService{
 		 
 		return linkbuyerMapper.updateLinkBuyer(dx);
 	}
+
+	public List<Linkbuyer> exportLinkBuyerList(LinkbuyerVo ls) {
+		// TODO Auto-generated method stub
+		return linkbuyerMapper.exportLinkBuyerList(ls);
+	}
 	
 	
 }

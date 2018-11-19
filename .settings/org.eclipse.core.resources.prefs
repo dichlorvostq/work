@@ -5,6 +5,7 @@ encoding//src/main/java/com/gkhn/wms/realm/DatabaseRealm.java=UTF-8
 encoding//src/main/java/com/gkhn/wms/service/impl/ClientsServiceImpl.java=UTF-8
 encoding//src/main/java/com/gkhn/wms/service/impl/DeptServiceImpl.java=UTF-8
 encoding//src/main/java/com/gkhn/wms/service/impl/MeunServiceImpl.java=UTF-8
+encoding//src/main/java/com/gkhn/wms/service/impl/SelleeruploadqtyServiceImpl.java=UTF-8
 encoding//src/main/java/com/gkhn/wms/util/DbcontextHolder.java=UTF-8
 encoding//src/main/java/com/gkhn/wms/util/xjMD5.java=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/404.jsp=UTF-8

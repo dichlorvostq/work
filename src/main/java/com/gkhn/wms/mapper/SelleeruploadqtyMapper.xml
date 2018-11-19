@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gkhn.wms.mapper.SelleeruploadqtyMapper" > 
+  <resultMap id="BaseResultMap" type="com.gkhn.wms.pojo.Selleeruploadqty" >
+    <result column="bmdeptname" property="bmdeptname"  />
+    <result column="ywyuan" property="ywyuan"  />
+     <result column="cstcode" property="cstcode"  />
+       <result column="dname" property="dname"  />
+        <result column="goods" property="goods"  />
+         <result column="marketno" property="marketno"  />
+          <result column="name" property="name"  />
+         <result column="spec" property="spec"  />
+         <result column="msunitno" property="msunitno"  />
+         <result column="producer" property="producer"  />
+         <result column="qty2016" property="qty2016"  />
+         <result column="prc" property="prc"  />
+         <result column="prc11" property="prc11"  />
+         <result column="qty2017" property="qty2017"  />
+         <result column="lotno" property="lotno"  />
+         <result column="glbc" property="glbc"  />
+         <result column="mybc" property="mybc"  />
+         <result column="sybc" property="sybc"  />
+         <result column="lsbc" property="lsbc"  />
+         <result column="wabc" property="wabc"  />
+         <result column="txphao" property="txphao"  />
+         <result column="sfyzm" property="sfyzm"  />
+         <result column="sfxyddzm" property="sfxyddzm"  /> 
+          <result column="ccfs" property="ccfs"  />
+           <result column="wcsj" property="wcsj"  /> 
+  </resultMap>
+      
+	     <select id="selectSelleeruploadqty"  resultMap="BaseResultMap" >
+	   			  
+	   			   SELECT * FROM  (  
+					SELECT t1.*, ROWNUM RN  
+					FROM ( SELECT
+									A .ownerid,
+									pp.deptname ,
+									pd.deptcode ,
+									pd.deptname as bmdeptname,
+									b.cstcode,
+									b.dname,
+									c.goods,
+									c.spec,
+									c. NAME,
+									c.msunitno,
+									c.producer,
+									c.packnum,
+									D .empname as ywyuan,
+									A .createdate,
+									A .uploadqty,
+									A .memo,
+									A .buyer,
+									A .prc,
+									A .qty2016,
+									A .qty2017,
+									A .lotno,
+									c.marketno,
+									c.complevemark,
+									A .qty201710,
+									A .prc11,
+								  a.glbc
+								FROM
+									USER_HN_SELLERUPLOADQTY A,
+									pub_clients b,
+									pub_waredict c,
+									pub_emp D,
+									pub_dept pd,
+									pub_dept pp
+								WHERE
+									A .cstid = b.cstid
+								AND A .goodid = c.goodid
+								AND A .sellerid = D .empid
+								AND A .saledeptid = pd.deptid
+								AND pp.deptid = A .ownerid
+								AND A .ownerid = '1'
+
+
+						   <if test="supcode_bth!=null">
+							 		AND c. NAME LIKE '${supcode_bth}'    
+					       </if>						
+						 
+					 		<if test ="goods!=null">
+							 	AND b.cstcode = '${goods}' 
+					 		</if>
+					   	AND A .sellerid = ${empid}  
+								AND A .lotno IS NOT NULL
+								AND (
+									A .ownerid,
+									A .cstid,
+									A .goodid,
+									A .sellerid,
+									A .saledeptid,
+									A .createdate
+								) IN (
+									SELECT
+										ownerid,
+										cstid,
+										goodid,
+										sellerid,
+										saledeptid,
+										MAX (createdate)
+									FROM
+										USER_HN_SELLERUPLOADQTY
+									WHERE
+										A .lotno IS NOT NULL
+									GROUP BY
+										ownerid,
+										cstid,
+										goodid,
+										sellerid,
+										saledeptid
+								) ) t1  
+					WHERE ROWNUM &lt;=  ${page} )  WHERE RN >  ${limit} 
+	     </select>  
+	       
+	       
+	          <select id="selectSelleeruploadqtyCount" resultType="java.lang.Integer" >
+						 select count(*) from  USER_HN_SELLERUPLOADQTY A,
+									pub_clients b,
+									pub_waredict c,
+									pub_emp D,
+									pub_dept pd,
+									pub_dept pp
+								WHERE
+									A .cstid = b.cstid
+								AND A .goodid = c.goodid
+								AND A .sellerid = D .empid
+								AND A .saledeptid = pd.deptid
+								AND pp.deptid = A .ownerid
+								AND A .ownerid = '1'
+						<if test="supcode_bth!=null">
+							 		AND c. NAME LIKE '${supcode_bth}'
+					       </if>						
+						 
+					 		<if test ="goods!=null">
+							 	AND b.cstcode = '${goods}' 
+					 		</if> 
+							   	AND A .sellerid = ${empid}  
+								AND A .lotno IS NOT NULL
+								AND (
+									A .ownerid,
+									A .cstid,
+									A .goodid,
+									A .sellerid,
+									A .saledeptid,
+									A .createdate
+								) IN (
+									SELECT
+										ownerid,
+										cstid,
+										goodid,
+										sellerid,
+										saledeptid,
+										MAX (createdate)
+									FROM
+										USER_HN_SELLERUPLOADQTY
+									WHERE
+										A .lotno IS NOT NULL
+									GROUP BY
+										ownerid,
+										cstid,
+										goodid,
+										sellerid,
+										saledeptid
+								) 
+				  </select>
+</mapper>

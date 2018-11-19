@@ -26,7 +26,9 @@
       <!-- <th lay-data="{type:'checkbox', fixed: 'left'}"></th> -->
 <!--       <th lay-data="{field:' ',   sort: true, fixed: true}">采购员id</th> -->
        <th lay-data="{field:'empname',   sort: true, fixed: true}">采购员名字</th>
-      <th lay-data="{field:'empid',   sort: true, fixed: true}">采购员编码</th>
+       <th lay-data="{field:'empcode',   sort: true, fixed: true}">采购员编码</th>
+      <th lay-data="{field:'empid',   sort: true, fixed: true}">采购员内码</th>
+      
       <th lay-data="{fixed: 'right',   align:'center', toolbar: '#czannius'}">操作</th>
     </tr>
   </thead>
@@ -51,6 +53,9 @@ layui.use('table', function(){
     if(obj.event === 'choices'){
       /* layer.msg('ID：'+ data.tcbs + ' 的查看操作'); */
        
+      parent.$("#caigouyuanmingz").val(data.empname);
+      parent.$("#cgyids").val(data.empid);
+      
       parent.$('#caigouyuan').val(data.empname);
       parent.$('#cgyid').val(data.empid);
       parent.layer.closeAll();

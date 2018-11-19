@@ -12,7 +12,7 @@
 </head>
 <body>
  <div class="drugfid">
-  请输入商品编码：
+  请输入商品编码、商品名称、采购员名称:
   <div class="layui-inline">
     <input class="layui-input" name="id" id="drugsearchid" autocomplete="off">
   </div>
@@ -23,8 +23,20 @@
  
 <table class="layui-hide" id="LAY_table_user" lay-filter="druglist"></table> 
  
+  <div   >
+ <div style="float: left;">
+ <button class="layui-btn" data-type="reload" id="shengcwenjian">生成excel</button>
+ </div>
  
+ <div  style="float: left;" >
+  <form  action="exdownload"  method="post"  >
+   <input type="hidden" name="ycdxzdz" id="ycdxzdz"  >   
+  <button class="layui-btn" data-type="reload" id="xiazaiwenjian"  disabled="disabled"  style="margin-left: 20px;">下载文件</button>
+ </form >
+ </div>
+ </div>
  
+  
  
 <!-- <table class="layui-table" lay-data="{height: 313, url:'PirvateList'}" lay-filter="demoEvent" id="druglistid">
   <thead>
@@ -41,7 +53,7 @@
 <script src="static/js/layui.js" charset="utf-8"></script>
 
  <script type="text/html" id="deltaocan">
-   <a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="dell">删除</a>
+   
 <a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="modify">修改</a>
 </script>  
 
@@ -57,25 +69,26 @@ layui.use('table', function(){
     ,cols: [[
       /* ,{field:'id', title:'序号',width:80, sort: true, style:'color:#000;',fixed: true,templet: '<div><a href="/detail/{{d.id}}" class="layui-table-link">{{d.LAY_TABLE_INDEX+1}}</a></div>'} */
        {type:'radio',fixed: true}
-      ,{field:'ownerid', title: '货主id', sort: true   }
-      ,{field:'deptname', title: '货主名称'}
-      ,{field:'linkid', title: '联系人id'}
-      ,{field:'linkcode', title: '联系人编码'}
-      ,{field:'linkname', title: '联系人名称'}
-      ,{field:'goodid', title: '商品id'}
       ,{field:'goods', title: '商品编码'}
       ,{field:'name',minWidth:280, title: '商品名称'}
       ,{field:'spec', title: '商品规格'}
+      ,{field:'producer',   minWidth:280, title: '厂家', sort: true  }
+      ,{field:'linkname', title: '联系人名称', sort: true }
+     /*  ,{field:'buyerid', title: '采购员id', sort: true} */
+      ,{field:'buyername', title: '采购员名称', sort: true }
+      ,{field:'warebrand',minWidth:280, title: '原始厂牌', sort: true }
+      ,{field:'newwarebran',minWidth:280, title: '新增厂牌'}
+      ,{field:'ownerid', title: '货主id'   }
+      ,{field:'deptname', title: '货主名称'}
+      ,{field:'linkid', title: '联系人id'}
+      ,{field:'linkcode', title: '联系人编码'}
+      ,{field:'goodid', title: '商品id'}
       ,{field:'msunitno', title: '商品单位'}
       ,{field:'packnum', title: '商品数量'}
-      ,{field:'producer',   minWidth:280, title: '厂家' }
       ,{field:'goodsbrand',  minWidth:280,  title: '商品厂家名'}
-      ,{field:'buyerid', title: '采购员id'}
-      ,{field:'buyername', title: '采购员名称'}
-      ,{field:'warebrand',minWidth:280, title: '厂牌'}
       ,{field:'createdate', title: '创建时间'}
-      ,{field:'createempcode', title: '创建人id'}
-      ,{field:'createempname', title: '创建人名字'}
+  
+    
       /* ,{field:'purchaseprice', title: '采购价格', event: 'setSigns'}
       ,{field:'salesprice', title: '销售价格', event: 'setsalesprice'}
       ,{field:'supplier', title: '供应商'} */
@@ -84,7 +97,7 @@ layui.use('table', function(){
     ,id: 'druglistid'
     ,page: true
     ,limit: 5 
-    ,limits: [3,5,10,20,30]
+    ,limits: [3,5,10,20,30,50]
   });
   
   
@@ -231,6 +244,38 @@ $('#tjhplxrjl').on('click', function(){
 
 	    });
 	  });
+	  
+	  
+$("#shengcwenjian").click(function(){
+	 var a=0;
+	 layer.msg('表格生成中',{
+		 icon:16
+		 ,shade:0.01
+		 ,time:9999999
+	 });
+	 $.ajax({  
+		    url: "exportLinkBuyerList",  
+		    
+		    type: "POST",  
+		    dataType: "json",  
+		    success: function (data) {
+		    	   console.log( data.message+"<--");  
+		    	$("#ycdxzdz").val(data.message);
+		    	$("#xiazaiwenjian").removeAttr("disabled");
+		    	layer.confirm('文件已经生成,请点击下载按钮下载！', {
+		    		  btn: ['确定'] //按钮
+		    		}, function(){
+		    			 layer.closeAll();
+		    		});
+		    	
+		    }  
+		});	
+	 
+})
+	  
+	  
+	  
+	  
 </script>
 </body>
 </html>

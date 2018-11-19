@@ -21,7 +21,11 @@
 								<where>
 								    <if test="empname!=null">
 										empname  like '%${empname}%'		
+								    </if> 
+								      <if test="empname!=null">
+									or 	empcode  like '%${empname}%'		
 								    </if>
+								    
 								       and job_pur=1 		
 								</where> ) A  
 				WHERE ROWNUM &lt;= ${limit}) WHERE RN >= ${page}

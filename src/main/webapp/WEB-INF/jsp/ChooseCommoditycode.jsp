@@ -65,6 +65,9 @@ layui.use('table', function(){
       parent.$('#spbianma').val(data.name);
       parent.$('#nbcode').val(data.goodid);
       parent.$('#ycxzbh').val(data.spec);
+      
+      parent.$('#shangpbianmid2').val(data.name);
+      parent.$('#shangpbianm2').val(data.goodid);
       parent.layer.closeAll();
     }  
   });

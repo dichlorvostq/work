@@ -13,6 +13,8 @@ public class GclasVo {
 			  
 			  private String username;
 			  
+			  private int empid;
+			  
 			  private String bumenname; // 用来查ownerid   插入linkbuyer 表的    
 			  
 			  private int page;
@@ -32,6 +34,14 @@ public class GclasVo {
 			  
 			  
 			  
+			public int getEmpid() {
+				return empid;
+			}
+
+			public void setEmpid(int empid) {
+				this.empid = empid;
+			}
+
 			public String getSupcode_bth() {
 				return supcode_bth;
 			}

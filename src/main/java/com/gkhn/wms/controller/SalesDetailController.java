@@ -72,7 +72,7 @@ public class SalesDetailController {
 		x.setLinkcode_bth(null);
 		String ksriqi=request.getParameter("ksriqi");
 		if(ksriqi==null || ksriqi==""){
-			 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
+			 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式   lotno-qurey
 	          ksriqi=  df.format(new Date()); 
 			 
 		}
@@ -104,10 +104,13 @@ public class SalesDetailController {
 		} 
 		   x.setGoods(null);
 		 
-		HttpSession session = request.getSession();
-		 String dlcode=(String)session.getAttribute("txusername");
-		 x.setEmpcode(dlcode);
-		System.out.println(dlcode+"登录code"+changpai+"<-厂牌"+lianxiren+"<-联系人"+ksriqi+"开始日期"+jsriqi+"结束日期"+huozhu+"货主"+gongyshangid+"供应商"+shangpbianmid+"商品编码id");
+		String cgyids=request.getParameter("cgyids");
+		if(cgyids !=null || cgyids!=""){
+			x.setEmpcode(cgyids);
+		}
+		 x.setEmpcode(null);
+		
+		System.out.println(cgyids+"登录code"+changpai+"<-厂牌"+lianxiren+"<-联系人"+ksriqi+"开始日期"+jsriqi+"结束日期"+huozhu+"货主"+gongyshangid+"供应商"+shangpbianmid+"商品编码id");
 		 int a=  limit * ( page - 1 ) ;
 		 int b= limit * page;
 	    x.setStarcreatedate(ksriqi);
@@ -115,6 +118,7 @@ public class SalesDetailController {
 	    x.setPage(a);
 	    x.setLimit(b);
 		List<SalesDetail>  aa= salesDetailService.SalesDetailList(x);
+		 
 		int c=salesDetailService.SalesDetailCount(x);
 		 JsonResult aJsonResult=new JsonResult();
 		 aJsonResult.setData(aa);
@@ -133,7 +137,9 @@ public class SalesDetailController {
 		String filePath = docsPath + FILE_SEPARATOR + fileName;
 		System.out.println(docsPath);
 		 
-		List<SalesDetail>  aa= salesDetailService.SalesDetailList(x);
+		
+		System.out.println(x.getBhname()+"名字是是是是什么");
+		List<SalesDetail>  aa= salesDetailService.SalesDetailListALL(x);
 		
 		try {
 			// 输出流

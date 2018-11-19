@@ -15,4 +15,6 @@ public interface LinkbuyerMapper {
 	    int delLinkBuyer(Linkbuyer dx);
 	    
 	    int updateLinkBuyer (Linkbuyer dx);
+	    
+	    List<Linkbuyer> exportLinkBuyerList(LinkbuyerVo lk);
 } 

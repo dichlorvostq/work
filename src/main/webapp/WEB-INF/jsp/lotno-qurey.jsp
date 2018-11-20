@@ -21,10 +21,24 @@
 		       <input class="layui-input" name="changpai" id="changpai" autocomplete="off">
 		    </div>
 		    
-		   <label class="layui-form-label">联系人:</label> 
-          <div class="layui-input-inline">
-		       <input class="layui-input" name="lianxirenlxr" id="lianxirenlxr" autocomplete="off">
-		    </div> 
+		    
+		        <div class="layui-inline">
+    <label class="layui-form-label">商品编码:</label> 
+      <div class="layui-input-inline">
+        <input  name="shangpbianmid"  id="shangpbianmid"    class="layui-input"  readonly="readonly">
+        <input  name="shangpbianm"  id="shangpbianm"   type="hidden" >
+      </div>
+    </div>
+    <div class="layui-inline">
+     <!--  <div class="layui-input-inline">
+        <input  name="shangpbianm"  id="shangpbianm"  class="layui-input">
+      </div> -->
+           <button class="layui-btn   layui-btn-sm" id="xzbianma">选择编码</button>
+    </div>
+		    
+		    
+		    
+		  
 		    
 		    	<!--   <div class="layui-inline">
 		    	  <label class="layui-form-label">日期:</label> 
@@ -54,19 +68,10 @@
         
 	   <button   class="layui-btn   layui-btn-sm "  id="xzhuozhu">选择货主</button>-->
 	   
-	    <div class="layui-inline">
-    <label class="layui-form-label">商品编码:</label> 
-      <div class="layui-input-inline">
-        <input  name="shangpbianmid"  id="shangpbianmid"    class="layui-input"  readonly="readonly">
-        <input  name="shangpbianm"  id="shangpbianm"   type="hidden" >
-      </div>
-    </div>
-    <div class="layui-inline">
-     <!--  <div class="layui-input-inline">
-        <input  name="shangpbianm"  id="shangpbianm"  class="layui-input">
-      </div> -->
-           <button class="layui-btn   layui-btn-sm" id="xzbianma">选择编码</button>
-    </div>
+	 <label class="layui-form-label">联系人:</label> 
+          <div class="layui-input-inline">
+		       <input class="layui-input" name="lianxirenlxr" id="lianxirenlxr" autocomplete="off">
+		    </div> 
 	   
             <div class="layui-inline">
 			    <label class="layui-form-label">供应商:</label> 

@@ -55,18 +55,21 @@
 </div>
 
 
- <table class="layui-hide" id="LAY_table_user" lay-filter="druglists"></table> 
+ <table class="layui-table" id="LAY_table_user" lay-filter="druglists"></table> 
  
  <script type="text/javascript" src="static/js/jquery-1.8.3.min.js"></script>  
+ <script type="text/javascript" src="static/js/lay/modules/layer.js"></script>
  <script src="static/js/layui.js" charset="utf-8"></script>
- <script type="text/html" id="deltaocans">
+ 
    
+<!--  <script type="text/html" id="deltaocans">
 <a class="layui-btn layui-btn-danger layui-btn-xs"  lay-event="modify">修改</a>
-</script>  
+</script>   -->  
+
  <script>
-layui.use('table', function(){
-  var table = layui.table;
-  
+layui.use(  ['table', 'laydate'], function(){
+	  var table = layui.table; 
+	  var laydate = layui.laydate;
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
@@ -74,6 +77,7 @@ layui.use('table', function(){
     ,cellMinWidth: 120
     ,cols: [[
        {type:'radio',fixed: true}
+     
        ,{field:'deptname', title:'所属公司'}
        ,{field:'bmdeptname', title:'冲差方式（一退一开或冲差）'}
        ,{field:'deptname', title:'所属部门'}
@@ -88,9 +92,12 @@ layui.use('table', function(){
        ,{field:'qty2016', title:'销量'}
        ,{field:'prc', title:'原中标价格'}
        ,{field:'prc11', title:'重新申报挂网价格'}
-       ,{field:'qty2017',title: '<span style="color:red">客户库存</span>'}
+       ,{field:'qty2017',title: '<span style="color:red">客户库存</span>',edit: 'text'}
        ,{field:'qty201710', title:'子公司内部库存'}
-       ,{field:'lotno', title:'<span style="color:red">批号</span>'}
+       ,{field:'lotno', title:'<span style="color:red">批号</span>' ,edit: 'text'}
+       ,{field:'createdate', title:'创建时间'}
+       ,{field:'cstid', title:'cstid'}
+       ,{field:'goodid', title:'商品id'}
        ,{field:'glbc', title:'公立医疗机构是否补偿'}
        ,{field:'mybc', title:'民营医疗机构是否有补偿'}
        ,{field:'sybc', title:' 商业公司是否有补偿'}
@@ -102,20 +109,18 @@ layui.use('table', function(){
        ,{field:'ccfs', title:'冲差方式（一退一开或冲差）'}
       ,{field:'wcsj',title:'要求完成时间'}
        ,{field:'jjr', title: '核算采购员'}
-       ,{field:'right', title: '修改库存/批号',fixed: 'right', toolbar:"#deltaocans",width:150,align:'center' }   
+      /*  ,{field:'right', title: '修改库存/批号',fixed: 'right', toolbar:"#deltaocans",width:150,align:'center' }    */
     ]]
     ,id: 'druglistid'
     ,page: true
     ,limit: 7 
     ,limits: [3,5,7,10,20,30]
-    /* , done: function(res, curr, count){
+   , done: function(res, curr, count){
     	layer.close(endload);
-		  } */
+		  }   
 		 
   });
  
-  
-  
   var $ = layui.$, active = {
 		    reload2: function(){
 		      var gongysid2 = $('#gongysname2');
@@ -150,15 +155,46 @@ layui.use('table', function(){
   
   
 //监听单元格事件
-  table.on('tool(druglists)', function(obj){
+  table.on('edit(druglists)',  function(obj){
+	 
     var data = obj.data;
-    var goodid=data.goodid;
+ /*    var goodid=data.goodid;
     var name=data.name;
     var linkid=data.linkid;
     var ownerid=data.ownerid;
-    var  buyerid=data.buyerid; 
+    var  buyerid=data.buyerid;  */
+     /* alert(data.cstid) */
      
-     if(obj.event === 'modify'){
+    var value = obj.value //得到修改后的值
+    ,field = obj.field; //得到字段
+    var cstid=data.cstid;
+    var goodid=data.goodid;
+    var ownerid=data.ownerid;
+    var createdate=data.createdate;
+    var qty2017=data.qty2017;
+    var lotno=data.lotno;
+    
+   
+    /* layer.msg('修改条件'+data.cstid+'->'+data.goodid+'->'+data.ownerid+'->'+data.createdate+' 修改值'+data.qty2017+'->'+data.lotno); */
+    
+    $.ajax({  
+	    url: "updateSelleerups",  
+	    data : {cstid :cstid, goodid:goodid,ownerid:ownerid,createdate:createdate,qty2017:qty2017,lotno:lotno},
+	    type: "POST",  
+	    dataType: "json",  
+	    success: function (data) {
+	     
+	    	  if(data.state==1){
+	    	layer.msg('更新成功！'); 
+	    	}else{
+	    		layer.msg('更新失败，请刷新页面重试！');
+	    	}
+	    	
+	    }  
+	});	
+    
+    
+/*      if(obj.event === 'modify'){
     	 var checkStatus = table.checkStatus('druglistid');// 获取父页面名为“repairDataInfo”的表格中，选中的事件
     		console.log(checkStatus.data);
     		if(checkStatus.data == "" || checkStatus.data == null || checkStatus.data == undefined){
@@ -171,7 +207,7 @@ layui.use('table', function(){
     		      maxmin: true,
     		      shadeClose: true, //点击遮罩关闭层
     		      area : ['45%' , '75%'],
-    		      content: 'modlinkbuyer',
+    		      content: 'modkcunandpihao',
     		    	  end: function(){
     						 location.reload();  
     					}
@@ -179,7 +215,7 @@ layui.use('table', function(){
     		    });
     		}
     		
-       }
+       } */
   });
   
   
@@ -235,11 +271,12 @@ $('#xzbianma').on('click', function(){
 	  });	 
 	  
 
-	var endload=layer.msg('加载中', {
+ 	var endload=layer.msg('加载中', {
+		
 	 icon: 16
 	 ,shade: 0.01
 	 ,time: 9999999
-	});
+	}); 
 	  
  
 /*  $("#shengcwenjian").click(function(){

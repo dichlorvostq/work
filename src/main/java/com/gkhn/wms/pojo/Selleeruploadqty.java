@@ -29,8 +29,36 @@ public class Selleeruploadqty {
      private String sfxyddzm;
      private String ccfs;
      private String wcsj;
+     private String createdate;
+     private long  cstid;
+     private  long   goodid;  
+     private  int ownerid;
      
      
+	public int getOwnerid() {
+		return ownerid;
+	}
+	public void setOwnerid(int ownerid) {
+		this.ownerid = ownerid;
+	}
+	public long getGoodid() {
+		return goodid;
+	}
+	public void setGoodid(long goodid) {
+		this.goodid = goodid;
+	}
+	public long getCstid() {
+		return cstid;
+	}
+	public void setCstid(long cstid) {
+		this.cstid = cstid;
+	}
+	public String getCreatedate() {
+		return createdate;
+	}
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
+	}
 	public int getQty201710() {
 		return qty201710;
 	}

@@ -13,4 +13,6 @@ public interface SelleeruploadqtyService {
     List <Selleeruploadqty >  selectSelleeruploadqty(GclasVo vo);
       
       int selectSelleeruploadqtyCount(GclasVo vo);
+      
+      int updateSelleerups(GclasVo vo);
 }

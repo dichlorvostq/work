@@ -1,7 +1,7 @@
 package com.gkhn.wms.pojo;
 
 public class GclasVo {
-			  private String name;//查货主 like  查询     
+			  private String name;//查货主 like  查询      
 			  
 			  private String bhname;//查商品编号 
 			  
@@ -30,10 +30,37 @@ public class GclasVo {
 			  private String goods;//商品编码
 			  private String starcreatedate;// 开始时间
 			  private String endcreatedate;// 结束时间
+			  private long cstid;  // cstid
+			  private String lotno; // 批号
+			  private int qty2017;  // 库存
 			  
+
+		  
 			  
-			  
-			  
+			public long getCstid() {
+				return cstid;
+			}
+
+			public void setCstid(long cstid) {
+				this.cstid = cstid;
+			}
+
+			public String getLotno() {
+				return lotno;
+			}
+
+			public void setLotno(String lotno) {
+				this.lotno = lotno;
+			}
+
+			public int getQty2017() {
+				return qty2017;
+			}
+
+			public void setQty2017(int qty2017) {
+				this.qty2017 = qty2017;
+			}
+
 			public int getEmpid() {
 				return empid;
 			}

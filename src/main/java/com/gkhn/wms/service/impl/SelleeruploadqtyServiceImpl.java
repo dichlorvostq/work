@@ -28,12 +28,17 @@ public class SelleeruploadqtyServiceImpl implements SelleeruploadqtyService {
 	  
 
 	public List<Selleeruploadqty> selectSelleeruploadqty(GclasVo vo) {
-		System.out.println(vo.getGoods()+"impl 层的goods");
-		return selleeruploadqtyMapper.selectSelleeruploadqty(vo);
+/*		System.out.println(vo.getGoods()+"impl 层的goods");
+*/		return selleeruploadqtyMapper.selectSelleeruploadqty(vo);
 	}
 
 	public int selectSelleeruploadqtyCount(GclasVo vo) {
 		return selleeruploadqtyMapper.selectSelleeruploadqtyCount(vo);
+	}
+
+	public int updateSelleerups(GclasVo vo) {
+		 
+		return selleeruploadqtyMapper.updateSelleerups(vo);
 	}
 
 }

@@ -27,6 +27,10 @@
          <result column="sfxyddzm" property="sfxyddzm"  /> 
           <result column="ccfs" property="ccfs"  />
            <result column="wcsj" property="wcsj"  /> 
+            <result column=" createdate" property=" createdate"  /> 
+          <result column=" cstid" property=" cstid"  />
+          <result column=" goodid" property=" goodid"  /> 
+			<result column=" ownerid" property=" ownerid"  /> 
   </resultMap>
       
 	     <select id="selectSelleeruploadqty"  resultMap="BaseResultMap" >
@@ -48,6 +52,8 @@
 									c.packnum,
 									D .empname as ywyuan,
 									A .createdate,
+									A.cstid,
+									A .goodid,
 									A .uploadqty,
 									A .memo,
 									A .buyer,
@@ -76,14 +82,14 @@
 								AND A .ownerid = '1'
 
 
-						   <if test="supcode_bth!=null">
+					  <if test="supcode_bth!=null">
 							 		AND c. NAME LIKE '${supcode_bth}'    
 					       </if>						
 						 
 					 		<if test ="goods!=null">
 							 	AND b.cstcode = '${goods}' 
-					 		</if>
-					   	AND A .sellerid = ${empid}  
+					 		</if> 
+					   	AND A .sellerid = ${empid}   
 								AND A .lotno IS NOT NULL
 								AND (
 									A .ownerid,
@@ -115,7 +121,7 @@
 	     </select>  
 	       
 	       
-	          <select id="selectSelleeruploadqtyCount" resultType="java.lang.Integer" >
+	          <select id="selectSelleeruploadqtyCount" resultType="java.lang.Integer" >    
 						 select count(*) from  USER_HN_SELLERUPLOADQTY A,
 									pub_clients b,
 									pub_waredict c,
@@ -129,14 +135,14 @@
 								AND A .saledeptid = pd.deptid
 								AND pp.deptid = A .ownerid
 								AND A .ownerid = '1'
-						<if test="supcode_bth!=null">
+					  	<if test="supcode_bth!=null">
 							 		AND c. NAME LIKE '${supcode_bth}'
 					       </if>						
 						 
 					 		<if test ="goods!=null">
 							 	AND b.cstcode = '${goods}' 
-					 		</if> 
-							   	AND A .sellerid = ${empid}  
+					 		</if>  
+							   	AND A .sellerid = ${empid}   
 								AND A .lotno IS NOT NULL
 								AND (
 									A .ownerid,
@@ -165,4 +171,29 @@
 										saledeptid
 								) 
 				  </select>
+				  
+  	<update  id="updateSelleerups"   parameterType="com.gkhn.wms.pojo.Selleeruploadqty">
+		       UPDATE  USER_HN_SELLERUPLOADQTY 
+				SET qty2017=${qty2017},lotno='${lotno}'
+				WHERE goodid=${goods} and cstid=${cstid} and ownerid=${ownerid} and CREATEDATE=to_date('${starcreatedate}','yyyy-MM-dd HH24:mi:ss') 
+		</update>		   
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
 </mapper>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,5 +63,43 @@ public class SelleeruploadqtyController {
 				 aJsonResult.setCount(c);
 				 return aJsonResult;  
 				}
+		   
+		   
+		   
+		   @RequestMapping("updateSelleerups")
+		   @ResponseBody
+		     public  Object  updateSelleerup(HttpServletRequest request){
+			       String cstid=request.getParameter("cstid"); //cstid 
+			       long cstids=Long.parseLong(cstid);
+			       
+			       String goodid=request.getParameter("goodid");//商品id
+			       String ownerid=request.getParameter("ownerid");// 货主
+			       int ownerids=Integer.parseInt(ownerid);
+			       
+			       String createdate =request.getParameter("createdate");//时间
+			       String lotno =request.getParameter("lotno").trim();// 批号
+			       lotno.trim();
+			       System.out.println(lotno);
+			       String qty2017=request.getParameter("qty2017").trim();// 库存
+			       qty2017.trim();
+			       int qty2017s=Integer.parseInt(qty2017);
+			    		   
+			       
+			      
+			       GclasVo gailun=new GclasVo();
+			       gailun.setCstid(cstids);
+			       gailun.setGoods(goodid);
+			       gailun.setOwnerid(ownerids);
+			       gailun.setStarcreatedate(createdate);
+			       gailun.setLotno(lotno);
+			       gailun.setQty2017(qty2017s);
+			      int a = selleeruploadqtyService.updateSelleerups(gailun);
+			      System.out.println(a+"修改结果");
+			      
+			      JsonResult aJsonResult=new JsonResult();
+					 aJsonResult.setState(a);
+					 return aJsonResult;  
+			   
+		   }
 	   }
  
